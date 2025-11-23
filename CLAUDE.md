@@ -1,0 +1,2 @@
+- 本系统使用的虚拟环境是：conda activate damoxingeval
+- 所有 Python 操作前必须先激活此环境

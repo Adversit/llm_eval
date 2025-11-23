@@ -1,0 +1,721 @@
+<mxfile host="app.diagrams.net" modified="2025-01-21T00:00:00.000Z" agent="DrawIO" version="22.1.11">
+  <!-- 模块一：QA问答对管理系统 - 详细执行流程 -->
+  <diagram name="QA模块详细流程" id="qa-detail">
+    <mxGraphModel dx="1800" dy="1200" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="1800" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- 标题 -->
+        <mxCell id="title-qa" value="模块一：问答对管理系统 (QA) - 完整执行流程" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=24;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="200" y="20" width="1000" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- 阶段1：用户操作 -->
+        <mxCell id="phase1-title" value="阶段1：用户操作与任务创建" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="100" y="80" width="1200" height="35" as="geometry" />
+        </mxCell>
+
+        <mxCell id="qa-step1" value="1. 用户上传Word文档" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="200" y="140" width="250" height="40" as="geometry" />
+        </mxCell>
+
+        <mxCell id="qa-step2" value="2. 配置生成参数&#xa;(num_pairs, min_density_score,&#xa;min_quality_score等)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="550" y="140" width="250" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="qa-step3" value="3. API调用: POST /qa/generate" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=12;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="900" y="140" width="250" height="40" as="geometry" />
+        </mxCell>
+
+        <mxCell id="qa-step4" value="4. 创建后台任务&#xa;task_id: 06e08c88-..." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="550" y="240" width="250" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- 阶段2：步骤1 文档处理 -->
+        <mxCell id="phase2-title" value="阶段2：步骤1 - 文档处理" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=14;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="100" y="330" width="1200" height="35" as="geometry" />
+        </mxCell>
+
+        <mxCell id="qa-step5" value="5. 提取文档内容&#xa;解析Word文档结构" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="200" y="390" width="250" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="qa-output1" value="📄 输出文件1:&#xa;内容提取结果.xlsx&#xa;(共提取5个标题及内容)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;align=left" vertex="1" parent="1">
+          <mxGeometry x="550" y="390" width="250" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="qa-step6" value="6. 评估内容质量&#xa;LLM评估密度和质量分数" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="200" y="480" width="250" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="qa-detail1" value="评估详情:&#xa;• 1目的: 密度=4, 质量=5 ❌&#xa;• 2适用范围: 密度=4, 质量=5 ❌&#xa;• 3职责: 跳过(内容为空)&#xa;• 4流程说明: 密度=8, 质量=7 ✅&#xa;• 5输入与输出: 密度=4, 质量=5 ✅" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff9e6;strokeColor=#d79b00;fontSize=9;align=left" vertex="1" parent="1">
+          <mxGeometry x="550" y="480" width="250" height="100" as="geometry" />
+        </mxCell>
+
+        <mxCell id="qa-output2" value="📄 输出文件2:&#xa;内容评估结果.xlsx&#xa;(总计5个内容)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;align=left" vertex="1" parent="1">
+          <mxGeometry x="900" y="480" width="250" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="qa-step7" value="7. 质量筛选&#xa;筛选通过阈值的内容" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="200" y="610" width="250" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="qa-output3" value="📄 输出文件3:&#xa;内容评估结果_filtered.xlsx&#xa;(1个通过质量筛选)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;align=left" vertex="1" parent="1">
+          <mxGeometry x="550" y="610" width="250" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- 阶段3：步骤2 生成问答对 -->
+        <mxCell id="phase3-title" value="阶段3：步骤2 - 生成问答对" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=14;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="100" y="710" width="1200" height="35" as="geometry" />
+        </mxCell>
+
+        <mxCell id="qa-step8" value="8. LLM生成问答对&#xa;处理筛选后的内容" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="200" y="770" width="250" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="qa-detail2" value="生成详情:&#xa;• 处理 [1/1]: 4 流程说明&#xa;• 每个部分生成3个问答对&#xa;• 成功生成3个问答对" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff9e6;strokeColor=#d79b00;fontSize=9;align=left" vertex="1" parent="1">
+          <mxGeometry x="550" y="770" width="250" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="qa-output4" value="📄 输出文件4:&#xa;问答对.xlsx&#xa;(共3个问答对)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;align=left" vertex="1" parent="1">
+          <mxGeometry x="900" y="770" width="250" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- 阶段4：步骤3 问答质量评估 -->
+        <mxCell id="phase4-title" value="阶段4：步骤3 - 问答质量评估" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=14;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="100" y="890" width="1200" height="35" as="geometry" />
+        </mxCell>
+
+        <mxCell id="qa-step9" value="9. API调用:&#xa;POST /qa/evaluate-task" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="200" y="950" width="250" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="qa-step10" value="10. 配置评估参数&#xa;min_factual_score=7&#xa;min_overall_score=7&#xa;sample_percentage=100%" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="550" y="950" width="250" height="70" as="geometry" />
+        </mxCell>
+
+        <mxCell id="qa-step11" value="11. LLM评估问答对质量&#xa;评估全部3个问答对" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="200" y="1050" width="250" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="qa-detail3" value="评估详情:&#xa;• [1/3] 配置管理员核对步骤&#xa;  事实=10, 完整=10, 质量=10 ✅&#xa;• [2/3] 配置经理风险控制分析&#xa;  事实=10, 完整=10, 质量=10 ✅&#xa;• [3/3] 配置管理员通知事项&#xa;  事实=10, 完整=10, 质量=10 ✅" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff9e6;strokeColor=#d79b00;fontSize=9;align=left" vertex="1" parent="1">
+          <mxGeometry x="550" y="1050" width="250" height="110" as="geometry" />
+        </mxCell>
+
+        <mxCell id="qa-output5" value="📄 输出文件5:&#xa;问答对_evaluated.xlsx&#xa;(评估3个, 通过率100%)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;align=left" vertex="1" parent="1">
+          <mxGeometry x="900" y="1050" width="250" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="qa-step12" value="12. 质量筛选&#xa;筛选通过阈值的问答对" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="200" y="1190" width="250" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="qa-output6" value="📄 输出文件6:&#xa;问答对_evaluated_filtered.xlsx&#xa;(3个通过质量筛选)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;align=left" vertex="1" parent="1">
+          <mxGeometry x="550" y="1190" width="250" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- 阶段5：结果查看与下载 -->
+        <mxCell id="phase5-title" value="阶段5：结果查看与下载" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="100" y="1290" width="1200" height="35" as="geometry" />
+        </mxCell>
+
+        <mxCell id="qa-step13" value="13. API: GET /qa/tasks/all&#xa;获取所有任务状态" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="200" y="1350" width="250" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="qa-step14" value="14. API: GET /qa/preview/{id}&#xa;预览结果数据" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="550" y="1350" width="250" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="qa-step15" value="15. API: GET /qa/download/{id}&#xa;下载最终结果文件" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="900" y="1350" width="250" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="qa-result" value="✅ 用户获得最终结果&#xa;• 6个Excel文件&#xa;• 3个高质量问答对" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="550" y="1440" width="250" height="70" as="geometry" />
+        </mxCell>
+
+
+        <!-- 连接线 - 阶段1 -->
+        <mxCell id="qa-arrow1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=classic;endFill=1;strokeColor=#6c8ebf" edge="1" parent="1" source="qa-step1" target="qa-step2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="qa-arrow2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=classic;endFill=1;strokeColor=#6c8ebf" edge="1" parent="1" source="qa-step2" target="qa-step3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="qa-arrow3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=classic;endFill=1;strokeColor=#6c8ebf" edge="1" parent="1" source="qa-step3" target="qa-step4">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1025" y="220" />
+              <mxPoint x="675" y="220" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- 连接线 - 阶段2 -->
+        <mxCell id="qa-arrow4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=classic;endFill=1;strokeColor=#d79b00" edge="1" parent="1" source="qa-step4" target="qa-step5">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="675" y="310" />
+              <mxPoint x="325" y="310" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="qa-arrow5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=classic;endFill=1;strokeColor=#82b366" edge="1" parent="1" source="qa-step5" target="qa-output1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="qa-arrow6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=classic;endFill=1;strokeColor=#d79b00" edge="1" parent="1" source="qa-output1" target="qa-step6">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="675" y="460" />
+              <mxPoint x="325" y="460" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="qa-arrow7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1;endArrow=classic;endFill=1;strokeColor=#d79b00;dashed=1" edge="1" parent="1" source="qa-step6" target="qa-detail1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="qa-arrow8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=classic;endFill=1;strokeColor=#82b366" edge="1" parent="1" source="qa-step6" target="qa-output2">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="325" y="550" />
+              <mxPoint x="1025" y="550" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="qa-arrow9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=classic;endFill=1;strokeColor=#d79b00" edge="1" parent="1" source="qa-output2" target="qa-step7">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1025" y="590" />
+              <mxPoint x="325" y="590" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="qa-arrow10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=classic;endFill=1;strokeColor=#82b366" edge="1" parent="1" source="qa-step7" target="qa-output3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- 连接线 - 阶段3 -->
+        <mxCell id="qa-arrow11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=classic;endFill=1;strokeColor=#d79b00" edge="1" parent="1" source="qa-output3" target="qa-step8">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="675" y="690" />
+              <mxPoint x="325" y="690" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="qa-arrow12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1;endArrow=classic;endFill=1;strokeColor=#d79b00;dashed=1" edge="1" parent="1" source="qa-step8" target="qa-detail2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="qa-arrow13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=classic;endFill=1;strokeColor=#82b366" edge="1" parent="1" source="qa-step8" target="qa-output4">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="325" y="840" />
+              <mxPoint x="1025" y="840" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- 连接线 - 阶段4 -->
+        <mxCell id="qa-arrow14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=classic;endFill=1;strokeColor=#9673a6" edge="1" parent="1" source="qa-output4" target="qa-step9">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1025" y="920" />
+              <mxPoint x="325" y="920" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="qa-arrow15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=classic;endFill=1;strokeColor=#6c8ebf" edge="1" parent="1" source="qa-step9" target="qa-step10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="qa-arrow16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=classic;endFill=1;strokeColor=#d79b00" edge="1" parent="1" source="qa-step10" target="qa-step11">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="675" y="1030" />
+              <mxPoint x="325" y="1030" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="qa-arrow17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1;endArrow=classic;endFill=1;strokeColor=#d79b00;dashed=1" edge="1" parent="1" source="qa-step11" target="qa-detail3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="qa-arrow18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=classic;endFill=1;strokeColor=#82b366" edge="1" parent="1" source="qa-step11" target="qa-output5">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="325" y="1130" />
+              <mxPoint x="1025" y="1130" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="qa-arrow19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=classic;endFill=1;strokeColor=#d79b00" edge="1" parent="1" source="qa-output5" target="qa-step12">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1025" y="1170" />
+              <mxPoint x="325" y="1170" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="qa-arrow20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=classic;endFill=1;strokeColor=#82b366" edge="1" parent="1" source="qa-step12" target="qa-output6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- 连接线 - 阶段5 -->
+        <mxCell id="qa-arrow21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=classic;endFill=1;strokeColor=#9673a6" edge="1" parent="1" source="qa-output6" target="qa-step13">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="675" y="1270" />
+              <mxPoint x="325" y="1270" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="qa-arrow22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=classic;endFill=1;strokeColor=#9673a6" edge="1" parent="1" source="qa-step13" target="qa-step14">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="qa-arrow23" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=classic;endFill=1;strokeColor=#9673a6" edge="1" parent="1" source="qa-step14" target="qa-step15">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="qa-arrow24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=classic;endFill=1;strokeColor=#82b366" edge="1" parent="1" source="qa-step15" target="qa-result">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1025" y="1420" />
+              <mxPoint x="675" y="1420" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- 状态监控循环 -->
+        <mxCell id="qa-status-loop" value="实时状态监控&#xa;(轮询 /qa/tasks/all)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1;endArrow=classic;endFill=1;strokeColor=#999;dashed=1;startArrow=classic;startFill=1" edge="1" parent="1" source="qa-step13" target="qa-step4">
+          <mxGeometry x="-0.5" y="20" relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="80" y="1375" />
+              <mxPoint x="80" y="265" />
+            </Array>
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- 图例 -->
+        <mxCell id="legend-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#666666;strokeWidth=1" vertex="1" parent="1">
+          <mxGeometry x="100" y="1550" width="1200" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="legend-title" value="图例说明：" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="130" y="1565" width="100" height="20" as="geometry" />
+        </mxCell>
+
+        <mxCell id="legend-user" value="用户操作" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="130" y="1595" width="120" height="25" as="geometry" />
+        </mxCell>
+
+        <mxCell id="legend-api" value="API调用" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="270" y="1595" width="120" height="25" as="geometry" />
+        </mxCell>
+
+        <mxCell id="legend-llm" value="LLM处理" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="410" y="1595" width="120" height="25" as="geometry" />
+        </mxCell>
+
+        <mxCell id="legend-output" value="文件输出" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="550" y="1595" width="120" height="25" as="geometry" />
+        </mxCell>
+
+        <mxCell id="legend-detail" value="执行详情" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff9e6;strokeColor=#d79b00;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="690" y="1595" width="120" height="25" as="geometry" />
+        </mxCell>
+
+        <mxCell id="legend-loop" value="状态轮询" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1;endArrow=classic;endFill=1;strokeColor=#999;dashed=1;startArrow=classic;startFill=1" edge="1" parent="1">
+          <mxGeometry x="830" y="1595" width="120" height="25" as="geometry">
+            <mxPoint x="830" y="1607" as="sourcePoint" />
+            <mxPoint x="950" y="1607" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- 关键指标 -->
+        <mxCell id="metrics-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f0f0f0;strokeColor=#666666;strokeWidth=1" vertex="1" parent="1">
+          <mxGeometry x="100" y="1660" width="1200" height="100" as="geometry" />
+        </mxCell>
+
+        <mxCell id="metrics-title" value="本次执行关键指标：" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="130" y="1675" width="200" height="20" as="geometry" />
+        </mxCell>
+
+        <mxCell id="metrics-content" value="• 输入文档：1个Word文档 (xx数字银行网络变更流程v1.0.docx)&#xa;• 提取内容：5个标题及内容&#xa;• 质量筛选：1个内容通过筛选 (通过率: 20%)&#xa;• 生成问答对：3个问答对&#xa;• 质量评估：3个问答对全部通过 (通过率: 100%)&#xa;• 输出文件：6个Excel文件 (内容提取、评估、筛选、问答对、评估、筛选)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="130" y="1700" width="1140" height="50" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+
+
+  <!-- 系统总览图 -->
+  <diagram name="系统总览" id="system-overview">
+    <mxGraphModel dx="1800" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1200" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- 标题 -->
+        <mxCell id="title-main" value="LLM评估平台 - 三大模块数据流程图" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=28;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="400" y="20" width="800" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- 三大模块标题 -->
+        <mxCell id="module1-title" value="模块一：问答对管理系统 (QA)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=16;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="50" y="100" width="450" height="40" as="geometry" />
+        </mxCell>
+
+        <mxCell id="module2-title" value="模块二：双阶段评估系统 (LLM_EVAL)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=16;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="575" y="100" width="450" height="40" as="geometry" />
+        </mxCell>
+
+        <mxCell id="module3-title" value="模块三：FLMM问卷平台" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=16;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="1100" y="100" width="450" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- 模块一：QA 问答对管理 - 简化流程 -->
+        <mxCell id="qa-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#6c8ebf;strokeWidth=2;dashed=1" vertex="1" parent="1">
+          <mxGeometry x="30" y="160" width="490" height="1000" as="geometry" />
+        </mxCell>
+
+        <mxCell id="qa-upload" value="1. 上传Word文档" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="175" y="190" width="200" height="35" as="geometry" />
+        </mxCell>
+
+        <mxCell id="qa-config" value="2. 配置生成参数" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="175" y="245" width="200" height="35" as="geometry" />
+        </mxCell>
+
+        <mxCell id="qa-api-generate" value="3. API: /qa/generate" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="175" y="300" width="200" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="qa-task-create" value="4. 创建后台任务" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="175" y="350" width="200" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="qa-extract" value="5. 文档解析&amp;提取" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="175" y="400" width="200" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="qa-chunk" value="6. 内容质量评估" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="175" y="450" width="200" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="qa-filter1" value="7. 质量筛选" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="175" y="500" width="200" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="qa-llm" value="8. LLM生成问答对" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="175" y="550" width="200" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="qa-status" value="9. 实时状态监控" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="175" y="600" width="200" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="qa-eval-api" value="10. API: /qa/evaluate" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="175" y="650" width="200" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="qa-eval" value="11. 问答对质量评估" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="175" y="700" width="200" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="qa-filter2" value="12. 质量筛选" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="175" y="750" width="200" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="qa-export" value="13. 导出Excel/JSON" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="175" y="800" width="200" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="qa-preview" value="14. API: /qa/preview" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="175" y="850" width="200" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="qa-download" value="15. API: /qa/download" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="175" y="900" width="200" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="qa-result" value="16. 查看结果&amp;下载" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="175" y="950" width="200" height="35" as="geometry" />
+        </mxCell>
+
+        <!-- QA 连接线 -->
+        <mxCell id="qa-arrow-all" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=classic;endFill=1;strokeColor=#6c8ebf" edge="1" parent="1" source="qa-upload" target="qa-result">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="275" y="240" />
+              <mxPoint x="275" y="300" />
+              <mxPoint x="275" y="350" />
+              <mxPoint x="275" y="400" />
+              <mxPoint x="275" y="450" />
+              <mxPoint x="275" y="500" />
+              <mxPoint x="275" y="550" />
+              <mxPoint x="275" y="600" />
+              <mxPoint x="275" y="650" />
+              <mxPoint x="275" y="700" />
+              <mxPoint x="275" y="750" />
+              <mxPoint x="275" y="800" />
+              <mxPoint x="275" y="850" />
+              <mxPoint x="275" y="900" />
+              <mxPoint x="275" y="950" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- 状态监控循环箭头 -->
+        <mxCell id="qa-status-loop-simple" value="轮询状态" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1;endArrow=classic;endFill=1;strokeColor=#999;dashed=1;startArrow=classic;startFill=1" edge="1" parent="1" source="qa-status" target="qa-task-create">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="60" y="615" />
+              <mxPoint x="60" y="365" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+
+        <!-- 模块二：双阶段评估系统 - 完整执行流程 -->
+        <mxCell id="eval-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fffacd;strokeColor=#d6b656;strokeWidth=2;dashed=1" vertex="1" parent="1">
+          <mxGeometry x="555" y="160" width="490" height="1000" as="geometry" />
+        </mxCell>
+
+        <mxCell id="eval-config" value="1. 配置模型&amp;参数" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="700" y="190" width="200" height="35" as="geometry" />
+        </mxCell>
+
+        <mxCell id="eval-upload" value="2. 上传评估文件" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="700" y="245" width="200" height="35" as="geometry" />
+        </mxCell>
+
+        <mxCell id="eval-api-upload" value="3. API: /eval/upload" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="700" y="300" width="200" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="eval-api-create" value="4. API: /eval/create" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="700" y="350" width="200" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="eval-task" value="5. 创建评估任务" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="700" y="400" width="200" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="eval-stage1-test" value="6. Stage1: 无参考答题" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="700" y="450" width="200" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="eval-stage1-score" value="7. Stage1: LLM评分" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="700" y="500" width="200" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="eval-stage1-threshold" value="8. Stage1: 阈值判断" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="700" y="550" width="200" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="eval-stage2-test" value="9. Stage2: 提供参考重测" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="700" y="600" width="200" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="eval-stage2-classify" value="10. Stage2: 错误分类" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="700" y="650" width="200" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="eval-analysis" value="11. 结果分析&amp;汇总" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="700" y="700" width="200" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="eval-report-html" value="12. 生成HTML报告" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="700" y="750" width="200" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="eval-report-json" value="13. 生成JSON数据" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="700" y="800" width="200" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="eval-status" value="14. API: /eval/task/{id}" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="700" y="850" width="200" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="eval-download" value="15. API: /eval/downloads" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="700" y="900" width="200" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="eval-result" value="16. 查看结果&amp;下载" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="700" y="950" width="200" height="35" as="geometry" />
+        </mxCell>
+
+        <!-- EVAL 连接线 -->
+        <mxCell id="eval-arrow-all" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=classic;endFill=1;strokeColor=#d6b656" edge="1" parent="1" source="eval-config" target="eval-result">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="800" y="240" />
+              <mxPoint x="800" y="300" />
+              <mxPoint x="800" y="350" />
+              <mxPoint x="800" y="400" />
+              <mxPoint x="800" y="450" />
+              <mxPoint x="800" y="500" />
+              <mxPoint x="800" y="550" />
+              <mxPoint x="800" y="600" />
+              <mxPoint x="800" y="650" />
+              <mxPoint x="800" y="700" />
+              <mxPoint x="800" y="750" />
+              <mxPoint x="800" y="800" />
+              <mxPoint x="800" y="850" />
+              <mxPoint x="800" y="900" />
+              <mxPoint x="800" y="950" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- 状态监控循环箭头 -->
+        <mxCell id="eval-status-loop-simple" value="轮询状态" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1;endArrow=classic;endFill=1;strokeColor=#999;dashed=1;startArrow=classic;startFill=1" edge="1" parent="1" source="eval-status" target="eval-task">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="585" y="865" />
+              <mxPoint x="585" y="415" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- 模块三：FLMM问卷平台 - 包含智能问卷和证明材料上传 -->
+        <mxCell id="flmm-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f5e9;strokeColor=#82b366;strokeWidth=2;dashed=1" vertex="1" parent="1">
+          <mxGeometry x="1080" y="160" width="490" height="1000" as="geometry" />
+        </mxCell>
+
+        <!-- 功能1：智能问卷 -->
+        <mxCell id="flmm-func1-title" value="功能1：智能问卷生成" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c5e1a5;strokeColor=#82b366;fontSize=13;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="1125" y="190" width="400" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="flmm-upload" value="1. 上传问卷Word文档" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="1225" y="240" width="200" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="flmm-parse" value="2. 解析问卷结构" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="1225" y="290" width="200" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="flmm-extract" value="3. 提取题目&amp;选项&amp;逻辑" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="1225" y="340" width="200" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="flmm-validate" value="4. 数据验证&amp;完整性检查" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="1225" y="390" width="200" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="flmm-gen-docx" value="5. 生成问卷文档" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="1225" y="440" width="200" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="flmm-gen-code" value="6. 生成Python分析代码" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="1225" y="490" width="200" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="flmm-analysis" value="7. 数据分析&amp;可视化" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="1225" y="540" width="200" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="flmm-result1" value="8. 查看结果&amp;下载" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="1225" y="590" width="200" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- 功能2：证明材料上传 -->
+        <mxCell id="flmm-func2-title" value="功能2：证明材料上传与管理" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c5e1a5;strokeColor=#82b366;fontSize=13;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="1125" y="660" width="400" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="flmm-material-upload" value="1. 上传证明材料文件" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="1225" y="710" width="200" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="flmm-material-classify" value="2. 材料分类&amp;标签" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="1225" y="760" width="200" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="flmm-material-ocr" value="3. OCR文字识别(可选)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="1225" y="810" width="200" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="flmm-material-validate" value="4. 材料完整性验证" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="1225" y="860" width="200" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="flmm-material-store" value="5. 存储&amp;归档" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="1225" y="910" width="200" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="flmm-material-manage" value="6. 材料管理&amp;查询" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="1225" y="960" width="200" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="flmm-material-download" value="7. 批量下载&amp;导出" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="1225" y="1010" width="200" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- FLMM 功能1 连接线 -->
+        <mxCell id="flmm-arrow-func1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=classic;endFill=1;strokeColor=#82b366" edge="1" parent="1" source="flmm-upload" target="flmm-result1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1325" y="290" />
+              <mxPoint x="1325" y="340" />
+              <mxPoint x="1325" y="390" />
+              <mxPoint x="1325" y="440" />
+              <mxPoint x="1325" y="490" />
+              <mxPoint x="1325" y="540" />
+              <mxPoint x="1325" y="590" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- FLMM 功能2 连接线 -->
+        <mxCell id="flmm-arrow-func2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=classic;endFill=1;strokeColor=#82b366" edge="1" parent="1" source="flmm-material-upload" target="flmm-material-download">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1325" y="760" />
+              <mxPoint x="1325" y="810" />
+              <mxPoint x="1325" y="860" />
+              <mxPoint x="1325" y="910" />
+              <mxPoint x="1325" y="960" />
+              <mxPoint x="1325" y="1010" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- 图例 -->
+        <mxCell id="legend-box-overview" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#666666;strokeWidth=1" vertex="1" parent="1">
+          <mxGeometry x="50" y="1080" width="1500" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="legend-title-overview" value="图例：" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="80" y="1095" width="60" height="20" as="geometry" />
+        </mxCell>
+
+        <mxCell id="legend-input-overview" value="用户输入" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="160" y="1095" width="100" height="20" as="geometry" />
+        </mxCell>
+
+        <mxCell id="legend-api-overview" value="API调用" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="280" y="1095" width="100" height="20" as="geometry" />
+        </mxCell>
+
+        <mxCell id="legend-llm-overview" value="LLM处理" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="400" y="1095" width="100" height="20" as="geometry" />
+        </mxCell>
+
+        <mxCell id="legend-output-overview" value="结果输出" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="520" y="1095" width="100" height="20" as="geometry" />
+        </mxCell>
+
+        <mxCell id="legend-loop-overview" value="状态轮询" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1;endArrow=classic;endFill=1;strokeColor=#999;dashed=1;startArrow=classic;startFill=1" edge="1" parent="1">
+          <mxGeometry x="640" y="1095" width="100" height="20" as="geometry">
+            <mxPoint x="640" y="1105" as="sourcePoint" />
+            <mxPoint x="740" y="1105" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -1,0 +1,284 @@
+<mxfile host="app.diagrams.net" modified="2025-01-21T00:00:00.000Z" agent="DrawIO" version="22.1.11">
+  <!-- LLM评估平台 - 系统架构总览 -->
+  <diagram name="系统架构总览" id="system-architecture">
+    <mxGraphModel dx="2000" dy="1400" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1800" pageHeight="1400" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- 标题 -->
+        <mxCell id="title-main" value="LLM评估平台 - 系统架构总览" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=32;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="400" y="20" width="1000" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="subtitle-main" value="React + FastAPI 前后端分离架构 | 三大核心评估模块" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontColor=#666" vertex="1" parent="1">
+          <mxGeometry x="400" y="80" width="1000" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- 前端层 -->
+        <mxCell id="frontend-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e3f2fd;strokeColor=#1976d2;strokeWidth=3" vertex="1" parent="1">
+          <mxGeometry x="100" y="150" width="1600" height="200" as="geometry" />
+        </mxCell>
+
+        <mxCell id="frontend-title" value="前端层 (Frontend)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=20;fontStyle=1;fontColor=#1976d2" vertex="1" parent="1">
+          <mxGeometry x="130" y="165" width="300" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="frontend-tech" value="React 18.2 + TypeScript 5.2 + Vite 5.0 + Ant Design 5.12" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontColor=#666" vertex="1" parent="1">
+          <mxGeometry x="130" y="195" width="500" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- 前端三大模块 -->
+        <mxCell id="frontend-qa" value="QA问答管理模块&#xa;&#xa;• 文档上传&#xa;• 参数配置&#xa;• 任务监控&#xa;• 结果预览&#xa;• 数据下载" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#bbdefb;strokeColor=#1976d2;fontSize=11;align=left;verticalAlign=top;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="150" y="230" width="450" height="100" as="geometry" />
+        </mxCell>
+
+        <mxCell id="frontend-eval" value="双阶段评估模块&#xa;&#xa;• 模型配置&#xa;• 文件上传&#xa;• 实时进度&#xa;• 结果分析&#xa;• 报告下载" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#bbdefb;strokeColor=#1976d2;fontSize=11;align=left;verticalAlign=top;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="650" y="230" width="450" height="100" as="geometry" />
+        </mxCell>
+
+        <mxCell id="frontend-flmm" value="FLMM问卷平台&#xa;&#xa;• 问卷创建&#xa;• 数据收集&#xa;• 材料上传&#xa;• 结果分析&#xa;• 可视化" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#bbdefb;strokeColor=#1976d2;fontSize=11;align=left;verticalAlign=top;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="1150" y="230" width="450" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- API层 -->
+        <mxCell id="api-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff3e0;strokeColor=#f57c00;strokeWidth=3" vertex="1" parent="1">
+          <mxGeometry x="100" y="400" width="1600" height="150" as="geometry" />
+        </mxCell>
+
+        <mxCell id="api-title" value="API层 (Backend API)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=20;fontStyle=1;fontColor=#f57c00" vertex="1" parent="1">
+          <mxGeometry x="130" y="415" width="300" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="api-tech" value="FastAPI 0.109 + Python 3.8+ + Uvicorn + Pydantic 2.5" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontColor=#666" vertex="1" parent="1">
+          <mxGeometry x="130" y="445" width="500" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- API端点 -->
+        <mxCell id="api-qa" value="QA API&#xa;/api/qa/*&#xa;&#xa;• POST /generate&#xa;• POST /evaluate-task&#xa;• GET /task/{id}&#xa;• GET /preview/{id}&#xa;• GET /download/{id}" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe0b2;strokeColor=#f57c00;fontSize=10;align=left;verticalAlign=top;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="150" y="475" width="450" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="api-eval" value="Evaluation API&#xa;/api/eval/*&#xa;&#xa;• POST /upload&#xa;• POST /create&#xa;• GET /task/{id}&#xa;• GET /results/{id}&#xa;• GET /downloads/{id}" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe0b2;strokeColor=#f57c00;fontSize=10;align=left;verticalAlign=top;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="650" y="475" width="450" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="api-flmm" value="FLMM API&#xa;/api/flmm/*&#xa;&#xa;• POST /questionnaire&#xa;• GET /questionnaire/{id}&#xa;• POST /response&#xa;• GET /analysis/{id}&#xa;• GET /stats" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe0b2;strokeColor=#f57c00;fontSize=10;align=left;verticalAlign=top;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="1150" y="475" width="450" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- 业务逻辑层 -->
+        <mxCell id="business-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f3e5f5;strokeColor=#7b1fa2;strokeWidth=3" vertex="1" parent="1">
+          <mxGeometry x="100" y="600" width="1600" height="250" as="geometry" />
+        </mxCell>
+
+        <mxCell id="business-title" value="业务逻辑层 (Business Logic)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=20;fontStyle=1;fontColor=#7b1fa2" vertex="1" parent="1">
+          <mxGeometry x="130" y="615" width="400" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="business-tech" value="核心业务处理模块 + 后台任务队列 + 状态管理" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontColor=#666" vertex="1" parent="1">
+          <mxGeometry x="130" y="645" width="500" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- 业务模块 -->
+        <mxCell id="business-qa" value="QA业务模块&#xa;&#xa;• 文档解析 (docx)&#xa;• 文本分块&#xa;• 内容质量评估&#xa;• LLM问答生成&#xa;• 问答质量评估&#xa;• 结果筛选导出&#xa;&#xa;核心文件:&#xa;QA/get_qa.py&#xa;QA/evaluate_qa.py" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1bee7;strokeColor=#7b1fa2;fontSize=10;align=left;verticalAlign=top" vertex="1" parent="1">
+          <mxGeometry x="150" y="680" width="450" height="150" as="geometry" />
+        </mxCell>
+
+        <mxCell id="business-eval" value="评估业务模块&#xa;&#xa;• Stage1Evaluator (无参考)&#xa;• Stage2Evaluator (有参考)&#xa;• ResultProcessor (结果处理)&#xa;• FileManager (文件管理)&#xa;• ReportGenerator (报告生成)&#xa;• HTMLReportGenerator&#xa;&#xa;核心文件:&#xa;LLM_EVAL/first_stage/&#xa;LLM_EVAL/second_stage/" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1bee7;strokeColor=#7b1fa2;fontSize=10;align=left;verticalAlign=top" vertex="1" parent="1">
+          <mxGeometry x="650" y="680" width="450" height="150" as="geometry" />
+        </mxCell>
+
+        <mxCell id="business-flmm" value="FLMM业务模块&#xa;&#xa;• 问卷数据解析 (5列/4列)&#xa;• 层次化选择器&#xa;• 项目文件生成&#xa;• 问卷页面生成&#xa;• 证明材料管理&#xa;• 数据分析可视化&#xa;&#xa;核心文件:&#xa;00k/data_parser.py&#xa;00k/function/*.py" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1bee7;strokeColor=#7b1fa2;fontSize=10;align=left;verticalAlign=top" vertex="1" parent="1">
+          <mxGeometry x="1150" y="680" width="450" height="150" as="geometry" />
+        </mxCell>
+
+        <!-- 数据层 -->
+        <mxCell id="data-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f5e9;strokeColor=#388e3c;strokeWidth=3" vertex="1" parent="1">
+          <mxGeometry x="100" y="900" width="1600" height="200" as="geometry" />
+        </mxCell>
+
+        <mxCell id="data-title" value="数据层 (Data Layer)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=20;fontStyle=1;fontColor=#388e3c" vertex="1" parent="1">
+          <mxGeometry x="130" y="915" width="300" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="data-tech" value="文件系统 + JSON持久化 + Excel处理 + pandas" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontColor=#666" vertex="1" parent="1">
+          <mxGeometry x="130" y="945" width="500" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- 数据存储 -->
+        <mxCell id="data-qa" value="QA数据存储&#xa;&#xa;data/qa/&#xa;├── uploads/ (上传文件)&#xa;├── results/ (结果文件)&#xa;│   └── {task_id}/&#xa;│       ├── 内容提取.xlsx&#xa;│       ├── 内容评估.xlsx&#xa;│       ├── 问答对.xlsx&#xa;│       └── 问答对_evaluated.xlsx&#xa;└── tasks.json (任务状态)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c8e6c9;strokeColor=#388e3c;fontSize=9;align=left;verticalAlign=top;fontFamily=Courier New" vertex="1" parent="1">
+          <mxGeometry x="150" y="980" width="450" height="100" as="geometry" />
+        </mxCell>
+
+        <mxCell id="data-eval" value="评估数据存储&#xa;&#xa;data/evaluation/&#xa;├── uploads/ (上传文件)&#xa;├── results/ (结果目录)&#xa;└── LLM_EVAL/data/&#xa;    └── {model}{timestamp}/&#xa;        └── {file}/&#xa;            ├── stage1_*.csv/json&#xa;            ├── stage2_*.csv/json&#xa;            └── report.html" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c8e6c9;strokeColor=#388e3c;fontSize=9;align=left;verticalAlign=top;fontFamily=Courier New" vertex="1" parent="1">
+          <mxGeometry x="650" y="980" width="450" height="100" as="geometry" />
+        </mxCell>
+
+        <mxCell id="data-flmm" value="FLMM数据存储&#xa;&#xa;00k/data/&#xa;├── FLMM调研表.xlsx (5列)&#xa;├── FLMM自评表.xlsx (4列)&#xa;└── {公司_场景}/&#xa;    ├── {公司_场景}.json&#xa;    ├── {公司_场景}_问卷.xlsx&#xa;    ├── {公司_场景}_问卷结果.json&#xa;    └── 证明材料/{能力项}/" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c8e6c9;strokeColor=#388e3c;fontSize=9;align=left;verticalAlign=top;fontFamily=Courier New" vertex="1" parent="1">
+          <mxGeometry x="1150" y="980" width="450" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- 外部服务层 -->
+        <mxCell id="external-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fce4ec;strokeColor=#c2185b;strokeWidth=3" vertex="1" parent="1">
+          <mxGeometry x="100" y="1150" width="1600" height="120" as="geometry" />
+        </mxCell>
+
+        <mxCell id="external-title" value="外部服务层 (External Services)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=20;fontStyle=1;fontColor=#c2185b" vertex="1" parent="1">
+          <mxGeometry x="130" y="1165" width="400" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- 外部服务 -->
+        <mxCell id="external-llm" value="LLM服务&#xa;&#xa;• SiliconFlow API&#xa;• DeepSeek API&#xa;• 其他LLM API" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8bbd0;strokeColor=#c2185b;fontSize=11;align=left;verticalAlign=top;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="150" y="1205" width="450" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="external-eval" value="评估模型服务&#xa;&#xa;• DeepSeek Official&#xa;• 其他评估模型" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8bbd0;strokeColor=#c2185b;fontSize=11;align=left;verticalAlign=top;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="650" y="1205" width="450" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="external-file" value="文件处理服务&#xa;&#xa;• OpenPyXL (Excel)&#xa;• python-docx (Word)&#xa;• pandas (数据处理)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8bbd0;strokeColor=#c2185b;fontSize=11;align=left;verticalAlign=top;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="1150" y="1205" width="450" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- 连接线 -->
+        <mxCell id="arrow1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=classic;endFill=1;strokeColor=#1976d2" edge="1" parent="1" source="frontend-qa" target="api-qa">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=classic;endFill=1;strokeColor=#1976d2" edge="1" parent="1" source="frontend-eval" target="api-eval">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=classic;endFill=1;strokeColor=#1976d2" edge="1" parent="1" source="frontend-flmm" target="api-flmm">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="arrow4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=classic;endFill=1;strokeColor=#f57c00" edge="1" parent="1" source="api-qa" target="business-qa">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=classic;endFill=1;strokeColor=#f57c00" edge="1" parent="1" source="api-eval" target="business-eval">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=classic;endFill=1;strokeColor=#f57c00" edge="1" parent="1" source="api-flmm" target="business-flmm">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="arrow7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=classic;endFill=1;strokeColor=#7b1fa2" edge="1" parent="1" source="business-qa" target="data-qa">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=classic;endFill=1;strokeColor=#7b1fa2" edge="1" parent="1" source="business-eval" target="data-eval">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=classic;endFill=1;strokeColor=#7b1fa2" edge="1" parent="1" source="business-flmm" target="data-flmm">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="arrow10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=classic;endFill=1;strokeColor=#388e3c;dashed=1" edge="1" parent="1" source="business-qa" target="external-llm">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="375" y="900" />
+              <mxPoint x="375" y="1230" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="arrow11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=classic;endFill=1;strokeColor=#388e3c;dashed=1" edge="1" parent="1" source="business-eval" target="external-llm">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="875" y="900" />
+              <mxPoint x="875" y="1150" />
+              <mxPoint x="375" y="1150" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="arrow12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=classic;endFill=1;strokeColor=#388e3c;dashed=1" edge="1" parent="1" source="business-eval" target="external-eval">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="875" y="900" />
+              <mxPoint x="875" y="1230" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+
+        <!-- 技术栈说明 -->
+        <mxCell id="tech-stack-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;strokeWidth=1" vertex="1" parent="1">
+          <mxGeometry x="100" y="1310" width="800" height="70" as="geometry" />
+        </mxCell>
+
+        <mxCell id="tech-stack-title" value="🛠️ 核心技术栈" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="130" y="1320" width="200" height="25" as="geometry" />
+        </mxCell>
+
+        <mxCell id="tech-stack-content" value="• 前端: React 18.2 + TypeScript 5.2 + Vite 5.0 + Ant Design 5.12 + TanStack Query 5.14&#xa;• 后端: FastAPI 0.109 + Python 3.8+ + Uvicorn + Pydantic 2.5&#xa;• 数据: pandas + OpenPyXL + python-docx + JSON" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="130" y="1345" width="750" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- 关键特性 -->
+        <mxCell id="features-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;strokeWidth=1" vertex="1" parent="1">
+          <mxGeometry x="920" y="1310" width="780" height="70" as="geometry" />
+        </mxCell>
+
+        <mxCell id="features-title" value="✨ 系统特性" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="950" y="1320" width="200" height="25" as="geometry" />
+        </mxCell>
+
+        <mxCell id="features-content" value="• 前后端分离架构 | 异步任务处理 | 实时状态监控&#xa;• 三大独立评估模块 | 统一API接口 | 模块化设计&#xa;• 文件上传下载 | 数据持久化 | 结果可视化" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="950" y="1345" width="730" height="30" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+
+  <!-- 数据流程总览 -->
+  <diagram name="数据流程总览" id="data-flow-overview">
+    <mxGraphModel dx="1800" dy="1200" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1800" pageHeight="1200" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- 标题 -->
+        <mxCell id="title-flow" value="LLM评估平台 - 数据流程总览" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=32;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="400" y="20" width="1000" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- 三大模块流程 -->
+        <mxCell id="flow-qa-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e3f2fd;strokeColor=#1976d2;strokeWidth=2;dashed=1" vertex="1" parent="1">
+          <mxGeometry x="100" y="120" width="500" height="1000" as="geometry" />
+        </mxCell>
+
+        <mxCell id="flow-qa-title" value="模块一：QA问答对管理" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1976d2;strokeColor=#0d47a1;fontSize=16;fontStyle=1;fontColor=white" vertex="1" parent="1">
+          <mxGeometry x="130" y="140" width="440" height="40" as="geometry" />
+        </mxCell>
+
+        <mxCell id="flow-qa-steps" value="1. 上传Word文档&#xa;2. 配置生成参数&#xa;3. API: POST /qa/generate&#xa;4. 创建后台任务&#xa;5. 文档解析&amp;提取&#xa;6. 内容质量评估&#xa;7. 质量筛选&#xa;8. LLM生成问答对&#xa;9. 实时状态监控&#xa;10. API: POST /qa/evaluate-task&#xa;11. 问答对质量评估&#xa;12. 质量筛选&#xa;13. 导出Excel/JSON&#xa;14. API: GET /qa/preview&#xa;15. API: GET /qa/download&#xa;16. 查看结果&amp;下载&#xa;&#xa;📊 输出: 6个Excel文件&#xa;• 内容提取.xlsx&#xa;• 内容评估.xlsx&#xa;• 内容评估_filtered.xlsx&#xa;• 问答对.xlsx&#xa;• 问答对_evaluated.xlsx&#xa;• 问答对_evaluated_filtered.xlsx" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#bbdefb;strokeColor=#1976d2;fontSize=10;align=left;verticalAlign=top" vertex="1" parent="1">
+          <mxGeometry x="150" y="200" width="400" height="880" as="geometry" />
+        </mxCell>
+
+        <mxCell id="flow-eval-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff3e0;strokeColor=#f57c00;strokeWidth=2;dashed=1" vertex="1" parent="1">
+          <mxGeometry x="650" y="120" width="500" height="1000" as="geometry" />
+        </mxCell>
+
+        <mxCell id="flow-eval-title" value="模块二：双阶段评估系统" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f57c00;strokeColor=#e65100;fontSize=16;fontStyle=1;fontColor=white" vertex="1" parent="1">
+          <mxGeometry x="680" y="140" width="440" height="40" as="geometry" />
+        </mxCell>
+
+        <mxCell id="flow-eval-steps" value="1. 配置模型&amp;参数&#xa;2. 上传评估文件&#xa;3. API: POST /eval/upload&#xa;4. API: POST /eval/create&#xa;5. 创建评估任务&#xa;6. 初始化Evaluators&#xa;7. 读取&amp;处理Excel&#xa;8. Stage1: 无参考答题&#xa;9. Stage1: LLM评分&#xa;10. Stage1: 阈值判断&#xa;11. 生成重测数据&#xa;12. Stage2: 提供参考重测&#xa;13. Stage2: 错误分类&#xa;    • 知识缺失&#xa;    • 推理错误&#xa;    • 能力不足&#xa;14. 结果分析&amp;汇总&#xa;15. 生成HTML报告&#xa;16. 生成JSON数据&#xa;17. API: GET /eval/task/{id}&#xa;18. API: GET /eval/downloads&#xa;19. 查看结果&amp;下载&#xa;&#xa;📊 输出: 多个CSV/JSON + HTML&#xa;• stage1_test_results.csv&#xa;• stage1_evaluation_results.csv&#xa;• stage1_analysis.json&#xa;• stage2_* (如有)&#xa;• {file}_analysis.json&#xa;• report.html" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe0b2;strokeColor=#f57c00;fontSize=10;align=left;verticalAlign=top" vertex="1" parent="1">
+          <mxGeometry x="670" y="200" width="460" height="880" as="geometry" />
+        </mxCell>
+
+        <mxCell id="flow-flmm-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f5e9;strokeColor=#388e3c;strokeWidth=2;dashed=1" vertex="1" parent="1">
+          <mxGeometry x="1200" y="120" width="500" height="1000" as="geometry" />
+        </mxCell>
+
+        <mxCell id="flow-flmm-title" value="模块三：FLMM问卷平台" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#388e3c;strokeColor=#1b5e20;fontSize=16;fontStyle=1;fontColor=white" vertex="1" parent="1">
+          <mxGeometry x="1230" y="140" width="440" height="40" as="geometry" />
+        </mxCell>
+
+        <mxCell id="flow-flmm-steps" value="功能1: 智能问卷创建&#xa;1. 输入项目信息&#xa;2. 配置登录账号&#xa;3. 读取FLMM调研表.xlsx&#xa;4. 选择问卷问题&#xa;5. 读取FLMM自评表.xlsx&#xa;6. 选择评估能力项&#xa;7. 配置证明材料收集&#xa;8. 显示选择摘要&#xa;9. 用户确认&#xa;10. 生成项目文件&#xa;&#xa;功能2: 问卷数据收集&#xa;1. 用户登录&#xa;2. 填写问卷&#xa;3. 实时保存&#xa;4. 数据验证&#xa;5. 提交问卷&#xa;6. 生成结果JSON&#xa;&#xa;功能3: 证明材料收集&#xa;1. 选择能力项&#xa;2. 选择上传方式&#xa;3. 上传文件(ZIP支持)&#xa;4. ZIP解压处理&#xa;5. 文件分类存储&#xa;6. 生成上传记录&#xa;&#xa;📊 输出: 项目文件夹&#xa;• {公司_场景}.json&#xa;• {公司_场景}_问卷.xlsx&#xa;• {公司_场景}.py&#xa;• {公司_场景}_证明材料.py&#xa;• {公司_场景}_问卷结果.json&#xa;• 证明材料/{能力项}/" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c8e6c9;strokeColor=#388e3c;fontSize=10;align=left;verticalAlign=top" vertex="1" parent="1">
+          <mxGeometry x="1220" y="200" width="460" height="880" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

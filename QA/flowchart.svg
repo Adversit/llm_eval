@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="900" height="720" viewBox="0 0 900 720" xmlns="http://www.w3.org/2000/svg">
+  <!-- 定义滤镜 -->
+  <defs>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="2" dy="2" stdDeviation="3" flood-opacity="0.3"/>
+    </filter>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#888"/>
+    </marker>
+    <marker id="dotted-arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#888"/>
+    </marker>
+  </defs>
+  
+  <!-- 标题 -->
+  <text x="450" y="50" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="28px" text-anchor="middle" font-weight="bold">文档问答生成管理系统</text>
+  <text x="450" y="80" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="16px" text-anchor="middle" fill="#666">将Word文档转换为高质量问答对的智能系统</text>
+  
+  <!-- 用户界面模块 -->
+  <rect x="350" y="110" width="200" height="80" rx="15" ry="15" fill="#4CAF50" fill-opacity="0.9" filter="url(#shadow)"/>
+  <text x="450" y="145" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="18px" text-anchor="middle" fill="white" font-weight="bold">用户界面</text>
+  <text x="450" y="170" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="14px" text-anchor="middle" fill="white">文件上传与操作控制</text>
+  
+  <!-- 文档处理模块 -->
+  <rect x="150" y="240" width="180" height="70" rx="15" ry="15" fill="#2196F3" fill-opacity="0.9" filter="url(#shadow)"/>
+  <text x="240" y="270" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="16px" text-anchor="middle" fill="white" font-weight="bold">文档内容提取</text>
+  <text x="240" y="290" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="14px" text-anchor="middle" fill="white">从Word文档提取文本</text>
+  
+  <!-- 内容评估模块 -->
+  <rect x="370" y="240" width="180" height="70" rx="15" ry="15" fill="#2196F3" fill-opacity="0.9" filter="url(#shadow)"/>
+  <text x="460" y="270" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="16px" text-anchor="middle" fill="white" font-weight="bold">内容质量评估</text>
+  <text x="460" y="290" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="14px" text-anchor="middle" fill="white">评估内容质量与密度</text>
+  
+  <!-- 问答生成模块 -->
+  <rect x="590" y="240" width="180" height="70" rx="15" ry="15" fill="#2196F3" fill-opacity="0.9" filter="url(#shadow)"/>
+  <text x="680" y="270" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="16px" text-anchor="middle" fill="white" font-weight="bold">问答对生成</text>
+  <text x="680" y="290" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="14px" text-anchor="middle" fill="white">基于内容生成问答对</text>
+  
+  <!-- 质量评估模块 -->
+  <rect x="350" y="360" width="200" height="70" rx="15" ry="15" fill="#2196F3" fill-opacity="0.9" filter="url(#shadow)"/>
+  <text x="450" y="390" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="16px" text-anchor="middle" fill="white" font-weight="bold">问答质量评估</text>
+  <text x="450" y="410" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="14px" text-anchor="middle" fill="white">评估问答对准确性</text>
+  
+  <!-- 结果展示模块 -->
+  <rect x="350" y="480" width="200" height="70" rx="15" ry="15" fill="#FF9800" fill-opacity="0.9" filter="url(#shadow)"/>
+  <text x="450" y="510" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="16px" text-anchor="middle" fill="white" font-weight="bold">结果输出</text>
+  <text x="450" y="530" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="14px" text-anchor="middle" fill="white">生成Excel文件</text>
+  
+  <!-- 批处理管理 -->
+  <rect x="150" y="360" width="180" height="190" rx="15" ry="15" fill="#9C27B0" fill-opacity="0.9" filter="url(#shadow)"/>
+  <text x="240" y="390" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="16px" text-anchor="middle" fill="white" font-weight="bold">批处理管理</text>
+  <text x="240" y="415" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="14px" text-anchor="middle" fill="white">处理队列管理</text>
+  <text x="240" y="440" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="14px" text-anchor="middle" fill="white">文件批量处理</text>
+  <text x="240" y="465" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="14px" text-anchor="middle" fill="white">进度实时监控</text>
+  <text x="240" y="490" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="14px" text-anchor="middle" fill="white">任务状态管理</text>
+  
+  <!-- 参数配置模块 -->
+  <rect x="570" y="360" width="180" height="190" rx="15" ry="15" fill="#9C27B0" fill-opacity="0.9" filter="url(#shadow)"/>
+  <text x="660" y="390" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="16px" text-anchor="middle" fill="white" font-weight="bold">参数配置</text>
+  <text x="660" y="415" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="14px" text-anchor="middle" fill="white">问答对数量设置</text>
+  <text x="660" y="440" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="14px" text-anchor="middle" fill="white">质量评分阈值调整</text>
+  <text x="660" y="465" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="14px" text-anchor="middle" fill="white">抽查百分比设置</text>
+  <text x="660" y="490" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="14px" text-anchor="middle" fill="white">处理步骤选择</text>
+  
+  <!-- 流程说明 -->
+  <rect x="100" y="600" width="700" height="90" rx="15" ry="15" fill="#EEEEEE" fill-opacity="0.9" filter="url(#shadow)"/>
+  <text x="450" y="630" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="16px" text-anchor="middle" font-weight="bold">系统工作流程</text>
+  <text x="450" y="655" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="14px" text-anchor="middle" fill="#444">用户上传文档 → 系统提取内容 → 评估内容质量 → 生成问答对 → 评估问答质量 → 输出结果</text>
+  <text x="450" y="675" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="14px" text-anchor="middle" fill="#444">整个过程可视化呈现，用户可随时查看进度和结果</text>
+  
+  <!-- 连接线 - 从用户界面到三个处理模块 -->
+  <line x1="450" y1="190" x2="450" y2="220" stroke="#888" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <line x1="450" y1="220" x2="240" y2="240" stroke="#888" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <line x1="450" y1="220" x2="680" y2="240" stroke="#888" stroke-width="2" marker-end="url(#arrowhead)"/>
+  
+  <!-- 连接线 - 从各处理模块到质量评估 -->
+  <line x1="240" y1="310" x2="240" y2="335" stroke="#888" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#dotted-arrowhead)"/>
+  <line x1="240" y1="335" x2="460" y2="335" stroke="#888" stroke-width="2" stroke-dasharray="5,5"/>
+  <line x1="460" y1="310" x2="460" y2="335" stroke="#888" stroke-width="2" stroke-dasharray="5,5"/>
+  <line x1="680" y1="310" x2="680" y2="335" stroke="#888" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#dotted-arrowhead)"/>
+  <line x1="680" y1="335" x2="460" y2="335" stroke="#888" stroke-width="2" stroke-dasharray="5,5"/>
+  <line x1="460" y1="335" x2="460" y2="360" stroke="#888" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#dotted-arrowhead)"/>
+  
+  <!-- 连接线 - 从质量评估到结果输出 -->
+  <line x1="450" y1="430" x2="450" y2="480" stroke="#888" stroke-width="2" marker-end="url(#arrowhead)"/>
+  
+  <!-- 连接线 - 从批处理管理到质量评估 -->
+  <line x1="330" y1="400" x2="350" y2="400" stroke="#888" stroke-width="2" marker-end="url(#arrowhead)"/>
+  
+  <!-- 连接线 - 从参数配置到质量评估 -->
+  <line x1="570" y1="400" x2="550" y2="400" stroke="#888" stroke-width="2" marker-end="url(#arrowhead)"/>
+</svg> 

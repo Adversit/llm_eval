@@ -1,0 +1,38 @@
+{
+  "company_name": "TestCompany",
+  "scenario_name": "AutoDeployTest",
+  "scenario_description": "测试自动部署功能",
+  "functions_list": [
+    {
+      "name": "问卷采集",
+      "description": "问卷数据采集"
+    },
+    {
+      "name": "证明材料",
+      "description": "证明材料收集"
+    }
+  ],
+  "selected_questionnaire_items": [
+    {
+      "item": "能力项1-测试",
+      "question": "这是第一个测试问题？",
+      "options": ["选项A", "选项B", "选项C"]
+    },
+    {
+      "item": "能力项2-测试",
+      "question": "这是第二个测试问题？",
+      "options": ["是", "否"]
+    }
+  ],
+  "selected_evidence_items": [
+    {
+      "item": "测试证明材料1"
+    },
+    {
+      "item": "测试证明材料2"
+    }
+  ],
+  "enable_questionnaire": true,
+  "enable_evidence": true,
+  "auto_generate_account": true
+}

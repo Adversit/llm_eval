@@ -1,0 +1,34 @@
+.app-layout {
+  min-height: 100vh;
+}
+
+.ant-layout-content {
+  background: #f0f2f5;
+}
+
+/* 渐变背景 */
+.gradient-bg {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+/* 卡片样式 */
+.gradient-card {
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.gradient-card:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
+}
+
+/* 按钮样式 */
+.ant-btn-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+}
+
+.ant-btn-primary:hover {
+  background: linear-gradient(135deg, #5568d3 0%, #64408a 100%);
+}

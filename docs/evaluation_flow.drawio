@@ -1,0 +1,235 @@
+<mxfile host="app.diagrams.net" modified="2025-01-21T00:00:00.000Z" agent="DrawIO" version="22.1.11">
+  <!-- 模块二：双阶段评估系统 - 详细执行流程 -->
+  <diagram name="评估模块详细流程" id="eval-detail">
+    <mxGraphModel dx="1800" dy="1800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="2600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- 标题 -->
+        <mxCell id="title-eval" value="模块二：双阶段评估系统 (LLM_EVAL) - 完整执行流程" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=26;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="200" y="20" width="1200" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="subtitle-eval" value="基于实际执行日志的详细数据流程图" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontColor=#666" vertex="1" parent="1">
+          <mxGeometry x="200" y="70" width="1200" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- 阶段0：用户操作与任务创建 -->
+        <mxCell id="phase0-title" value="阶段0：用户操作与任务创建" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=16;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="100" y="130" width="1400" height="40" as="geometry" />
+        </mxCell>
+
+        <mxCell id="step0-1" value="1. 用户配置评估参数&#xa;• 测试模型: deepseek&#xa;• 评估模型: deepseek_official&#xa;• 阈值: 答案60, 推理60" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;align=left" vertex="1" parent="1">
+          <mxGeometry x="200" y="200" width="300" height="70" as="geometry" />
+        </mxCell>
+
+        <mxCell id="step0-2" value="2. 上传评估文件&#xa;• 9e698bea_3.xlsx&#xa;• 文件大小: 0.01 MB&#xa;• 共5条数据" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;align=left" vertex="1" parent="1">
+          <mxGeometry x="600" y="200" width="300" height="70" as="geometry" />
+        </mxCell>
+
+        <mxCell id="step0-3" value="3. API调用创建任务&#xa;POST /eval/create&#xa;• 生成task_id&#xa;• 启动后台任务" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;align=left" vertex="1" parent="1">
+          <mxGeometry x="1000" y="200" width="300" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- 阶段1：初始化 -->
+        <mxCell id="phase1-title" value="阶段1：系统初始化" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=16;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="100" y="310" width="1400" height="40" as="geometry" />
+        </mxCell>
+
+        <mxCell id="step1-1" value="4. Stage1Evaluator初始化&#xa;• 测试模型: deepseek&#xa;• 评估模型: deepseek_official&#xa;• 初始化完成" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;align=left" vertex="1" parent="1">
+          <mxGeometry x="200" y="380" width="300" height="70" as="geometry" />
+        </mxCell>
+
+        <mxCell id="step1-2" value="5. Stage2Evaluator初始化&#xa;• 测试模型: deepseek&#xa;• 评估模型: deepseek_official&#xa;• 初始化完成" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;align=left" vertex="1" parent="1">
+          <mxGeometry x="600" y="380" width="300" height="70" as="geometry" />
+        </mxCell>
+
+        <mxCell id="step1-3" value="6. ResultProcessor初始化&#xa;• 结果处理器就绪&#xa;• 准备处理评估结果" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;align=left" vertex="1" parent="1">
+          <mxGeometry x="1000" y="380" width="300" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- 阶段2：文件处理 -->
+        <mxCell id="phase2-title" value="阶段2：文件读取与数据处理" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=16;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="100" y="490" width="1400" height="40" as="geometry" />
+        </mxCell>
+
+        <mxCell id="step2-1" value="7. ExcelProcessor初始化&#xa;• 文件路径: uploads/9e698bea_3.xlsx&#xa;• 文件大小: 0.01 MB&#xa;• 启用缓存" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;align=left" vertex="1" parent="1">
+          <mxGeometry x="200" y="560" width="300" height="70" as="geometry" />
+        </mxCell>
+
+        <mxCell id="step2-2" value="8. 读取Excel文件&#xa;• 成功读取，共5行数据&#xa;• 验证必需列存在&#xa;• 文件已缓存" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;align=left" vertex="1" parent="1">
+          <mxGeometry x="600" y="560" width="300" height="70" as="geometry" />
+        </mxCell>
+
+        <mxCell id="step2-3" value="9. 数据处理完成&#xa;• 处理5条记录&#xa;• 数据验证通过&#xa;• 准备进入评估流程" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;align=left" vertex="1" parent="1">
+          <mxGeometry x="1000" y="560" width="300" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- 阶段3：Stage1评估 -->
+        <mxCell id="phase3-title" value="阶段3：Stage1 - 无参考答题与评分" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=16;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="100" y="670" width="1400" height="40" as="geometry" />
+        </mxCell>
+
+        <mxCell id="step3-1" value="10. 开始Stage1 LLM测试&#xa;• 共5条数据&#xa;• 执行单轮评估" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;align=left;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="200" y="740" width="500" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="step3-2" value="11. 逐题测试（无参考答案）&#xa;• [1/5] 什么是RDMA技术？(12.8s)&#xa;• [2/5] 目前有哪些主要的RDMA网络类型？(14.4s)&#xa;• [3/5] RoCEv1和RoCEv2的主要区别？(47.3s)&#xa;• [4/5] ... (继续处理)&#xa;• [5/5] ... (继续处理)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff9e6;strokeColor=#d79b00;fontSize=10;align=left" vertex="1" parent="1">
+          <mxGeometry x="200" y="810" width="500" height="100" as="geometry" />
+        </mxCell>
+
+        <mxCell id="step3-3" value="📄 输出文件1:&#xa;stage1_test_results.csv&#xa;• 保存LLM测试结果&#xa;• 包含模型回答和推理过程" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#a5d6a7;strokeColor=#4caf50;fontSize=10;align=left" vertex="1" parent="1">
+          <mxGeometry x="800" y="810" width="500" height="70" as="geometry" />
+        </mxCell>
+
+        <mxCell id="step3-4" value="12. 开始评估LLM响应&#xa;• 读取: stage1_test_results.csv&#xa;• 使用评估模型打分" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;align=left;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="200" y="930" width="500" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="step3-5" value="13. 逐题评分（评估模型）&#xa;• [1/5] RDMA技术 - 答案:72.5, 推理:85.0 (18.9s)&#xa;  - 评估详情: 准确概括核心概念，推理逻辑严密&#xa;  - 优势: 抓住核心原理，分析深入&#xa;  - 不足: 内容完整性可提升&#xa;• [2/5] RDMA网络类型 - 答案:85.5, 推理:92.0&#xa;• [3/5] ... (继续评估)&#xa;• [4/5] ... (继续评估)&#xa;• [5/5] ... (继续评估)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff9e6;strokeColor=#d79b00;fontSize=9;align=left" vertex="1" parent="1">
+          <mxGeometry x="200" y="1000" width="500" height="130" as="geometry" />
+        </mxCell>
+
+        <mxCell id="step3-6" value="📄 输出文件2:&#xa;stage1_evaluation_results.csv&#xa;• 保存评估分数&#xa;• 包含详细评估分析&#xa;• answer_analysis&#xa;• reasoning_analysis&#xa;• strengths/weaknesses&#xa;• overall_assessment" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#a5d6a7;strokeColor=#4caf50;fontSize=10;align=left" vertex="1" parent="1">
+          <mxGeometry x="800" y="1000" width="500" height="130" as="geometry" />
+        </mxCell>
+
+        <mxCell id="step3-7" value="14. 分析评估结果&#xa;• 阈值设置 - 答案:60.0, 推理:60.0&#xa;• 统计通过/未通过数量&#xa;• 判断是否需要Stage2重测" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;align=left" vertex="1" parent="1">
+          <mxGeometry x="200" y="1150" width="500" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="step3-8" value="📄 输出文件3:&#xa;stage1_analysis.json&#xa;• 统计信息&#xa;• 分数分布&#xa;• 阈值判断结果" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#a5d6a7;strokeColor=#4caf50;fontSize=10;align=left" vertex="1" parent="1">
+          <mxGeometry x="800" y="1150" width="500" height="60" as="geometry" />
+        </mxCell>
+
+
+        <!-- 阶段4：轮次分析 -->
+        <mxCell id="phase4-title" value="阶段4：轮次分析与结果汇总" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=16;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="100" y="1250" width="1400" height="40" as="geometry" />
+        </mxCell>
+
+        <mxCell id="step4-1" value="15. 创建轮次分析&#xa;• 模型: deepseek&#xa;• 文件: 9e698bea_3&#xa;• 轮次: 1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;align=left" vertex="1" parent="1">
+          <mxGeometry x="200" y="1320" width="500" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="step4-2" value="📄 输出文件4:&#xa;9e698bea_3_analysis_round_1.json&#xa;• 第1轮评估完整分析&#xa;• 包含所有题目的评估结果" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#a5d6a7;strokeColor=#4caf50;fontSize=10;align=left" vertex="1" parent="1">
+          <mxGeometry x="800" y="1320" width="500" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="step4-3" value="16. 处理单文件结果&#xa;• 模型: deepseek&#xa;• 文件: 9e698bea_3&#xa;• 发现1个轮次分析文件" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;align=left" vertex="1" parent="1">
+          <mxGeometry x="200" y="1400" width="500" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="step4-4" value="17. 汇总轮次分析&#xa;• 从轮次文件重新计算平均值&#xa;• 汇总1个轮次分析文件&#xa;• 加载: 9e698bea_3_analysis_round_1.json" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;align=left" vertex="1" parent="1">
+          <mxGeometry x="200" y="1480" width="500" height="70" as="geometry" />
+        </mxCell>
+
+        <mxCell id="step4-5" value="📄 输出文件5:&#xa;9e698bea_3_analysis.json&#xa;• 单文件完整分析&#xa;• 统计信息&#xa;• 平均分数&#xa;• 最终评估结果" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#a5d6a7;strokeColor=#4caf50;fontSize=10;align=left" vertex="1" parent="1">
+          <mxGeometry x="800" y="1480" width="500" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- 阶段5：Stage2评估（可选） -->
+        <mxCell id="phase5-title" value="阶段5：Stage2 - 提供参考重测与错误分类（如有未达标题目）" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=16;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="100" y="1590" width="1400" height="40" as="geometry" />
+        </mxCell>
+
+        <mxCell id="step5-1" value="18. 生成重测数据&#xa;• 筛选未达标题目&#xa;• 生成stage1_to_stage2_data.csv&#xa;• 包含参考答案" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;align=left" vertex="1" parent="1">
+          <mxGeometry x="200" y="1660" width="500" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="step5-2" value="19. Stage2 LLM重测&#xa;• 提供参考答案&#xa;• 重新测试未达标题目&#xa;• 记录重测结果" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;align=left;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="200" y="1740" width="500" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="step5-3" value="20. Stage2评估与错误分类&#xa;• 知识缺失 (Knowledge Deficiency)&#xa;• 推理错误 (Reasoning Error)&#xa;• 能力不足 (Capability Insufficient)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;align=left;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="200" y="1820" width="500" height="70" as="geometry" />
+        </mxCell>
+
+        <mxCell id="step5-4" value="📄 输出文件6-8:&#xa;• stage2_test_results.csv&#xa;• stage2_evaluation_results.csv&#xa;• stage2_analysis.json&#xa;• 错误分类统计" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#a5d6a7;strokeColor=#4caf50;fontSize=10;align=left" vertex="1" parent="1">
+          <mxGeometry x="800" y="1740" width="500" height="90" as="geometry" />
+        </mxCell>
+
+        <!-- 阶段6：最终结果生成 -->
+        <mxCell id="phase6-title" value="阶段6：最终结果生成与报告" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=16;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="100" y="1930" width="1400" height="40" as="geometry" />
+        </mxCell>
+
+        <mxCell id="step6-1" value="21. 生成HTML报告&#xa;• 可视化评估结果&#xa;• 分数分布图表&#xa;• 错误分类统计" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;align=left" vertex="1" parent="1">
+          <mxGeometry x="200" y="2000" width="500" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="step6-2" value="22. 生成JSON数据&#xa;• 完整评估数据&#xa;• 结构化结果&#xa;• 便于后续分析" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;align=left" vertex="1" parent="1">
+          <mxGeometry x="200" y="2080" width="500" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="step6-3" value="23. 打包下载文件&#xa;• ZIP压缩包&#xa;• 包含所有结果文件&#xa;• HTML报告 + JSON数据" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;align=left" vertex="1" parent="1">
+          <mxGeometry x="200" y="2160" width="500" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="step6-4" value="✅ 最终输出:&#xa;data/deepseek202511211055/&#xa;├── 9e698bea_3/&#xa;│   ├── stage1_test_results.csv&#xa;│   ├── stage1_evaluation_results.csv&#xa;│   ├── stage1_analysis.json&#xa;│   ├── 9e698bea_3_analysis_round_1.json&#xa;│   ├── 9e698bea_3_analysis.json&#xa;│   ├── stage2_* (如有)&#xa;│   └── report.html" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#a5d6a7;strokeColor=#4caf50;fontSize=10;align=left;fontFamily=Courier New" vertex="1" parent="1">
+          <mxGeometry x="800" y="2000" width="500" height="160" as="geometry" />
+        </mxCell>
+
+        <mxCell id="step6-5" value="24. 用户查看与下载&#xa;• API: GET /eval/task/{id}&#xa;• API: GET /eval/downloads/{id}&#xa;• 查看HTML报告&#xa;• 下载完整结果" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;align=left;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="200" y="2240" width="500" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- 连接线 -->
+        <mxCell id="arrow-all" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=3;endArrow=classic;endFill=1;strokeColor=#d6b656" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="450" y="270" as="sourcePoint" />
+            <mxPoint x="450" y="2240" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- 关键指标 -->
+        <mxCell id="metrics-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f0f0f0;strokeColor=#666666;strokeWidth=1" vertex="1" parent="1">
+          <mxGeometry x="100" y="2360" width="1400" height="150" as="geometry" />
+        </mxCell>
+
+        <mxCell id="metrics-title" value="📊 本次评估关键指标" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="130" y="2375" width="300" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="metrics-content" value="• 测试模型: deepseek | 评估模型: deepseek_official&#xa;• 评估文件: 9e698bea_3.xlsx (0.01 MB, 5条数据)&#xa;• 评估轮次: 1轮&#xa;• 阈值设置: 答案≥60.0, 推理≥60.0&#xa;• Stage1测试时间: ~74秒 (平均14.8秒/题)&#xa;• Stage1评估时间: ~76秒 (平均15.2秒/题)&#xa;• 示例评分: 题1(答案72.5/推理85.0), 题2(答案85.5/推理92.0)&#xa;• 输出文件: 5个JSON/CSV文件 + 1个HTML报告&#xa;• 存储路径: data/deepseek202511211055/9e698bea_3/&#xa;• 多文件处理: 未启用（单文件评估）" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="130" y="2410" width="1340" height="90" as="geometry" />
+        </mxCell>
+
+        <!-- 图例 -->
+        <mxCell id="legend-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#666666;strokeWidth=1" vertex="1" parent="1">
+          <mxGeometry x="100" y="2540" width="1400" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="legend-title" value="图例：" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="130" y="2555" width="80" height="20" as="geometry" />
+        </mxCell>
+
+        <mxCell id="legend-user" value="用户操作" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="130" y="2570" width="100" height="20" as="geometry" />
+        </mxCell>
+
+        <mxCell id="legend-api" value="API/初始化" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="250" y="2570" width="100" height="20" as="geometry" />
+        </mxCell>
+
+        <mxCell id="legend-file" value="文件处理" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="370" y="2570" width="100" height="20" as="geometry" />
+        </mxCell>
+
+        <mxCell id="legend-stage1" value="Stage1评估" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="490" y="2570" width="100" height="20" as="geometry" />
+        </mxCell>
+
+        <mxCell id="legend-detail" value="执行详情" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff9e6;strokeColor=#d79b00;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="610" y="2570" width="100" height="20" as="geometry" />
+        </mxCell>
+
+        <mxCell id="legend-output" value="输出文件" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#a5d6a7;strokeColor=#4caf50;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="730" y="2570" width="100" height="20" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -1,0 +1,14 @@
+{
+  "DeepSeek-V3": {
+    "name": "DeepSeek-V3",
+    "api_key": "sk-fpslkzbwupdmjrqrmfvhfoxjtdsjageadjohfjjeroyevvcm",
+    "base_url": "https://api.siliconflow.cn",
+    "model": "Pro/deepseek-ai/DeepSeek-V3"
+  },
+  "DeepSeek-R1": {
+    "name": "DeepSeek-R1",
+    "api_key": "sk-fpslkzbwupdmjrqrmfvhfoxjtdsjageadjohfjjeroyevvcm",
+    "base_url": "https://api.siliconflow.cn",
+    "model": "Pro/deepseek-ai/DeepSeek-R1"
+  }
+}

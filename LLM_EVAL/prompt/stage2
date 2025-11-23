@@ -1,0 +1,29 @@
+在  根目录/second_stage/目录下创建python文件。
+
+在该文件夹下需要实现给一个或多个文件，即可使用test_LLM进行评估，将评估结果保存，然后使用
+eval_llm进行评分，结果保存，并对结果进行判断，分析哪些问题需要二次测试，以此来检验模型
+出问题的原因，将上述功能封装为一个类。
+
+具体细节：
+1.需要一个函数，输入一个文件或者多个文件，文件为stage1输出的stage1_to_stage2_data.csv，先调用utlis/excel_processor 将文件进行处理，
+得到list: 包含字典的列表，每个字典格式为 {"id": "", "question": "", "answer": "", "content": ""}
+
+2.需要一个函数，调用utils/test_LLM.py,输入 prompt/test2_prompt.py 作为提示词，以及 步骤1 得到的列表中的 {"id": "", "question": ""，"content": ""}
+作为输入内容，将得到的结果{"id": "", "question": "", "answer": "","llm_answer": "", "llm_reasoning": ""}调用
+utils/dir_rs.py 保存到指定位置的csv文件中，
+
+3.需要一个函数，将步骤2 得到结果中的{"question": "", "answer": "","content": ""，"llm_answer": "", "llm_reasoning": ""}作为content输入给 utils/eval_llm.py 并将prompt/eval1_prompt.txt
+作为提示词也给utils/eval_llm.py， 保存输出的结果，调用utils/dir_rs.py 最终保存为{{"id": "", "question": "", "answer": "","content": ""，"llm_answer": "", "llm_reasoning": ""，"score_answer": "", "score_reasoning": ""}  .csv文件
+
+4.读取步骤3保存的文件，对"score_answer": "", "score_reasoning": ""  进行打分。
+我需要一个文件，输入两个分数的阈值（后续我可以通过streamlit的滑动条调整两个阈值）以及"id": ""，"score_answer": "", "score_reasoning": "" 
+如果score_answer，score_reasoning均大于两者的阈值，则认为模型知识能力缺失，如果score_answer大于其阈值，而
+score_reasoning小于其对应的阈值，则认为该问题模型的推理错误，如果score_answer小于其阈值，
+则认为这个问题 该模型的能力不足
+
+5.我需要一个功能，实现可以手动选择评估次数（后续我将使用streamlit 设置一个滑动条选择评估次数）
+
+
+6.保存的位置为 data/{模型名称}/{文件名称}/stage2_evaluation_results.csv，stage2_test_results.csv和stage2_analysis.json
+
+注意 csv文件的格式

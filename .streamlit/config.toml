@@ -1,0 +1,21 @@
+[theme]
+# 主题配色方案
+primaryColor = "#667eea"
+backgroundColor = "#ffffff"
+secondaryBackgroundColor = "#f8f9fa"
+textColor = "#333333"
+font = "sans serif"
+
+[server]
+# 服务器配置
+headless = true
+port = 8501
+
+[browser]
+# 浏览器配置
+gatherUsageStats = false
+
+[runner]
+# 运行配置
+magicEnabled = true
+fastReruns = true

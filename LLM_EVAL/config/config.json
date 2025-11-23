@@ -1,0 +1,131 @@
+{
+    "LLM_test": {
+        "deepseek": {
+            "api_base": "https://api.deepseek.com",
+            "model": "deepseek-chat",
+            "api_key_env": "DEEPSEEK_API_KEY",
+            "max_tokens": 1000,
+            "temperature": 0.7,
+            "enabled": true,
+            "display_name": "DeepSeek官方 (deepseek-chat)",
+            "description": "DeepSeek官方API"
+        },
+        "siliconflow_qwen": {
+            "api_base": "https://api.siliconflow.cn/v1",
+            "model": "Qwen/Qwen2.5-72B-Instruct",
+            "api_key_env": "SILICONFLOW_API_KEY",
+            "max_tokens": 1000,
+            "temperature": 0.7,
+            "enabled": true,
+            "display_name": "硅基流动-通义千问2.5-72B",
+            "description": "阿里通义千问2.5大模型"
+        },
+        "siliconflow_deepseek": {
+            "api_base": "https://api.siliconflow.cn/v1",
+            "model": "deepseek-ai/DeepSeek-V3",
+            "api_key_env": "SILICONFLOW_API_KEY",
+            "max_tokens": 1000,
+            "temperature": 0.7,
+            "enabled": true,
+            "display_name": "硅基流动-DeepSeek-V3",
+            "description": "DeepSeek第三代模型"
+        },
+        "siliconflow_yi": {
+            "api_base": "https://api.siliconflow.cn/v1",
+            "model": "01-ai/Yi-1.5-34B-Chat",
+            "api_key_env": "SILICONFLOW_API_KEY",
+            "max_tokens": 1000,
+            "temperature": 0.7,
+            "enabled": true,
+            "display_name": "硅基流动-零一万物Yi-34B",
+            "description": "零一万物Yi大模型"
+        },
+        "siliconflow_glm": {
+            "api_base": "https://api.siliconflow.cn/v1",
+            "model": "THUDM/glm-4-9b-chat",
+            "api_key_env": "SILICONFLOW_API_KEY",
+            "max_tokens": 1000,
+            "temperature": 0.7,
+            "enabled": true,
+            "display_name": "硅基流动-智谱GLM-4-9B",
+            "description": "智谱AI GLM-4模型"
+        },
+        "gemini": {
+            "api_base": "https://generativelanguage.googleapis.com/v1beta",
+            "model": "gemini-pro",
+            "api_key_env": "GEMINI_API_KEY",
+            "max_tokens": 1000,
+            "temperature": 0.7,
+            "enabled": true,
+            "display_name": "Google Gemini Pro",
+            "description": "Google Gemini Pro模型",
+            "api_type": "gemini"
+        },
+        "openai": {
+            "api_base": "https://api.openai.com/v1",
+            "model": "gpt-3.5-turbo",
+            "api_key_env": "OPENAI_API_KEY",
+            "max_tokens": 1000,
+            "temperature": 0.7,
+            "enabled": false,
+            "display_name": "OpenAI GPT-3.5 Turbo",
+            "description": "OpenAI GPT-3.5模型"
+        },
+        "claude": {
+            "api_base": "https://api.anthropic.com/v1",
+            "model": "claude-3-sonnet-20240229",
+            "api_key_env": "CLAUDE_API_KEY",
+            "max_tokens": 1000,
+            "temperature": 0.7,
+            "enabled": false,
+            "display_name": "Anthropic Claude 3 Sonnet",
+            "description": "Anthropic Claude 3模型"
+        }
+    },
+    "eval_llm": {
+        "siliconflow_deepseek_v3": {
+            "api_base": "https://api.siliconflow.cn/v1",
+            "model": "deepseek-ai/DeepSeek-V3",
+            "api_key_env": "SILICONFLOW_API_KEY",
+            "max_tokens": 2000,
+            "temperature": 0.7,
+            "enabled": true,
+            "display_name": "硅基流动-DeepSeek-V3 (评估专用)",
+            "description": "用于评估的DeepSeek-V3"
+        },
+        "siliconflow_qwen": {
+            "api_base": "https://api.siliconflow.cn/v1",
+            "model": "Qwen/Qwen2.5-72B-Instruct",
+            "api_key_env": "SILICONFLOW_API_KEY",
+            "max_tokens": 2000,
+            "temperature": 0.7,
+            "enabled": true,
+            "display_name": "硅基流动-通义千问2.5-72B (评估)",
+            "description": "用于评估的通义千问"
+        },
+        "deepseek_official": {
+            "api_base": "https://api.deepseek.com",
+            "model": "deepseek-chat",
+            "api_key_env": "DEEPSEEK_API_KEY",
+            "max_tokens": 2000,
+            "temperature": 0.7,
+            "enabled": true,
+            "display_name": "DeepSeek官方 (评估)",
+            "description": "DeepSeek官方API用于评估"
+        },
+        "gemini": {
+            "api_base": "https://generativelanguage.googleapis.com/v1beta",
+            "model": "gemini-pro",
+            "api_key_env": "GEMINI_API_KEY",
+            "max_tokens": 2000,
+            "temperature": 0.7,
+            "enabled": true,
+            "display_name": "Google Gemini Pro (评估)",
+            "description": "Gemini用于评估",
+            "api_type": "gemini"
+        }
+    },
+    "default_model": "deepseek",
+    "default_eval_model": "siliconflow_deepseek_v3",
+    "test_prompt": "你好，请简单介绍一下你自己。"
+}

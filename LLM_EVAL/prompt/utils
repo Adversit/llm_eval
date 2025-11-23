@@ -1,0 +1,69 @@
+1. utils/excel_processor.py  
+我需要读取指定位置的excel文件，(有日志输出)
+
+class ExcelProcessor:
+    def __init__(self, file_path):
+
+inputs:columns = ['问题编号', '问题', '答案', '内容']
+outputs:{
+    "id":
+    "question":
+    "answer":
+    "content":
+}
+
+if __name__ == "__main__"
+# 输出前三行的内容，让我检测是否正确输出
+
+2.test_LLM.py
+再config目录下创建config.json 用于放置test_LLM的调用，这里的test_LLM先选择的是deepseek的调用，
+后续我只需要再config.json中写入其他的测试模型的调用即可再后续模型调用的程序中直接调用
+（config/.env 文件中有 DEEPSEEK_API_KEY=sk-。。。）
+
+在utils/test_LLM.py 
+调用config/config.json 中的LLM_test,仅输出文本内容，
+DEEPSEEK_API_KEY=sk-fb85bba35。。。在config/.env中
+1.默认值输入deepseek，可以选择输入其他的model_name,
+ if __name__ == "__main__"
+ # 检测模型调用是否成功
+
+ 3.utils/eval_llm.py
+ 在config/config.json 中写入eval_llm,这里将使用硅基流动平台的deepseek,其中
+ {
+ url https://api.siliconflow.cn/v1/chat/completions
+  "model": "deepseek-ai/DeepSeek-V3"
+.env文件中包含SILICONFLOW_API_KEY=sk-dwyqn...
+ }
+其他的内容需要你完善
+
+在utils/eval_llm.py中封装一个模型类，后续我将调用它，需要给他输出和Prompt，即可得到输出
+
+ if __name__ == "__main__"
+ # 检测模型调用是否成功
+
+4.文件保存和读取
+utils/dir_rs.py
+在该文件中需要封装一个类，需要：
+（1）  保存和读取文件，这个功能将集成到streamlit的可视化界面，在可视化界面，我将选择被评估的模型上传文件，
+需要保存到指定位置，这个类需要实现的功能是根据 被评估模型的名称来决定存放位置，即读取和保存的位置是
+data/{被评估模型的名称}/{文件的名称}/{需要输入名称}
+data/{被评估模型的名称}/结果分析/{需要输入名称}
+将上述功能封装为一个类
+
+5. 结果处理
+utils/result_processor.py
+依次读取 data/{模型名}/{文件名}/目录下的 stage1_analysis.json和stage2_analysis.json文件，将内容综合，
+生成{文件名}_analysis.json，该文件包含的是文件中所有的问题的信息综合，注意：第二阶段的问题信息属于第一阶段的
+"need_retest": 1,  即将第二阶段的信息综合到第一阶段的 need_retest
+，你能理解上面吗，先给出实现逻辑，再写入代码
+
+如果是多个文件，则需要添加一个文件用再保存data/{模型名}/multi_file/multi_analysis.json
+它将整个data/{模型名}/下的所有{文件名}文件夹的{文件名}_analysis.json，只需要对各个信息加和
+就能得到multi_analysis.json
+
+6.数据结果可视化
+utils/visiual.py  
+ 封装为一个类
+读取data/{模型名}/{文件名}/{文件名}_analysis.json，将数据只作为柱状图和饼图，要正确输出中文内容
+{文件名}的数量和内容会给出
+如果文件数量大于1，则读取data/{模型名}/muitl_file/multi_analysis.json文件夹，也做成柱状图和饼图

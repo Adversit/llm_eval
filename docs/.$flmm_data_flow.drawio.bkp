@@ -1,0 +1,405 @@
+<mxfile host="app.diagrams.net" modified="2025-01-21T00:00:00.000Z" agent="DrawIO" version="22.1.11">
+  <!-- FLMM问卷平台 - 详细数据流程图 -->
+  <diagram name="FLMM模块总览" id="flmm-overview">
+    <mxGraphModel dx="1800" dy="1400" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="2000" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- 标题 -->
+        <mxCell id="title-flmm" value="模块三：FLMM问卷平台 - 完整数据流程图" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=26;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="300" y="20" width="1000" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="subtitle-flmm" value="基于金融大模型应用能力评估框架(FLMM)的问卷筛选和创建工具" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontColor=#666" vertex="1" parent="1">
+          <mxGeometry x="300" y="70" width="1000" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- 功能模块总览 -->
+        <mxCell id="modules-title" value="三大核心功能模块" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c5e1a5;strokeColor=#82b366;fontSize=16;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="100" y="130" width="1400" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- 功能1：问卷筛选与创建 -->
+        <mxCell id="func1-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f5e9;strokeColor=#82b366;strokeWidth=2;dashed=1" vertex="1" parent="1">
+          <mxGeometry x="50" y="200" width="480" height="900" as="geometry" />
+        </mxCell>
+
+        <mxCell id="func1-title" value="功能1：智能问卷筛选与创建" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#81c784;strokeColor=#4caf50;fontSize=15;fontStyle=1;fontColor=white" vertex="1" parent="1">
+          <mxGeometry x="80" y="220" width="420" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- 阶段1：数据准备 -->
+        <mxCell id="func1-phase1" value="阶段1：数据准备" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c5e1a5;strokeColor=#82b366;fontSize=13;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="80" y="280" width="420" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="func1-step1" value="1. 读取FLMM调研表.xlsx&#xa;(5列: 能力域/子域1/子域2/能力项/问题)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="140" y="330" width="300" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="func1-step2" value="2. 数据解析 (data_parser.py)&#xa;• 处理合并单元格&#xa;• 构建层次化结构" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;align=left" vertex="1" parent="1">
+          <mxGeometry x="140" y="400" width="300" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- 阶段2：问卷筛选 -->
+        <mxCell id="func1-phase2" value="阶段2：问卷筛选" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c5e1a5;strokeColor=#82b366;fontSize=13;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="80" y="480" width="420" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="func1-step3" value="3. 层次化选择界面&#xa;• 能力域选择&#xa;• 能力子域1选择&#xa;• 能力子域2选择&#xa;• 能力项选择" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;align=left" vertex="1" parent="1">
+          <mxGeometry x="140" y="530" width="300" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="func1-step4" value="4. 实时统计显示&#xa;• 已选能力项数量&#xa;• 已选问题数量" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;align=left" vertex="1" parent="1">
+          <mxGeometry x="140" y="630" width="300" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- 阶段3：项目创建 -->
+        <mxCell id="func1-phase3" value="阶段3：项目创建" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c5e1a5;strokeColor=#82b366;fontSize=13;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="80" y="700" width="420" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="func1-step5" value="5. 输入项目信息&#xa;• 公司名称&#xa;• 业务场景名称&#xa;• 场景描述" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;align=left" vertex="1" parent="1">
+          <mxGeometry x="140" y="750" width="300" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="func1-step6" value="6. 功能配置&#xa;☑ 启用问卷数据收集&#xa;☑ 启用证明材料收集" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;align=left" vertex="1" parent="1">
+          <mxGeometry x="140" y="830" width="300" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="func1-step7" value="7. 生成项目文件&#xa;• [公司_场景].json (项目信息)&#xa;• [公司_场景]_问卷.xlsx&#xa;• [公司_场景].py (问卷页面)&#xa;• [公司_场景]_证明材料.py" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;align=left" vertex="1" parent="1">
+          <mxGeometry x="140" y="900" width="300" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="func1-output" value="📁 输出：data/[公司_场景]/" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#a5d6a7;strokeColor=#4caf50;fontSize=12;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="140" y="1000" width="300" height="40" as="geometry" />
+        </mxCell>
+
+
+        <!-- 功能2：问卷数据收集 -->
+        <mxCell id="func2-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff9e6;strokeColor=#ffa726;strokeWidth=2;dashed=1" vertex="1" parent="1">
+          <mxGeometry x="560" y="200" width="480" height="900" as="geometry" />
+        </mxCell>
+
+        <mxCell id="func2-title" value="功能2：问卷数据收集页面" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ff9800;strokeColor=#f57c00;fontSize=15;fontStyle=1;fontColor=white" vertex="1" parent="1">
+          <mxGeometry x="590" y="220" width="420" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- 阶段1：用户登录 -->
+        <mxCell id="func2-phase1" value="阶段1：用户登录" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe0b2;strokeColor=#ffa726;fontSize=13;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="590" y="280" width="420" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="func2-step1" value="1. 输入账号密码&#xa;(自动生成或自定义)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="650" y="330" width="300" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="func2-step2" value="2. 身份验证" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="650" y="400" width="300" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- 阶段2：问卷填写 -->
+        <mxCell id="func2-phase2" value="阶段2：问卷填写" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe0b2;strokeColor=#ffa726;fontSize=13;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="590" y="460" width="420" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="func2-step3" value="3. 显示问卷题目&#xa;• 按能力项分组&#xa;• 单选/多选/文本题型" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;align=left" vertex="1" parent="1">
+          <mxGeometry x="650" y="510" width="300" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="func2-step4" value="4. 用户填写答案&#xa;• 选择选项&#xa;• 输入文本" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;align=left" vertex="1" parent="1">
+          <mxGeometry x="650" y="590" width="300" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="func2-step5" value="5. 实时保存&#xa;• 自动保存进度&#xa;• 防止数据丢失" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;align=left" vertex="1" parent="1">
+          <mxGeometry x="650" y="660" width="300" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- 阶段3：数据提交 -->
+        <mxCell id="func2-phase3" value="阶段3：数据提交" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe0b2;strokeColor=#ffa726;fontSize=13;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="590" y="730" width="420" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="func2-step6" value="6. 数据验证&#xa;• 必填项检查&#xa;• 格式验证" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;align=left" vertex="1" parent="1">
+          <mxGeometry x="650" y="780" width="300" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="func2-step7" value="7. 提交问卷" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="650" y="850" width="300" height="40" as="geometry" />
+        </mxCell>
+
+        <mxCell id="func2-step8" value="8. 生成结果文件&#xa;• [公司_场景]_问卷结果.json&#xa;• 时间戳记录" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;align=left" vertex="1" parent="1">
+          <mxGeometry x="650" y="910" width="300" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="func2-output" value="📄 输出：问卷结果JSON" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffcc80;strokeColor=#f57c00;fontSize=12;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="650" y="980" width="300" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- 功能3：证明材料收集 -->
+        <mxCell id="func3-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e3f2fd;strokeColor=#42a5f5;strokeWidth=2;dashed=1" vertex="1" parent="1">
+          <mxGeometry x="1070" y="200" width="480" height="900" as="geometry" />
+        </mxCell>
+
+        <mxCell id="func3-title" value="功能3：证明材料收集页面" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2196f3;strokeColor=#1976d2;fontSize=15;fontStyle=1;fontColor=white" vertex="1" parent="1">
+          <mxGeometry x="1100" y="220" width="420" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- 阶段1：数据准备 -->
+        <mxCell id="func3-phase1" value="阶段1：数据准备" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#bbdefb;strokeColor=#42a5f5;fontSize=13;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="1100" y="280" width="420" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="func3-step1" value="1. 读取FLMM自评表.xlsx&#xa;(4列: 能力域/子域1/子域2/能力项)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="1160" y="330" width="300" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="func3-step2" value="2. 构建4级树形结构&#xa;• 能力域 → 子域1 → 子域2 → 能力项" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;align=left" vertex="1" parent="1">
+          <mxGeometry x="1160" y="400" width="300" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- 阶段2：文件上传 -->
+        <mxCell id="func3-phase2" value="阶段2：文件上传" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#bbdefb;strokeColor=#42a5f5;fontSize=13;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="1100" y="470" width="420" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="func3-step3" value="3. 选择能力项&#xa;• 4级树形选择器&#xa;• 支持多选" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;align=left" vertex="1" parent="1">
+          <mxGeometry x="1160" y="520" width="300" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="func3-step4" value="4. 选择上传方式&#xa;• 单个文件上传&#xa;• 多个文件上传&#xa;• 文件夹上传(ZIP)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;align=left" vertex="1" parent="1">
+          <mxGeometry x="1160" y="590" width="300" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="func3-step5" value="5. 文件格式支持&#xa;• PDF, Word, PPT, Excel&#xa;• 图片 (JPG, PNG)&#xa;• 视频 (MP4, AVI)&#xa;• 压缩包 (ZIP)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=9;align=left" vertex="1" parent="1">
+          <mxGeometry x="1160" y="670" width="300" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- 阶段3：文件处理 -->
+        <mxCell id="func3-phase3" value="阶段3：文件处理" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#bbdefb;strokeColor=#42a5f5;fontSize=13;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="1100" y="760" width="420" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="func3-step6" value="6. ZIP解压处理&#xa;• 自动解压ZIP文件&#xa;• 提取所有文件" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;align=left" vertex="1" parent="1">
+          <mxGeometry x="1160" y="810" width="300" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="func3-step7" value="7. 文件分类存储&#xa;• 按能力项创建文件夹&#xa;• 保存原始文件名&#xa;• 添加时间戳" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;align=left" vertex="1" parent="1">
+          <mxGeometry x="1160" y="880" width="300" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="func3-step8" value="8. 生成上传记录&#xa;• 证明材料上传记录.json&#xa;• 文件清单和元数据" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;align=left" vertex="1" parent="1">
+          <mxGeometry x="1160" y="960" width="300" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="func3-output" value="📁 输出：证明材料/[能力项]/" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#90caf9;strokeColor=#1976d2;fontSize=12;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="1160" y="1030" width="300" height="40" as="geometry" />
+        </mxCell>
+
+
+        <!-- 连接线 - 功能1 -->
+        <mxCell id="func1-arrow1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=classic;endFill=1;strokeColor=#4caf50" edge="1" parent="1" source="func1-step1" target="func1-step2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="func1-arrow2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=classic;endFill=1;strokeColor=#4caf50" edge="1" parent="1" source="func1-step2" target="func1-step3">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="290" y="480" />
+              <mxPoint x="290" y="570" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="func1-arrow3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=classic;endFill=1;strokeColor=#4caf50" edge="1" parent="1" source="func1-step3" target="func1-step4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="func1-arrow4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=classic;endFill=1;strokeColor=#4caf50" edge="1" parent="1" source="func1-step4" target="func1-step5">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="290" y="700" />
+              <mxPoint x="290" y="780" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="func1-arrow5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=classic;endFill=1;strokeColor=#4caf50" edge="1" parent="1" source="func1-step5" target="func1-step6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="func1-arrow6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=classic;endFill=1;strokeColor=#4caf50" edge="1" parent="1" source="func1-step6" target="func1-step7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="func1-arrow7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=classic;endFill=1;strokeColor=#4caf50" edge="1" parent="1" source="func1-step7" target="func1-output">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- 连接线 - 功能2 -->
+        <mxCell id="func2-arrow1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=classic;endFill=1;strokeColor=#ff9800" edge="1" parent="1" source="func2-step1" target="func2-step2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="func2-arrow2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=classic;endFill=1;strokeColor=#ff9800" edge="1" parent="1" source="func2-step2" target="func2-step3">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="800" y="460" />
+              <mxPoint x="800" y="540" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="func2-arrow3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=classic;endFill=1;strokeColor=#ff9800" edge="1" parent="1" source="func2-step3" target="func2-step4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="func2-arrow4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=classic;endFill=1;strokeColor=#ff9800" edge="1" parent="1" source="func2-step4" target="func2-step5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="func2-arrow5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=classic;endFill=1;strokeColor=#ff9800" edge="1" parent="1" source="func2-step5" target="func2-step6">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="800" y="730" />
+              <mxPoint x="800" y="805" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="func2-arrow6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=classic;endFill=1;strokeColor=#ff9800" edge="1" parent="1" source="func2-step6" target="func2-step7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="func2-arrow7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=classic;endFill=1;strokeColor=#ff9800" edge="1" parent="1" source="func2-step7" target="func2-step8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="func2-arrow8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=classic;endFill=1;strokeColor=#ff9800" edge="1" parent="1" source="func2-step8" target="func2-output">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- 连接线 - 功能3 -->
+        <mxCell id="func3-arrow1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=classic;endFill=1;strokeColor=#2196f3" edge="1" parent="1" source="func3-step1" target="func3-step2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="func3-arrow2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=classic;endFill=1;strokeColor=#2196f3" edge="1" parent="1" source="func3-step2" target="func3-step3">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1310" y="470" />
+              <mxPoint x="1310" y="545" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="func3-arrow3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=classic;endFill=1;strokeColor=#2196f3" edge="1" parent="1" source="func3-step3" target="func3-step4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="func3-arrow4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=classic;endFill=1;strokeColor=#2196f3" edge="1" parent="1" source="func3-step4" target="func3-step5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="func3-arrow5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=classic;endFill=1;strokeColor=#2196f3" edge="1" parent="1" source="func3-step5" target="func3-step6">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1310" y="760" />
+              <mxPoint x="1310" y="835" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="func3-arrow6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=classic;endFill=1;strokeColor=#2196f3" edge="1" parent="1" source="func3-step6" target="func3-step7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="func3-arrow7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=classic;endFill=1;strokeColor=#2196f3" edge="1" parent="1" source="func3-step7" target="func3-step8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="func3-arrow8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=classic;endFill=1;strokeColor=#2196f3" edge="1" parent="1" source="func3-step8" target="func3-output">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- 功能间关联 -->
+        <mxCell id="relation1" value="生成" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=classic;endFill=1;strokeColor=#666;dashed=1" edge="1" parent="1" source="func1-output" target="func2-step1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="290" y="1120" />
+              <mxPoint x="800" y="1120" />
+              <mxPoint x="800" y="355" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="relation2" value="生成" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=classic;endFill=1;strokeColor=#666;dashed=1" edge="1" parent="1" source="func1-output" target="func3-step1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="290" y="1140" />
+              <mxPoint x="1310" y="1140" />
+              <mxPoint x="1310" y="355" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- 数据结构说明 -->
+        <mxCell id="data-structure-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;strokeWidth=1" vertex="1" parent="1">
+          <mxGeometry x="50" y="1180" width="1500" height="200" as="geometry" />
+        </mxCell>
+
+        <mxCell id="data-structure-title" value="数据结构说明" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="80" y="1200" width="200" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="data-structure-content" value="📊 FLMM调研表.xlsx (5列结构)&#xa;• 能力域：一级分类 (如：基础能力、专业能力)&#xa;• 能力子域1：二级分类 (如：数据处理、模型训练)&#xa;• 能力子域2：三级分类 (如：数据清洗、特征工程)&#xa;• 能力项：具体能力点 (如：缺失值处理、异常值检测)&#xa;• 调研问题：评估问题 (支持{name}变量替换、A/B/C选项格式)&#xa;&#xa;📋 FLMM自评表.xlsx (4列结构)&#xa;• 能力域、能力子域1、能力子域2、能力项&#xa;• 用于证明材料收集的分类依据&#xa;&#xa;📁 项目输出结构&#xa;data/[公司名_场景名]/&#xa;  ├── [公司名_场景名].json          # 项目配置信息&#xa;  ├── [公司名_场景名]_问卷.xlsx      # 筛选后的问卷&#xa;  ├── [公司名_场景名].py             # 问卷采集页面(可选)&#xa;  ├── [公司名_场景名]_证明材料.py    # 证明材料收集页面(可选)&#xa;  ├── [公司名_场景名]_问卷结果.json  # 问卷填写结果&#xa;  └── 证明材料/                      # 证明材料存储&#xa;      ├── [能力项1]/                  # 按能力项分类&#xa;      ├── [能力项2]/&#xa;      └── 证明材料上传记录.json        # 上传记录" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=10;fontFamily=Courier New" vertex="1" parent="1">
+          <mxGeometry x="80" y="1240" width="1440" height="130" as="geometry" />
+        </mxCell>
+
+        <!-- 图例 -->
+        <mxCell id="legend-box-flmm" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#666666;strokeWidth=1" vertex="1" parent="1">
+          <mxGeometry x="50" y="1420" width="1500" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="legend-title-flmm" value="图例说明：" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="80" y="1435" width="100" height="20" as="geometry" />
+        </mxCell>
+
+        <mxCell id="legend-user-flmm" value="用户操作" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="80" y="1465" width="120" height="25" as="geometry" />
+        </mxCell>
+
+        <mxCell id="legend-process-flmm" value="数据处理" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="220" y="1465" width="120" height="25" as="geometry" />
+        </mxCell>
+
+        <mxCell id="legend-llm-flmm" value="配置/验证" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="360" y="1465" width="120" height="25" as="geometry" />
+        </mxCell>
+
+        <mxCell id="legend-file-flmm" value="文件处理" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="500" y="1465" width="120" height="25" as="geometry" />
+        </mxCell>
+
+        <mxCell id="legend-output-flmm" value="结果输出" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="640" y="1465" width="120" height="25" as="geometry" />
+        </mxCell>
+
+        <mxCell id="legend-relation-flmm" value="功能关联" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=classic;endFill=1;strokeColor=#666;dashed=1" edge="1" parent="1">
+          <mxGeometry x="780" y="1465" width="120" height="25" as="geometry">
+            <mxPoint x="780" y="1477" as="sourcePoint" />
+            <mxPoint x="900" y="1477" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- 技术栈说明 -->
+        <mxCell id="tech-stack-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f5e9;strokeColor=#4caf50;strokeWidth=1" vertex="1" parent="1">
+          <mxGeometry x="50" y="1540" width="1500" height="100" as="geometry" />
+        </mxCell>
+
+        <mxCell id="tech-stack-title" value="🛠️ 技术栈" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="80" y="1555" width="200" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="tech-stack-content" value="• 前端框架：Streamlit (Python Web框架)&#xa;• 数据处理：pandas (Excel/JSON数据处理)&#xa;• 文件解析：openpyxl (Excel读写)、zipfile (ZIP解压)&#xa;• 架构模式：模块化设计 (function/目录分离功能模块)&#xa;• 数据存储：JSON (项目配置、问卷结果、上传记录)、Excel (问卷数据)、文件系统 (证明材料)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="80" y="1590" width="1440" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- 关键特性 -->
+        <mxCell id="features-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff9e6;strokeColor=#ffa726;strokeWidth=1" vertex="1" parent="1">
+          <mxGeometry x="50" y="1680" width="1500" height="120" as="geometry" />
+        </mxCell>
+
+        <mxCell id="features-title" value="✨ 关键特性" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="80" y="1695" width="200" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="features-content" value="1. 📋 层次化问卷筛选：4级树形结构选择，支持能力域/子域/能力项多级筛选&#xa;2. 🎯 灵活功能配置：可选择启用问卷收集和/或证明材料收集，按需生成页面&#xa;3. 📁 智能文件管理：支持单文件、多文件、ZIP文件夹上传，自动按能力项分类存储&#xa;4. 🔄 实时数据同步：问卷填写自动保存，防止数据丢失&#xa;5. 📊 多格式支持：支持PDF、Word、PPT、Excel、图片、视频等多种文件格式&#xa;6. 🔐 账号管理：支持自动生成或自定义登录账号密码&#xa;7. 📝 变量替换：问卷问题支持{name}变量自动替换为场景名称&#xa;8. 📦 完整项目输出：一键生成包含配置、问卷、页面代码、数据存储的完整项目结构" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="80" y="1730" width="1440" height="60" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
