@@ -116,7 +116,7 @@ const QAStatus = () => {
         const data = JSON.parse(e.data) as ProgressData
         setProgressData(data)
       } catch (error) {
-        console.error('Failed to parse progress data:', error)
+        // console.error('Failed to parse progress data:', error)
       }
     })
 
@@ -125,7 +125,7 @@ const QAStatus = () => {
         const log = JSON.parse(e.data) as LogEntry
         setLogs((prev) => [...prev, log])
       } catch (error) {
-        console.error('Failed to parse log data:', error)
+        // console.error('Failed to parse log data:', error)
       }
     })
 
@@ -144,7 +144,7 @@ const QAStatus = () => {
         }
         eventSource.close()
       } catch (error) {
-        console.error('Failed to parse complete data:', error)
+        // console.error('Failed to parse complete data:', error)
       }
     })
 

@@ -74,7 +74,7 @@ def run_complete_workflow(document_path, output_dir=None,
         
         # 步骤1: 文档处理（提取内容、评估内容质量、生成问答对）
         if not skip_extract or not skip_evaluate or not skip_qa:
-            print("\n===== 步骤1: 文档处理 =====")
+            # print("\n===== 步骤1: 文档处理 =====")
             update_progress("文档处理", 0.1, "开始处理文档...")
             
             sub_steps = 3 - sum([skip_extract, skip_evaluate, skip_qa])
@@ -121,8 +121,8 @@ def run_complete_workflow(document_path, output_dir=None,
         
         # 步骤2: 问答质量评估
         if not skip_qa_evaluate:
-            print("\n===== 步骤2: 问答质量评估 =====")
-            print(f"评估参数: 事实依据≥{min_factual_score}, 总体质量≥{min_overall_score}, 抽查{qa_sample_percentage}%")
+            # print("\n===== 步骤2: 问答质量评估 =====")
+            # print(f"评估参数: 事实依据≥{min_factual_score}, 总体质量≥{min_overall_score}, 抽查{qa_sample_percentage}%")
             update_progress("问答质量评估", 0.8,
                           f"开始评估问答对质量... (阈值: 事实≥{min_factual_score}, 质量≥{min_overall_score}, 抽查{qa_sample_percentage}%)")
 

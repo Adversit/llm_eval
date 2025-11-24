@@ -92,7 +92,9 @@ const QAResults = () => {
       key: task.task_id,
       taskId: task.task_id,
       file: task.filename,
-      taskType: task.task_type === 'generation' ? '问答生成' : '质量评估',
+      taskType: task.task_type === 'generation' ? '问答生成' : 
+                task.task_type === 'evaluation' ? '质量评估' : 
+                '未知类型',
       status: task.status,
       progress: task.progress || 0,
       time: task.created_at ? new Date(task.created_at).toLocaleString('zh-CN') : '-',

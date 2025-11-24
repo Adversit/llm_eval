@@ -870,8 +870,7 @@ const QAProcess = () => {
                 </Space>
                 <Text type="secondary" style={{ fontSize: 12 }}>
                   {enableQAEvaluation
-                    ? '开启后，系统将在问答对生成完成后自动进行质量评估，筛选出符合标准的高质量问答对'
-                    : '关闭后，系统仅生成问答对，不进行质量评估（可在结果页面手动评估）'}
+                   }
                 </Text>
               </Space>
             </Card>
@@ -1081,18 +1080,50 @@ const QAProcess = () => {
                   <Row gutter={8} style={{ marginTop: 8 }}>
                     <Col span={12}>
                       <Tag
-                        color={currentStage === 1 ? 'processing' : currentStage > 1 ? 'success' : 'default'}
+                        color={
+                          // 任务完成或阶段1已完成 -> success
+                          (!isProcessing && progressData.status === 'completed') || currentStage > 1
+                            ? 'success'
+                            : currentStage === 1 && isProcessing
+                            ? 'processing'
+                            : 'default'
+                        }
                         style={{ width: '100%', textAlign: 'center', padding: '4px 0' }}
                       >
-                        {currentStage > 1 ? <CheckCircleOutlined /> : currentStage === 1 ? <SyncOutlined spin /> : ''} 问答对生成
+                        {(!isProcessing && progressData.status === 'completed') || currentStage > 1 ? (
+                          <CheckCircleOutlined />
+                        ) : currentStage === 1 && isProcessing ? (
+                          <SyncOutlined spin />
+                        ) : (
+                          ''
+                        )}{' '}
+                        问答对生成
                       </Tag>
                     </Col>
                     <Col span={12}>
                       <Tag
-                        color={currentStage === 2 ? 'processing' : currentStage > 2 ? 'success' : 'default'}
+                        color={
+                          // 任务完成 -> success
+                          !isProcessing && progressData.status === 'completed'
+                            ? 'success'
+                            : currentStage === 2 && isProcessing
+                            ? 'processing'
+                            : currentStage > 2
+                            ? 'success'
+                            : 'default'
+                        }
                         style={{ width: '100%', textAlign: 'center', padding: '4px 0' }}
                       >
-                        {currentStage > 2 ? <CheckCircleOutlined /> : currentStage === 2 ? <SyncOutlined spin /> : ''} 整体质量评估
+                        {!isProcessing && progressData.status === 'completed' ? (
+                          <CheckCircleOutlined />
+                        ) : currentStage === 2 && isProcessing ? (
+                          <SyncOutlined spin />
+                        ) : currentStage > 2 ? (
+                          <CheckCircleOutlined />
+                        ) : (
+                          ''
+                        )}{' '}
+                        整体质量评估
                       </Tag>
                     </Col>
                   </Row>

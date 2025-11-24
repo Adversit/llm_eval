@@ -180,6 +180,16 @@ def process_qa_generation(
 
         if result.get('success'):
             qa_excel = result['files'].get('qa_excel') if result.get('files') else None
+            # 注意：实际返回的键名是 qa_evaluated_excel，不是 qa_excel_evaluated
+            qa_excel_evaluated = result['files'].get('qa_evaluated_excel') if result.get('files') else None
+            
+            # 检测并添加 _filtered 文件（evaluate_qa.py 会生成这个文件）
+            if qa_excel_evaluated and os.path.exists(qa_excel_evaluated):
+                base_name, ext = os.path.splitext(qa_excel_evaluated)
+                qa_evaluated_filtered = f"{base_name}_filtered{ext}"
+                if os.path.exists(qa_evaluated_filtered) and 'qa_evaluated_filtered_excel' not in result['files']:
+                    result['files']['qa_evaluated_filtered_excel'] = qa_evaluated_filtered
+            
             if qa_excel and os.path.exists(qa_excel):
                 # 构建artifacts列表
                 artifacts = []
@@ -193,6 +203,7 @@ def process_qa_generation(
                                 'size_bytes': os.path.getsize(file_path)
                             })
 
+                # 更新问答生成任务（使用原始问答文件）
                 _update_task(
                     task_id,
                     status='completed',
@@ -203,21 +214,30 @@ def process_qa_generation(
                     artifacts=artifacts,
                     metadata={
                         'output_dir': output_dir,
-                    'files': result['files'],
-                    'parameters': {
-                        'num_pairs': num_pairs,
-                        'include_reason': include_reason,
-                        'suggest_qa_count': suggest_qa_count,
-                        'use_suggested_count': use_suggested,
-                        'min_density_score': min_density,
-                        'min_quality_score': min_quality,
-                        'skip_extract': skip_extract,
-                        'skip_evaluate': skip_evaluate
-                    }
-                },
+                        'files': result['files'],
+                        'parameters': {
+                            'num_pairs': num_pairs,
+                            'include_reason': include_reason,
+                            'suggest_qa_count': suggest_qa_count,
+                            'use_suggested_count': use_suggested,
+                            'min_density_score': min_density,
+                            'min_quality_score': min_quality,
+                            'skip_extract': skip_extract,
+                            'skip_evaluate': skip_evaluate,
+                            'skip_qa_evaluate': skip_qa_evaluate,
+                            'min_factual_score': min_factual_score,
+                            'min_overall_score': min_overall_score,
+                            'qa_sample_percentage': qa_sample_percentage
+                        }
+                    },
                     current_step='完成'
                 )
                 _append_task_log(task_id, '问答对生成完成')
+                
+                # 如果执行了质量评估，记录日志（评估任务会在get_all_tasks中动态生成）
+                if qa_excel_evaluated and os.path.exists(qa_excel_evaluated) and not skip_qa_evaluate:
+                    _append_task_log(task_id, f'✓ 问答质量评估已完成，评估文件: {os.path.basename(qa_excel_evaluated)}')
+                    _append_task_log(task_id, '提示: 在结果分析页面可以查看问答生成和质量评估两个任务')
             else:
                 _update_task(
                     task_id,
@@ -508,19 +528,38 @@ async def download_result(task_id: str):
     """
     下载结果文件
 
-    - **task_id**: 任务ID
+    - **task_id**: 任务ID（支持虚拟评估任务ID，格式为 {generation_task_id}_eval）
     """
-    if task_id not in task_storage:
-        raise HTTPException(status_code=404, detail="任务不存在")
+    # 检查是否是虚拟评估任务
+    if task_id.endswith('_eval'):
+        # 虚拟评估任务，从生成任务中获取评估文件
+        generation_task_id = task_id[:-5]  # 移除 '_eval' 后缀
+        
+        if generation_task_id not in task_storage:
+            raise HTTPException(status_code=404, detail=f"生成任务不存在: {generation_task_id}")
+        
+        generation_task = task_storage[generation_task_id]
+        files = generation_task.get('metadata', {}).get('files', {})
+        # 优先使用完整评估文件，如果不存在则使用过滤后的文件
+        result_file = files.get('qa_evaluated_excel')
+        if not result_file or not os.path.exists(result_file):
+            result_file = files.get('qa_evaluated_filtered_excel')
+        
+        if not result_file or not os.path.exists(result_file):
+            raise HTTPException(status_code=404, detail="评估结果文件不存在")
+    else:
+        # 普通任务
+        if task_id not in task_storage:
+            raise HTTPException(status_code=404, detail="任务不存在")
 
-    task = task_storage[task_id]
+        task = task_storage[task_id]
 
-    if task['status'] != 'completed':
-        raise HTTPException(status_code=400, detail="任务尚未完成")
+        if task['status'] != 'completed':
+            raise HTTPException(status_code=400, detail="任务尚未完成")
 
-    result_file = task.get('result_file')
-    if not result_file or not os.path.exists(result_file):
-        raise HTTPException(status_code=404, detail="结果文件不存在")
+        result_file = task.get('result_file')
+        if not result_file or not os.path.exists(result_file):
+            raise HTTPException(status_code=404, detail="结果文件不存在")
 
     return FileResponse(
         result_file,
@@ -552,11 +591,17 @@ async def get_qa_stats():
 async def get_all_tasks():
     """
     获取所有任务及其详细信息（用于结果分析）
+    
+    对于包含质量评估的生成任务，会自动创建虚拟的评估任务记录
     """
+    print(f"[get_all_tasks] 存储中的任务总数: {len(task_storage)}")
     all_tasks = []
+    
     for task_id, task_data in task_storage.items():
         created_at = task_data.get('created_at')
         completed_at = task_data.get('completed_at')
+        
+        # 添加原始任务
         all_tasks.append({
             'task_id': task_id,
             'task_type': task_data.get('task_type', 'generation'),
@@ -570,6 +615,33 @@ async def get_all_tasks():
             'result_file': task_data.get('result_file'),
             '_sort_time': _normalize_datetime(created_at)
         })
+        
+        # 如果是生成任务且包含评估文件，创建虚拟评估任务
+        if task_data.get('task_type') == 'generation' and task_data.get('status') == 'completed':
+            files = task_data.get('metadata', {}).get('files', {})
+            # 优先使用完整评估文件，如果不存在则使用过滤后的文件
+            qa_evaluated_excel = files.get('qa_evaluated_excel')
+            if not qa_evaluated_excel or not os.path.exists(qa_evaluated_excel):
+                # 尝试使用过滤后的评估文件
+                qa_evaluated_excel = files.get('qa_evaluated_filtered_excel')
+            
+            if qa_evaluated_excel and os.path.exists(qa_evaluated_excel):
+                # 创建虚拟评估任务ID（基于生成任务ID生成，保证一致性）
+                eval_task_id = f"{task_id}_eval"
+                
+                all_tasks.append({
+                    'task_id': eval_task_id,
+                    'task_type': 'evaluation',
+                    'status': 'completed',
+                    'filename': task_data.get('source_filename', '未知文件'),
+                    'created_at': _format_datetime(completed_at),  # 使用生成任务的完成时间
+                    'completed_at': _format_datetime(completed_at),
+                    'progress': 100,
+                    'message': '问答质量评估完成',
+                    'source_task_id': task_id,
+                    'result_file': qa_evaluated_excel,
+                    '_sort_time': _normalize_datetime(completed_at)
+                })
 
     # 按创建时间倒序排列
     all_tasks.sort(key=lambda x: x['_sort_time'], reverse=True)
@@ -587,20 +659,39 @@ async def preview_result(task_id: str, limit: int = Query(100, ge=1, le=1000)):
     """
     预览结果文件内容（返回Excel前N行数据）
 
-    - **task_id**: 任务ID
+    - **task_id**: 任务ID（支持虚拟评估任务ID，格式为 {generation_task_id}_eval）
     - **limit**: 返回的最大行数（默认100，最大1000）
     """
-    if task_id not in task_storage:
-        raise HTTPException(status_code=404, detail="任务不存在")
+    # 检查是否是虚拟评估任务
+    if task_id.endswith('_eval'):
+        # 虚拟评估任务，从生成任务中获取评估文件
+        generation_task_id = task_id[:-5]  # 移除 '_eval' 后缀
+        
+        if generation_task_id not in task_storage:
+            raise HTTPException(status_code=404, detail=f"生成任务不存在: {generation_task_id}")
+        
+        generation_task = task_storage[generation_task_id]
+        files = generation_task.get('metadata', {}).get('files', {})
+        # 优先使用完整评估文件，如果不存在则使用过滤后的文件
+        result_file = files.get('qa_evaluated_excel')
+        if not result_file or not os.path.exists(result_file):
+            result_file = files.get('qa_evaluated_filtered_excel')
+        
+        if not result_file or not os.path.exists(result_file):
+            raise HTTPException(status_code=404, detail="评估结果文件不存在")
+    else:
+        # 普通任务
+        if task_id not in task_storage:
+            raise HTTPException(status_code=404, detail=f"任务不存在: {task_id}")
 
-    task = task_storage[task_id]
+        task = task_storage[task_id]
 
-    if task['status'] != 'completed':
-        raise HTTPException(status_code=400, detail="任务尚未完成")
+        if task['status'] != 'completed':
+            raise HTTPException(status_code=400, detail="任务尚未完成")
 
-    result_file = task.get('result_file')
-    if not result_file or not os.path.exists(result_file):
-        raise HTTPException(status_code=404, detail="结果文件不存在")
+        result_file = task.get('result_file')
+        if not result_file or not os.path.exists(result_file):
+            raise HTTPException(status_code=404, detail="结果文件不存在")
 
     try:
         import pandas as pd
