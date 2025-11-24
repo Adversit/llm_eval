@@ -8,8 +8,7 @@ set "PROJECT_ROOT=%CD%"
 
 REM 启动后端
 echo 📦 启动后端服务...
-if not exist "%PROJECT_ROOT%\logs" mkdir "%PROJECT_ROOT%\logs"
-start "LLM-Backend" cmd /k "cd /d "%PROJECT_ROOT%\backend" && set PYTHONPATH=%PROJECT_ROOT% && set PYTHONUNBUFFERED=1 && call conda activate damoxingeval && python -u -m uvicorn app.main:app --reload --host 0.0.0.0 --port 8000 --log-level info --access-log"
+start "LLM-Backend" cmd /k "cd /d "%PROJECT_ROOT%\backend" && set PYTHONPATH=%PROJECT_ROOT% && call conda activate damoxingeval && python -m uvicorn app.main:app --reload --host 0.0.0.0 --port 8000 --access-log"
 
 REM 等待几秒
 timeout /t 3 /nobreak > nul

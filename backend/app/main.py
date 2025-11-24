@@ -7,30 +7,6 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from app.api import qa, evaluation, upload
 import uvicorn
-import logging
-import logging.config
-import json
-import sys
-import os
-from pathlib import Path
-
-# 初始化日志系统
-BACKEND_DIR = Path(__file__).parent.parent
-LOG_CONFIG_PATH = BACKEND_DIR / "logging_config.json"
-
-if LOG_CONFIG_PATH.exists():
-    with open(LOG_CONFIG_PATH, 'r', encoding='utf-8') as f:
-        log_config = json.load(f)
-    logging.config.dictConfig(log_config)
-    logger = logging.getLogger("app.main")
-    logger.info("=" * 80)
-    logger.info("日志系统初始化完成")
-    logger.info(f"日志配置文件: {LOG_CONFIG_PATH}")
-    logger.info("=" * 80)
-else:
-    logging.basicConfig(level=logging.INFO)
-    logger = logging.getLogger("app.main")
-    logger.warning(f"日志配置文件不存在: {LOG_CONFIG_PATH}")
 
 app = FastAPI(
     title="LLM Evaluation Platform API",
@@ -56,22 +32,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.on_event("startup")
-async def startup_event():
-    """应用启动时执行的任务"""
-    logger.info("=" * 50)
-    logger.info("LLM Evaluation Platform 正在启动...")
-    logger.info("=" * 50)
-    
-    # 导入并执行清理逻辑
-    from app.api.evaluation import _cleanup_interrupted_tasks
-    _cleanup_interrupted_tasks()
-    
-    logger.info("=" * 50)
-    logger.info("应用启动完成！")
-    logger.info(f"API 文档: http://localhost:8000/api/docs")
-    logger.info("=" * 50)
-
 # 注册API路由
 app.include_router(qa.router, prefix="/api/qa", tags=["QA问答对管理"])
 app.include_router(evaluation.router, prefix="/api/eval", tags=["双阶段评测系统"])
@@ -96,17 +56,11 @@ async def health_check():
     """健康检查"""
     return {"status": "healthy", "service": "llm-eval-api"}
 
-@app.get("/api/test")
-async def test_logging():
-    """测试日志"""
-    return {"message": "测试成功", "timestamp": "2025-11-23"}
-
 if __name__ == "__main__":
     uvicorn.run(
         "main:app",
         host="0.0.0.0",
         port=8000,
         reload=True,
-        log_level="info",
-        access_log=True
+        log_level="info"
     )

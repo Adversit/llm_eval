@@ -459,7 +459,7 @@ const EvaluationWorkflow = () => {
         layout="vertical"
       >
         {/* 被评估模型 */}
-        <Divider orientation="left">被评估模型（测试模型）</Divider>
+        <Divider orientation="left"></Divider>
         
         <Form.Item label="选择输入方式">
           <Select
@@ -510,10 +510,10 @@ const EvaluationWorkflow = () => {
         )}
 
         {/* 评估模型 */}
-        <Divider orientation="left">评估模型（用于评分的模型）</Divider>
+        <Divider orientation="left"></Divider>
         
         <Form.Item
-          label="选择评估模型"
+          label="选择裁判模型"
           name="eval_model_name"
           rules={[{ required: true, message: '请选择评估模型' }]}
         >
@@ -535,7 +535,7 @@ const EvaluationWorkflow = () => {
         </Form.Item>
 
         {/* 备注信息 */}
-        <Divider orientation="left">备注信息</Divider>
+        <Divider orientation="left"></Divider>
         
         <Form.Item label="备注" name="description">
           <Input.TextArea

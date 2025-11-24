@@ -20,7 +20,6 @@ import {
   Tag,
 } from 'antd'
 import {
-  FormOutlined,
   PlusOutlined,
   DeleteOutlined,
   CheckCircleOutlined,
@@ -28,9 +27,10 @@ import {
   LeftOutlined,
   FolderOutlined,
   FileOutlined,
+  BarChartOutlined,
 } from '@ant-design/icons'
 import { useMutation, useQuery } from '@tanstack/react-query'
-// motion removed for enterprise UI
+import { motion } from 'framer-motion'
 import {
   flmmService,
   FunctionModule,
@@ -38,7 +38,7 @@ import {
   ProjectCreateRequest,
 } from '../../services/flmmService'
 
-const { Title, Text } = Typography
+const { Title, Text, Paragraph } = Typography
 const { TextArea } = Input
 const { Step } = Steps
 
@@ -506,7 +506,7 @@ const FLMMCreate = () => {
           />
         </Col>
         <Col span={24}>
-          <Text strong>评估业务场景描述 <Text type="danger">*</Text></Text>
+          <Text strong>评估业务场景描述 <Text type="danger"></Text></Text>
           <TextArea
             placeholder="请详细描述该业务场景的具体内容、应用范围和预期目标..."
             value={scenarioDescription}
@@ -850,14 +850,28 @@ const FLMMCreate = () => {
   return (
     <div>
       {/* 页面标题 */}
-      <div style={{ marginBottom: 24 }}>
-        <Title level={4} style={{ margin: 0 }}>
-          <FormOutlined /> 测试指标评估执行流程
-        </Title>
-        <Text type="secondary" style={{ display: 'block', marginTop: 8 }}>
-          完整的FLMM评估流程：基本信息填写 → 问卷筛选 → 证明材料收集 → 项目生成
-        </Text>
-      </div>
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        <Card
+          style={{
+            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+            marginBottom: 24,
+            borderRadius: 4,
+          }}
+        >
+          <Space direction="vertical" size="small" style={{ width: '100%' }}>
+            <Title level={2} style={{ color: 'white', margin: 0 }}>
+              <BarChartOutlined /> 测试指标评估执行流程
+            </Title>
+            <Paragraph style={{ color: 'rgba(255,255,255,0.9)', margin: 0 }}>
+              
+            </Paragraph>
+          </Space>
+        </Card>
+      </motion.div>
 
       {/* Steps */}
       <Card bordered={false} style={{ marginBottom: 24, borderRadius: 4 }}>

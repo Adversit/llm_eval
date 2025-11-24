@@ -126,7 +126,7 @@ def show_company_info():
         st.session_state.scenario_name = scenario_name
         
         scenario_description = st.text_area(
-            "评估业务场景描述 *",
+            "评估业务场景描述",
             value=st.session_state.get('scenario_description', ''),
             placeholder="请详细描述该业务场景的具体内容、应用范围和预期目标...",
             height=120,
@@ -177,13 +177,13 @@ def show_company_info():
         st.header("📊 信息概览")
         
         # 检查必填字段
-        required_fields = [company_name, scenario_name, scenario_description]
+        required_fields = [company_name, scenario_name]
         filled_fields = sum(1 for field in required_fields if field and field.strip())
         
-        st.metric("信息完整度", f"{filled_fields}/3")
+        st.metric("信息完整度", f"{filled_fields}/2")
         st.metric("功能模块数", len(st.session_state.functions_list))
         
-        if filled_fields == 3:
+        if filled_fields == 2:
             st.success("✅ 基本信息已完整")
         else:
             st.warning("⚠️ 请完善必填信息")

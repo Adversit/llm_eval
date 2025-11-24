@@ -29,33 +29,35 @@ const { Content } = Layout
 function App() {
   return (
     <Layout style={{ minHeight: '100vh' }}>
-      <AppSidebar />
+      <AppHeader />
       <Layout>
-        <AppHeader />
-        <Content style={{ margin: '0', padding: '16px 24px', background: '#F5F7FA' }}>
-          <AppBreadcrumb />
-          <Routes>
-            {/* 首页 */}
-            <Route path="/" element={<Home />} />
+        <AppSidebar />
+        <Layout>
+          <Content style={{ margin: '0', padding: '16px 24px', background: '#F5F7FA' }}>
+            <AppBreadcrumb />
+            <Routes>
+              {/* 首页 */}
+              <Route path="/" element={<Home />} />
 
-            {/* FLMM问卷平台 */}
-            <Route path="/flmm/create" element={<FLMMCreate />} />
-            <Route path="/flmm/projects" element={<FLMMProjects />} />
-            <Route path="/flmm/analysis" element={<FLMMAnalysis />} />
-            {/* 问卷填写页面保留路由但不在菜单显示 */}
-            <Route path="/flmm/questionnaire" element={<FLMMQuestionnaire />} />
+              {/* FLMM问卷平台 */}
+              <Route path="/flmm/create" element={<FLMMCreate />} />
+              <Route path="/flmm/projects" element={<FLMMProjects />} />
+              <Route path="/flmm/analysis" element={<FLMMAnalysis />} />
+              {/* 问卷填写页面保留路由但不在菜单显示 */}
+              <Route path="/flmm/questionnaire" element={<FLMMQuestionnaire />} />
 
-            {/* QA模块 */}
-            <Route path="/qa/process" element={<QAProcess />} />
-            <Route path="/qa/status/:taskId/:taskType" element={<QAStatus />} />
-            <Route path="/qa/results" element={<QAAnalysis />} />
-            <Route path="/qa/analysis" element={<QAAnalysis />} />
+              {/* QA模块 */}
+              <Route path="/qa/process" element={<QAProcess />} />
+              <Route path="/qa/status/:taskId/:taskType" element={<QAStatus />} />
+              <Route path="/qa/results" element={<QAAnalysis />} />
+              <Route path="/qa/analysis" element={<QAAnalysis />} />
 
-            {/* 双阶段评测系统 */}
-            <Route path="/eval/workflow" element={<EvaluationWorkflow />} />
-            <Route path="/eval/analysis" element={<EvaluationAnalysis />} />
-          </Routes>
-        </Content>
+              {/* 双阶段评测系统 */}
+              <Route path="/eval/workflow" element={<EvaluationWorkflow />} />
+              <Route path="/eval/analysis" element={<EvaluationAnalysis />} />
+            </Routes>
+          </Content>
+        </Layout>
       </Layout>
     </Layout>
   )
