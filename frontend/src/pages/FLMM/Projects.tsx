@@ -247,7 +247,7 @@ const FLMMProjects = () => {
               title={!record.has_evidence_file ? '该项目缺少证明材料文件，请重新创建项目' : '启动证明材料上传服务'}
               style={{ minWidth: 110 }}
             >
-              启动证明材料
+              证明材料上传
             </Button>
           )}
         </Space>

@@ -564,7 +564,7 @@ const QAProcess = () => {
               value={fileList.length}
               suffix="个"
               valueStyle={{ color: '#667eea' }}
-              prefix={<FileWordOutlined />}
+             
             />
           </Card>
         </Col>

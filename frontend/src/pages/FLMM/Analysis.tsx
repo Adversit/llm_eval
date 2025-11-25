@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import {
   Card,
   Typography,
@@ -56,6 +56,18 @@ const FLMMAnalysis = () => {
     queryKey: ['flmm-analysis-projects'],
     queryFn: () => flmmService.getAnalysisProjects(),
   })
+
+  // 当项目列表加载完成后，自动选择默认项目
+  useEffect(() => {
+    if (projectsData?.projects && projectsData.projects.length > 0 && !selectedProject) {
+      // 优先选择"测试 - 测试项目"，如果不存在则选择第一个
+      const testProject = projectsData.projects.find(
+        (p: any) => p.folder_name === '测试 - 测试项目' || p.display_name === '测试 - 测试项目'
+      )
+      const defaultProject = testProject || projectsData.projects[0]
+      setSelectedProject(defaultProject.folder_name)
+    }
+  }, [projectsData, selectedProject])
 
   // 获取项目基本统计
   const { data: statisticsData, isLoading: statisticsLoading } = useQuery({

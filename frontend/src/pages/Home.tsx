@@ -143,7 +143,7 @@ const Home = () => {
   }, [qaTasksData, flmmProjectsData, evalTasksData])
 
   // 根据展开状态决定显示多少条
-  const displayTasks = showAllTasks ? sortedTasks : sortedTasks.slice(0, 10)
+  const displayTasks = showAllTasks ? sortedTasks : sortedTasks.slice(0, 12)
 
   // 当有进行中的任务时,启动自动刷新
   useEffect(() => {
@@ -165,20 +165,20 @@ const Home = () => {
       dataIndex: 'name',
       key: 'name',
       ellipsis: true,
-      width: '30%',
+      width: '32%',
     },
     {
       title: '所属模块',
       dataIndex: 'module',
       key: 'module',
-      width: '15%',
+      width: '13%',
       render: (module: string) => {
         const colorMap: Record<string, string> = {
           '数据集生成': 'blue',
           '测试指标': 'orange',
           '智能评估': 'green',
         }
-        return <Tag color={colorMap[module]}>{module}</Tag>
+        return <Tag color={colorMap[module]} style={{ fontSize: 12 }}>{module}</Tag>
       },
     },
     {
@@ -201,7 +201,7 @@ const Home = () => {
         }
         const cfg = config[status] || { color: 'default', icon: null, text: status }
         return (
-          <Tag color={cfg.color} icon={cfg.icon}>
+          <Tag color={cfg.color} icon={cfg.icon} style={{ fontSize: 12 }}>
             {cfg.text}
           </Tag>
         )
@@ -241,45 +241,93 @@ const Home = () => {
   ]
 
   return (
-    <div>
+    <div style={{ 
+      display: 'flex', 
+      flexDirection: 'column',
+      gap: '12px'
+    }}>
+      {/* 快速操作 */}
+      <div>
+        <Text strong style={{ fontSize: 14, display: 'block', marginBottom: 8 }}>
+          快速操作
+        </Text>
+        <Row gutter={12}>
+          {quickActions.map((action, index) => (
+            <Col xs={24} sm={12} lg={8} key={index}>
+              <Card
+                bordered={false}
+                hoverable
+                style={{ borderRadius: 4, cursor: 'pointer' }}
+                styles={{ body: { padding: '10px' } }}
+                onClick={() => navigate(action.path)}
+              >
+                <Space direction="vertical" size={2} style={{ width: '100%' }}>
+                  <div
+                    style={{
+                      width: 28,
+                      height: 28,
+                      borderRadius: 4,
+                      background: `${action.color}15`,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontSize: 14,
+                      color: action.color,
+                    }}
+                  >
+                    {action.icon}
+                  </div>
+                  <Title level={5} style={{ margin: '4px 0 2px 0', fontSize: 12 }}>
+                    {action.title}
+                  </Title>
+                  <Text type="secondary" style={{ fontSize: 11 }}>
+                    {action.description}
+                  </Text>
+                </Space>
+              </Card>
+            </Col>
+          ))}
+        </Row>
+      </div>
+
       {/* 统计卡片 */}
-      <Row gutter={16} style={{ marginBottom: 24 }}>
+      <Row gutter={12}>
         <Col xs={24} sm={12} lg={6}>
-          <Card bordered={false} style={{ borderRadius: 4 }}>
+          <Card bordered={false} style={{ borderRadius: 4 }} styles={{ body: { padding: '10px' } }}>
             <Statistic
-              title={<Text type="secondary" style={{ fontSize: 14 }}>总任务数</Text>}
+              title={<Text type="secondary" style={{ fontSize: 11 }}>总任务数</Text>}
               value={stats.total}
-              valueStyle={{ color: '#252B3A', fontSize: 28, fontWeight: 600 }}
+              valueStyle={{ color: '#252B3A', fontSize: 18, fontWeight: 600 }}
             />
           </Card>
         </Col>
         <Col xs={24} sm={12} lg={6}>
-          <Card bordered={false} style={{ borderRadius: 4 }}>
+          <Card bordered={false} style={{ borderRadius: 4 }} styles={{ body: { padding: '10px' } }}>
             <Statistic
-              title={<Text type="secondary" style={{ fontSize: 14 }}>已完成</Text>}
+              title={<Text type="secondary" style={{ fontSize: 11 }}>已完成</Text>}
               value={stats.completed}
-              valueStyle={{ color: '#00A870', fontSize: 28, fontWeight: 600 }}
-              prefix={<CheckCircleOutlined />}
+              valueStyle={{ color: '#00A870', fontSize: 18, fontWeight: 600 }}
+              prefix={<CheckCircleOutlined style={{ fontSize: 14 }} />}
             />
           </Card>
         </Col>
         <Col xs={24} sm={12} lg={6}>
-          <Card bordered={false} style={{ borderRadius: 4 }}>
+          <Card bordered={false} style={{ borderRadius: 4 }} styles={{ body: { padding: '10px' } }}>
             <Statistic
-              title={<Text type="secondary" style={{ fontSize: 14 }}>进行中</Text>}
+              title={<Text type="secondary" style={{ fontSize: 11 }}>进行中</Text>}
               value={stats.processing}
-              valueStyle={{ color: '#0052D9', fontSize: 28, fontWeight: 600 }}
-              prefix={<SyncOutlined spin={stats.processing > 0} />}
+              valueStyle={{ color: '#0052D9', fontSize: 18, fontWeight: 600 }}
+              prefix={<SyncOutlined spin={stats.processing > 0} style={{ fontSize: 14 }} />}
             />
           </Card>
         </Col>
         <Col xs={24} sm={12} lg={6}>
-          <Card bordered={false} style={{ borderRadius: 4 }}>
+          <Card bordered={false} style={{ borderRadius: 4 }} styles={{ body: { padding: '10px' } }}>
             <Statistic
-              title={<Text type="secondary" style={{ fontSize: 14 }}>失败</Text>}
+              title={<Text type="secondary" style={{ fontSize: 11 }}>失败</Text>}
               value={stats.failed}
-              valueStyle={{ color: '#D54941', fontSize: 28, fontWeight: 600 }}
-              prefix={<CloseCircleOutlined />}
+              valueStyle={{ color: '#D54941', fontSize: 18, fontWeight: 600 }}
+              prefix={<CloseCircleOutlined style={{ fontSize: 14 }} />}
             />
           </Card>
         </Col>
@@ -288,18 +336,21 @@ const Home = () => {
       {/* 最近任务 */}
       <Card
         bordered={false}
-        style={{ marginBottom: 24, borderRadius: 4 }}
+        style={{ borderRadius: 4 }}
+        styles={{ body: { padding: '10px' } }}
         title={
           <Space>
-            <Text strong style={{ fontSize: 16 }}>最近任务</Text>
+            <Text strong style={{ fontSize: 13 }}>最近任务</Text>
           </Space>
         }
         extra={
-          sortedTasks.length > 10 && (
+          sortedTasks.length > 12 && (
             <Button
               type="link"
+              size="small"
               icon={<ArrowRightOutlined />}
               onClick={() => setShowAllTasks(!showAllTasks)}
+              style={{ fontSize: 12 }}
             >
               {showAllTasks ? '收起' : `查看全部 (${sortedTasks.length})`}
             </Button>
@@ -307,63 +358,20 @@ const Home = () => {
         }
       >
         {isLoading ? (
-          <div style={{ textAlign: 'center', padding: '60px 0' }}>
-            <Spin size="large" />
+          <div style={{ textAlign: 'center', padding: '20px 0' }}>
+            <Spin />
           </div>
         ) : displayTasks.length > 0 ? (
           <Table
             columns={columns}
             dataSource={displayTasks}
             pagination={false}
-            size="middle"
+            size="small"
           />
         ) : (
-          <Empty description="暂无任务记录" />
+          <Empty description="暂无任务记录" image={Empty.PRESENTED_IMAGE_SIMPLE} />
         )}
       </Card>
-
-      {/* 快速操作 */}
-      <Row gutter={16}>
-        <Col span={24}>
-          <Text strong style={{ fontSize: 16, display: 'block', marginBottom: 16 }}>
-            快速操作
-          </Text>
-        </Col>
-        {quickActions.map((action, index) => (
-          <Col xs={24} sm={12} lg={8} key={index}>
-            <Card
-              bordered={false}
-              hoverable
-              style={{ borderRadius: 4, cursor: 'pointer' }}
-              onClick={() => navigate(action.path)}
-            >
-              <Space direction="vertical" size="small" style={{ width: '100%' }}>
-                <div
-                  style={{
-                    width: 48,
-                    height: 48,
-                    borderRadius: 4,
-                    background: `${action.color}15`,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    fontSize: 24,
-                    color: action.color,
-                  }}
-                >
-                  {action.icon}
-                </div>
-                <Title level={5} style={{ margin: '8px 0 4px 0' }}>
-                  {action.title}
-                </Title>
-                <Text type="secondary" style={{ fontSize: 13 }}>
-                  {action.description}
-                </Text>
-              </Space>
-            </Card>
-          </Col>
-        ))}
-      </Row>
     </div>
   )
 }

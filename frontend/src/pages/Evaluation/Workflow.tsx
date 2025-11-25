@@ -39,7 +39,6 @@ import {
   SyncOutlined,
   CheckCircleOutlined,
   CloseCircleOutlined,
-  BranchesOutlined,
   AimOutlined,
 } from '@ant-design/icons'
 import type { UploadFile, UploadProps, RcFile } from 'antd/es/upload/interface'
@@ -138,22 +137,6 @@ const EvaluationWorkflow = () => {
     return ((localSize + serverSize) / 1024 / 1024).toFixed(2)
   }, [fileList, selectedServerFiles])
 
-  const stageLabelMap: Record<EvaluationStageKey, string> = {
-    init: '初始化',
-    stage1: '第一阶段评估',
-    stage2: '第二阶段评估',
-    result: '结果处理',
-  }
-
-  const stageOrder: EvaluationStageKey[] = ['init', 'stage1', 'stage2', 'result']
-  const stageSnapshots = stageOrder.map(key => workflowState.evaluation.stages?.[key] || {
-    key,
-    label: stageLabelMap[key],
-    progress: 0,
-    status: 'pending',
-    enabled: key !== 'stage2',
-  })
-
   useEffect(() => {
     if (paramsHydratedRef.current) return
     const params = workflowState.evaluation?.params
@@ -189,20 +172,7 @@ const EvaluationWorkflow = () => {
     setSelectedServerFilePaths([])
   }, [llmName])
 
-  const stageStatusLabel: Record<WorkflowStageSnapshot['status'], string> = {
-    pending: '待开始',
-    active: '进行中',
-    completed: '已完成',
-    failed: '异常',
-    disabled: '未启用',
-  }
 
-  const mapStageProgressStatus = (status: WorkflowStageSnapshot['status']): 'normal' | 'active' | 'success' | 'exception' => {
-    if (status === 'completed') return 'success'
-    if (status === 'failed') return 'exception'
-    if (status === 'active') return 'active'
-    return 'normal'
-  }
 
   const formatFileSize = (size: number) => {
     if (!size) return '0KB'
@@ -1003,76 +973,144 @@ const EvaluationWorkflow = () => {
               >
                 <Space direction="vertical" size="large" style={{ width: '100%' }}>
                   {/* 文件处理进度 */}
-                  {taskStatus.file_progress && (
-                    <Card size="small" style={{ borderRadius: 10, background: '#e6f4ff' }}>
-                      <Space direction="vertical" size="small" style={{ width: '100%' }}>
-                        <Space style={{ justifyContent: 'space-between', width: '100%' }}>
-                          <Typography.Text strong>
-                            <FileTextOutlined /> 文件处理进度
-                          </Typography.Text>
-                          <Tag color="blue">
-                            文件 {taskStatus.file_progress.current_file}/{taskStatus.file_progress.total_files}
-                          </Tag>
+                  {taskStatus.file_progress && taskStatus.step_progress && (() => {
+                    const stageMap: Record<string, number> = {
+                      'stage1_infer': 1,
+                      'stage1_eval': 2,
+                      'stage2_infer': 3,
+                      'stage2_eval': 4,
+                      'analysis': 5,
+                    }
+                    const currentStageNum = stageMap[taskStatus.step_progress.current_step] || 1
+                    const currentFileIndex = taskStatus.file_progress.current_file || 1
+                    const totalFiles = taskStatus.file_progress.total_files || 1
+                    
+                    // 计算当前文件的阶段完成度（0-1）
+                    const completedStagesInCurrentFile = currentStageNum - 1
+                    const currentStageProgressInFile = taskStatus.step_progress.step_progress_percent / 100
+                    const currentFileProgress = (completedStagesInCurrentFile + currentStageProgressInFile) / 5
+                    
+                    // 计算整体文件处理进度
+                    // (已完成的文件数 + 当前文件的完成度) / 总文件数 * 100
+                    const completedFiles = currentFileIndex - 1
+                    const overallFileProgress = ((completedFiles + currentFileProgress) / totalFiles) * 100
+                    
+                    return (
+                      <Card size="small" style={{ borderRadius: 10, background: '#e6f4ff' }}>
+                        <Space direction="vertical" size="small" style={{ width: '100%' }}>
+                          <Space style={{ justifyContent: 'space-between', width: '100%' }}>
+                            <Typography.Text strong>
+                              <FileTextOutlined /> 文件处理进度
+                            </Typography.Text>
+                            <Tag color="blue">
+                              文件 {currentFileIndex}/{totalFiles}
+                            </Tag>
+                          </Space>
+                          {taskStatus.file_progress.current_filename && (
+                            <Typography.Text type="secondary" style={{ fontSize: 12 }}>
+                              当前文件：{taskStatus.file_progress.current_filename}
+                            </Typography.Text>
+                          )}
+                          <Progress
+                            percent={Math.round(overallFileProgress)}
+                            strokeColor="#1677ff"
+                            strokeWidth={18}
+                            status={status === 'processing' ? 'active' : 'normal'}
+                          />
                         </Space>
-                        {taskStatus.file_progress.current_filename && (
-                          <Typography.Text type="secondary" style={{ fontSize: 12 }}>
-                            当前文件：{taskStatus.file_progress.current_filename}
-                          </Typography.Text>
-                        )}
-                        <Progress
-                          percent={Math.round(progressValue)}
-                          strokeColor="#1677ff"
-                          strokeWidth={18}
-                          status={status === 'processing' ? 'active' : 'normal'}
-                        />
-                      </Space>
-                    </Card>
-                  )}
+                      </Card>
+                    )
+                  })()}
 
                   {/* 阶段进度 */}
-                  {taskStatus.step_progress && (
-                    <Card size="small" style={{ borderRadius: 10, background: '#f6ffed' }}>
-                      <Space direction="vertical" size="small" style={{ width: '100%' }}>
-                        <Space style={{ justifyContent: 'space-between', width: '100%' }}>
-                          <Typography.Text strong>
-                            <BranchesOutlined /> 阶段进度
-                          </Typography.Text>
-                          <Tag color="green">
-                            阶段 {(() => {
-                              const stageMap: Record<string, number> = {
-                                'stage1_infer': 1,
-                                'stage1_eval': 2,
-                                'stage2_infer': 3,
-                                'stage2_eval': 4,
-                                'analysis': 5,
-                              }
-                              const currentStage = stageMap[taskStatus.step_progress.current_step] || 1
-                              const totalStages = 5
-                              return `${currentStage}/${totalStages}`
-                            })()}
-                          </Tag>
+                  {taskStatus.step_progress && (() => {
+                    const stageMap: Record<string, number> = {
+                      'stage1_infer': 1,
+                      'stage1_eval': 2,
+                      'stage2_infer': 3,
+                      'stage2_eval': 4,
+                      'analysis': 5,
+                    }
+                    const currentStageNum = stageMap[taskStatus.step_progress.current_step] || 1
+                    const isProcessing = status === 'processing'
+                    const isCompleted = status === 'completed'
+                    
+                    const stages = [
+                      { num: 1, label: 'Stage1推理' },
+                      { num: 2, label: 'Stage1评估' },
+                      { num: 3, label: 'Stage2推理' },
+                      { num: 4, label: 'Stage2评估' },
+                      { num: 5, label: '结果分析' },
+                    ]
+                    
+                    // 计算整体阶段进度：已完成的阶段数 / 总阶段数 * 100
+                    // 当前阶段正在进行时，加上当前阶段内的进度比例
+                    const completedStages = currentStageNum - 1 // 已完成的阶段数
+                    const currentStageProgress = taskStatus.step_progress.step_progress_percent / 100 // 当前阶段内的进度 (0-1)
+                    const overallProgress = ((completedStages + currentStageProgress) / 5) * 100
+                    
+                    const getStageColor = (stageNum: number) => {
+                      if (isCompleted || currentStageNum > stageNum) return 'success'
+                      if (currentStageNum === stageNum && isProcessing) return 'processing'
+                      return 'default'
+                    }
+                    
+                    const getStageIcon = (stageNum: number) => {
+                      if (isCompleted || currentStageNum > stageNum) return <CheckCircleOutlined />
+                      if (currentStageNum === stageNum && isProcessing) return <SyncOutlined spin />
+                      return null
+                    }
+                    
+                    return (
+                      <Card size="small" style={{ borderRadius: 8, background: '#f6ffed', border: '1px solid #b7eb8f' }}>
+                        <Space direction="vertical" size="small" style={{ width: '100%' }}>
+                          <Row justify="space-between" align="middle">
+                            <Col>
+                              <Space>
+                                <SyncOutlined 
+                                  spin={isProcessing} 
+                                  style={{ fontSize: 16, color: '#52c41a' }} 
+                                />
+                                <Typography.Text strong style={{ fontSize: 15 }}>
+                                  阶段进度
+                                </Typography.Text>
+                              </Space>
+                            </Col>
+                            <Col>
+                              <Tag color={currentStageNum < 5 ? 'processing' : 'success'}>
+                                阶段 {currentStageNum}/5
+                              </Tag>
+                            </Col>
+                          </Row>
+                          <Progress
+                            percent={Math.round(overallProgress)}
+                            strokeColor="#52c41a"
+                            strokeWidth={16}
+                            status={isProcessing ? 'active' : 'normal'}
+                          />
+                          {/* 阶段标签 */}
+                          <Row gutter={[4, 8]} style={{ marginTop: 8 }}>
+                            {stages.map((stage) => (
+                              <Col key={stage.num} flex="1">
+                                <Tag
+                                  color={getStageColor(stage.num)}
+                                  style={{ 
+                                    width: '100%', 
+                                    textAlign: 'center', 
+                                    padding: '4px 2px',
+                                    margin: 0,
+                                    fontSize: '12px',
+                                  }}
+                                >
+                                  {getStageIcon(stage.num)} {stage.label}
+                                </Tag>
+                              </Col>
+                            ))}
+                          </Row>
                         </Space>
-                        <Typography.Text type="secondary" style={{ fontSize: 12 }}>
-                          {(() => {
-                            const stepLabels: Record<string, string> = {
-                              stage1_infer: 'Stage1 推理',
-                              stage1_eval: 'Stage1 评估',
-                              stage2_infer: 'Stage2 推理',
-                              stage2_eval: 'Stage2 评估',
-                              analysis: '结果分析',
-                            }
-                            return stepLabels[taskStatus.step_progress.current_step] || taskStatus.step_progress.current_step
-                          })()}
-                        </Typography.Text>
-                        <Progress
-                          percent={Math.round(taskStatus.step_progress.step_progress_percent)}
-                          strokeColor="#52c41a"
-                          strokeWidth={16}
-                          status="active"
-                        />
-                      </Space>
-                    </Card>
-                  )}
+                      </Card>
+                    )
+                  })()}
 
                   {/* 当前步骤 - 始终显示 */}
                   {taskStatus.step_progress && (
@@ -1082,7 +1120,7 @@ const EvaluationWorkflow = () => {
                           <Typography.Text strong>
                             <AimOutlined /> 当前步骤
                           </Typography.Text>
-                          {taskStatus.step_progress.total_questions > 0 ? (
+                          {(taskStatus.step_progress.total_questions ?? 0) > 0 ? (
                             <Tag color="orange">
                               {taskStatus.step_progress.current_question || 0}/{taskStatus.step_progress.total_questions} 问题
                             </Tag>
@@ -1091,7 +1129,7 @@ const EvaluationWorkflow = () => {
                           )}
                         </Space>
                         <Typography.Text type="secondary" style={{ fontSize: 12 }}>
-                          {taskStatus.step_progress.total_questions > 0
+                          {(taskStatus.step_progress.total_questions ?? 0) > 0
                             ? `正在处理问题 ${taskStatus.step_progress.current_question || 0}/${taskStatus.step_progress.total_questions}`
                             : (() => {
                                 const stepLabels: Record<string, string> = {
@@ -1107,17 +1145,17 @@ const EvaluationWorkflow = () => {
                         </Typography.Text>
                         <Progress
                           percent={
-                            taskStatus.step_progress.total_questions > 0
+                            (taskStatus.step_progress.total_questions ?? 0) > 0
                               ? Math.round(
                                   ((taskStatus.step_progress.current_question || 0) /
-                                    taskStatus.step_progress.total_questions) *
+                                    (taskStatus.step_progress.total_questions ?? 1)) *
                                     100
                                 )
                               : Math.round(taskStatus.step_progress.step_progress_percent)
                           }
                           strokeColor="#fa8c16"
                           strokeWidth={14}
-                          status="active"
+                          status={status === 'processing' ? 'active' : 'normal'}
                         />
                       </Space>
                     </Card>

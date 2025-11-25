@@ -228,24 +228,16 @@ const EvalAnalysis = () => {
 
   return (
     <div>
-      <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-        <Card
-          style={{
-            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-            marginBottom: 24,
-            borderRadius: 4,
-          }}
-        >
-          <Space direction="vertical" size="small" style={{ width: '100%' }}>
-            <Title level={2} style={{ color: 'white', margin: 0 }}>
-              <BarChartOutlined /> 评估结果分析
-            </Title>
-            <Paragraph style={{ color: 'rgba(255,255,255,0.9)', margin: 0 }}>
-              查看详细的评估结果、对比分析和可视化图表
-            </Paragraph>
-          </Space>
-        </Card>
-      </motion.div>
+      
+      {/* 页面标题 */}
+      <div style={{ marginBottom: 24 }}>
+        <Title level={4} style={{ margin: 0 }}>
+          评估结果分析
+        </Title>
+        <Text type="secondary" style={{ display: 'block', marginTop: 8 }}>
+          查看详细的评估结果、对比分析和可视化图表
+        </Text>
+      </div>
 
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
         <Card style={{ marginBottom: 24, borderRadius: 4 }} title="下载与操作">

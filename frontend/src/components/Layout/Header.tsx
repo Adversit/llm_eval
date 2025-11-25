@@ -37,7 +37,7 @@ const AppHeader = () => {
     {
       key: '/',
       icon: <HomeOutlined />,
-      label: '工作台',
+      label: '首页',
     },
     {
       key: 'qa-module',
