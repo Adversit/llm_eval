@@ -271,9 +271,9 @@ const QAResults = () => {
   return (
     <div>
       {/* 页面标题 */}
-      <div style={{ marginBottom: 24 }}>
+      <div style={{ marginBottom: 16 }}>
         <Space>
-          <Title level={4} style={{ margin: 0 }}>
+          <Title level={4} style={{ margin: 0, fontSize: 18 }}>
             数据集生成结果
           </Title>
           <Button
@@ -284,49 +284,49 @@ const QAResults = () => {
             刷新
           </Button>
         </Space>
-        <Text type="secondary" style={{ display: 'block', marginTop: 8 }}>
+        <Text type="secondary" style={{ display: 'block', marginTop: 4, fontSize: 12 }}>
           查看所有问答生成和质量评估任务的结果
         </Text>
       </div>
 
       {/* 统计卡片 */}
-      <Row gutter={16} style={{ marginBottom: 24 }}>
+      <Row gutter={12} style={{ marginBottom: 16 }}>
         <Col xs={24} sm={12} lg={6}>
-          <Card bordered={false} style={{ borderRadius: 4 }}>
+          <Card bordered={false} style={{ borderRadius: 4 }} styles={{ body: { padding: '12px' } }}>
             <Statistic
-              title={<Text type="secondary">总任务数</Text>}
+              title={<Text type="secondary" style={{ fontSize: 11 }}>总任务数</Text>}
               value={stats.total}
-              valueStyle={{ color: '#252B3A', fontWeight: 600 }}
+              valueStyle={{ color: '#252B3A', fontWeight: 600, fontSize: 20 }}
             />
           </Card>
         </Col>
         <Col xs={24} sm={12} lg={6}>
-          <Card bordered={false} style={{ borderRadius: 4 }}>
+          <Card bordered={false} style={{ borderRadius: 4 }} styles={{ body: { padding: '12px' } }}>
             <Statistic
-              title={<Text type="secondary">已完成</Text>}
+              title={<Text type="secondary" style={{ fontSize: 11 }}>已完成</Text>}
               value={stats.completed}
-              valueStyle={{ color: '#00A870', fontWeight: 600 }}
-              prefix={<CheckCircleOutlined />}
+              valueStyle={{ color: '#00A870', fontWeight: 600, fontSize: 20 }}
+              prefix={<CheckCircleOutlined style={{ fontSize: 16 }} />}
             />
           </Card>
         </Col>
         <Col xs={24} sm={12} lg={6}>
-          <Card bordered={false} style={{ borderRadius: 4 }}>
+          <Card bordered={false} style={{ borderRadius: 4 }} styles={{ body: { padding: '12px' } }}>
             <Statistic
-              title={<Text type="secondary">进行中</Text>}
+              title={<Text type="secondary" style={{ fontSize: 11 }}>进行中</Text>}
               value={stats.processing}
-              valueStyle={{ color: '#0052D9', fontWeight: 600 }}
-              prefix={<SyncOutlined spin={stats.processing > 0} />}
+              valueStyle={{ color: '#0052D9', fontWeight: 600, fontSize: 20 }}
+              prefix={<SyncOutlined spin={stats.processing > 0} style={{ fontSize: 16 }} />}
             />
           </Card>
         </Col>
         <Col xs={24} sm={12} lg={6}>
-          <Card bordered={false} style={{ borderRadius: 4 }}>
+          <Card bordered={false} style={{ borderRadius: 4 }} styles={{ body: { padding: '12px' } }}>
             <Statistic
-              title={<Text type="secondary">失败</Text>}
+              title={<Text type="secondary" style={{ fontSize: 11 }}>失败</Text>}
               value={stats.failed}
-              valueStyle={{ color: '#D54941', fontWeight: 600 }}
-              prefix={<CloseCircleOutlined />}
+              valueStyle={{ color: '#D54941', fontWeight: 600, fontSize: 20 }}
+              prefix={<CloseCircleOutlined style={{ fontSize: 16 }} />}
             />
           </Card>
         </Col>
@@ -336,10 +336,11 @@ const QAResults = () => {
       {chartData.length > 0 && (
         <Card
           bordered={false}
-          style={{ marginBottom: 24, borderRadius: 4 }}
-          title={<Text strong>任务状态分布</Text>}
+          style={{ marginBottom: 16, borderRadius: 4 }}
+          styles={{ body: { padding: '12px' } }}
+          title={<Text strong style={{ fontSize: 14 }}>任务状态分布</Text>}
         >
-          <ResponsiveContainer width="100%" height={300}>
+          <ResponsiveContainer width="100%" height={240}>
             <PieChart>
               <Pie
                 data={chartData}
@@ -347,7 +348,7 @@ const QAResults = () => {
                 cy="50%"
                 labelLine={false}
                 label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
-                outerRadius={100}
+                outerRadius={80}
                 fill="#8884d8"
                 dataKey="value"
               >
@@ -366,7 +367,8 @@ const QAResults = () => {
       <Card
         bordered={false}
         style={{ borderRadius: 4 }}
-        title={<Text strong>任务列表</Text>}
+        styles={{ body: { padding: '12px' } }}
+        title={<Text strong style={{ fontSize: 14 }}>任务列表</Text>}
       >
         {tableData.length > 0 ? (
           <Table
