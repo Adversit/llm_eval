@@ -240,24 +240,25 @@ const QAStatus = () => {
   return (
     <div>
       {/* 页面标题 */}
-      <div style={{ marginBottom: 24 }}>
-        <Space>
-          <Button icon={<ArrowLeftOutlined />} onClick={handleBack}>
+      <div style={{ marginBottom: 16 }}>
+        <Space size="small">
+          <Button icon={<ArrowLeftOutlined />} onClick={handleBack} size="small">
             返回配置
           </Button>
-          <Title level={4} style={{ margin: 0 }}>
+          <Title level={4} style={{ margin: 0, fontSize: 18 }}>
             {taskType === 'generate' ? '步骤一：文档处理' : '步骤二：问答质量评估'}
           </Title>
         </Space>
-        <Text type="secondary" style={{ display: 'block', marginTop: 8 }}>
+        <Text type="secondary" style={{ display: 'block', marginTop: 4, fontSize: 12 }}>
           任务ID: {taskId}
         </Text>
       </div>
 
       {/* 步骤指示器 */}
-      <Card style={{ borderRadius: 4, marginBottom: 24 }}>
+      <Card style={{ borderRadius: 4, marginBottom: 16 }} styles={{ body: { padding: '12px' } }}>
         <Steps
           current={currentStep}
+          size="small"
           status={
             progressData?.status === 'failed'
               ? 'error'
@@ -267,7 +268,7 @@ const QAStatus = () => {
           }
         >
           {steps.map((step, index) => (
-            <Step key={index} title={step.title} description={step.description} />
+            <Step key={index} title={<span style={{ fontSize: 13 }}>{step.title}</span>} description={<span style={{ fontSize: 11 }}>{step.description}</span>} />
           ))}
         </Steps>
       </Card>
@@ -276,27 +277,28 @@ const QAStatus = () => {
       {progressData && (
         <Card
           title={
-            <Space>
+            <Space size="small">
               {isProcessing ? (
-                <SyncOutlined spin style={{ color: '#0052D9' }} />
+                <SyncOutlined spin style={{ color: '#0052D9', fontSize: 14 }} />
               ) : progressData.status === 'completed' ? (
-                <CheckCircleOutlined style={{ color: '#00A870' }} />
+                <CheckCircleOutlined style={{ color: '#00A870', fontSize: 14 }} />
               ) : (
-                <CloseCircleOutlined style={{ color: '#D54941' }} />
+                <CloseCircleOutlined style={{ color: '#D54941', fontSize: 14 }} />
               )}
-              <Text strong>执行进度</Text>
+              <Text strong style={{ fontSize: 14 }}>执行进度</Text>
             </Space>
           }
-          style={{ borderRadius: 4, marginBottom: 24 }}
+          style={{ borderRadius: 4, marginBottom: 16 }}
+          styles={{ body: { padding: '12px' } }}
         >
-          <Space direction="vertical" size="large" style={{ width: '100%' }}>
+          <Space direction="vertical" size="middle" style={{ width: '100%' }}>
             {/* 第一层: 总体文件进度 */}
             {progressData.file_progress && (
-              <Card size="small" style={{ borderRadius: 4, background: '#f5f5f5' }}>
-                <Space direction="vertical" size="small" style={{ width: '100%' }}>
-                  <Space>
-                    <Text strong>整体进度</Text>
-                    <Tag color="blue">
+              <Card size="small" style={{ borderRadius: 4, background: '#f5f5f5' }} styles={{ body: { padding: '10px' } }}>
+                <Space direction="vertical" size={4} style={{ width: '100%' }}>
+                  <Space size="small">
+                    <Text strong style={{ fontSize: 13 }}>整体进度</Text>
+                    <Tag color="blue" style={{ fontSize: 11 }}>
                       文件 {progressData.file_progress.current_file}/
                       {progressData.file_progress.total_files}
                     </Tag>
@@ -313,35 +315,35 @@ const QAStatus = () => {
                     status={isProcessing ? 'active' : 'normal'}
                   />
                   {progressData.timing && (
-                    <Row gutter={16}>
+                    <Row gutter={12}>
                       <Col span={8}>
                         <Statistic
-                          title="已用时间"
+                          title={<span style={{ fontSize: 11 }}>已用时间</span>}
                           value={formatTime(progressData.timing.elapsed_seconds)}
-                          valueStyle={{ fontSize: 14 }}
-                          prefix={<ClockCircleOutlined />}
+                          valueStyle={{ fontSize: 13 }}
+                          prefix={<ClockCircleOutlined style={{ fontSize: 12 }} />}
                         />
                       </Col>
                       <Col span={8}>
                         <Statistic
-                          title="预计剩余"
+                          title={<span style={{ fontSize: 11 }}>预计剩余</span>}
                           value={
                             progressData.timing.estimated_remaining_seconds
                               ? formatTime(progressData.timing.estimated_remaining_seconds)
                               : '-'
                           }
-                          valueStyle={{ fontSize: 14 }}
+                          valueStyle={{ fontSize: 13 }}
                         />
                       </Col>
                       <Col span={8}>
                         <Statistic
-                          title="预计总时间"
+                          title={<span style={{ fontSize: 11 }}>预计总时间</span>}
                           value={
                             progressData.timing.estimated_total_seconds
                               ? formatTime(progressData.timing.estimated_total_seconds)
                               : '-'
                           }
-                          valueStyle={{ fontSize: 14 }}
+                          valueStyle={{ fontSize: 13 }}
                         />
                       </Col>
                     </Row>
@@ -352,10 +354,10 @@ const QAStatus = () => {
 
             {/* 第二层: 当前文件阶段进度 */}
             {progressData.step_progress && (
-              <Card size="small" style={{ borderRadius: 4, background: '#f0f9ff' }}>
-                <Space direction="vertical" size="small" style={{ width: '100%' }}>
-                  <Space>
-                    <Text strong>当前阶段</Text>
+              <Card size="small" style={{ borderRadius: 4, background: '#f0f9ff' }} styles={{ body: { padding: '10px' } }}>
+                <Space direction="vertical" size={4} style={{ width: '100%' }}>
+                  <Space size="small">
+                    <Text strong style={{ fontSize: 13 }}>当前阶段</Text>
                     {progressData.file_progress && (
                       <Tag color="blue">
                         文件 {progressData.file_progress.current_file}/
@@ -454,36 +456,43 @@ const QAStatus = () => {
       {summary && (
         <Card
           title={
-            <Space>
-              <CheckCircleOutlined style={{ color: '#00A870' }} />
-              <Text strong>任务完成汇总</Text>
+            <Space size="small">
+              <CheckCircleOutlined style={{ color: '#00A870', fontSize: 14 }} />
+              <Text strong style={{ fontSize: 14 }}>任务完成汇总</Text>
             </Space>
           }
           style={{ borderRadius: 4 }}
+          styles={{ body: { padding: '12px' } }}
         >
-          <Space direction="vertical" size="large" style={{ width: '100%' }}>
+          <Space direction="vertical" size="middle" style={{ width: '100%' }}>
             {/* 统计信息 */}
-            <Row gutter={16}>
+            <Row gutter={12}>
               <Col span={8}>
                 <Statistic
-                  title="总耗时"
+                  title={<span style={{ fontSize: 11 }}>总耗时</span>}
                   value={formatTime(summary.total_time_seconds)}
-                  prefix={<ClockCircleOutlined />}
+                  valueStyle={{ fontSize: 16 }}
+                  prefix={<ClockCircleOutlined style={{ fontSize: 14 }} />}
                 />
               </Col>
               {summary.total_files !== undefined && (
                 <Col span={8}>
-                  <Statistic title="处理文件" value={summary.total_files} suffix="个" />
+                  <Statistic 
+                    title={<span style={{ fontSize: 11 }}>处理文件</span>} 
+                    value={summary.total_files} 
+                    suffix="个"
+                    valueStyle={{ fontSize: 16 }}
+                  />
                 </Col>
               )}
               {summary.success_count !== undefined && (
                 <Col span={8}>
                   <Statistic
-                    title="成功"
+                    title={<span style={{ fontSize: 11 }}>成功</span>}
                     value={summary.success_count}
                     suffix="个"
-                    valueStyle={{ color: '#00A870' }}
-                    prefix={<CheckCircleOutlined />}
+                    valueStyle={{ color: '#00A870', fontSize: 16 }}
+                    prefix={<CheckCircleOutlined style={{ fontSize: 14 }} />}
                   />
                 </Col>
               )}
@@ -492,26 +501,26 @@ const QAStatus = () => {
             {/* 生成文件列表 */}
             {summary.artifacts && summary.artifacts.length > 0 && (
               <>
-                <Divider style={{ margin: '12px 0' }} />
+                <Divider style={{ margin: '8px 0' }} />
                 <div>
-                  <Text strong>生成文件</Text>
+                  <Text strong style={{ fontSize: 13 }}>生成文件</Text>
                   <List
                     size="small"
                     dataSource={summary.artifacts}
                     renderItem={(artifact) => (
                       <List.Item>
                         <Space style={{ width: '100%', justifyContent: 'space-between' }}>
-                          <Space>
-                            <FileTextOutlined />
+                          <Space size="small">
+                            <FileTextOutlined style={{ fontSize: 14 }} />
                             <div>
-                              <Text>{artifact.filename}</Text>
+                              <Text style={{ fontSize: 12 }}>{artifact.filename}</Text>
                               <br />
-                              <Text type="secondary" style={{ fontSize: 12 }}>
+                              <Text type="secondary" style={{ fontSize: 11 }}>
                                 {artifact.path}
                               </Text>
                             </div>
                           </Space>
-                          <Text type="secondary">
+                          <Text type="secondary" style={{ fontSize: 11 }}>
                             {Math.round(artifact.size_bytes / 1024)} KB
                           </Text>
                         </Space>
@@ -524,11 +533,10 @@ const QAStatus = () => {
             )}
 
             {/* 操作按钮 */}
-            <Divider style={{ margin: '12px 0' }} />
-            <Space>
+            <Divider style={{ margin: '8px 0' }} />
+            <Space size="small">
               <Button
                 type="primary"
-                size="large"
                 icon={<DownloadOutlined />}
                 onClick={handleDownload}
                 style={{ background: '#0052D9' }}
@@ -537,14 +545,12 @@ const QAStatus = () => {
                 下载结果文件
               </Button>
               <Button
-                size="large"
                 onClick={() => navigate('/qa/results')}
                 disabled={autoEvaluating}
               >
                 查看所有结果
               </Button>
               <Button
-                size="large"
                 onClick={() => navigate('/qa/process')}
                 disabled={autoEvaluating}
               >

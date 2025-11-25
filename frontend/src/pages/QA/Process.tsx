@@ -905,14 +905,14 @@ const QAProcess = () => {
                 marks={{ 0: '0', 5: '5', 7: '7', 10: '10' }}
                 tooltip={{ formatter: value => `${value} 分` }}
               />
-              <Text type="secondary" style={{ fontSize: 12 }}>
+              <Text type="secondary" style={{ fontSize: 11 }}>
                 只保留事实依据分数 ≥ {minFactualScore} 的问答对
               </Text>
             </Space>
           </Col>
           <Col xs={24} md={12}>
-            <Space direction="vertical" style={{ width: '100%' }} size="small">
-              <Text strong style={{ color: enableQAEvaluation ? undefined : '#d9d9d9' }}>
+            <Space direction="vertical" style={{ width: '100%' }} size={4}>
+              <Text strong style={{ color: enableQAEvaluation ? undefined : '#d9d9d9', fontSize: 12 }}>
                 最低总体质量分数: {minOverallScore}
               </Text>
               <Slider
@@ -924,14 +924,14 @@ const QAProcess = () => {
                 marks={{ 0: '0', 5: '5', 7: '7', 10: '10' }}
                 tooltip={{ formatter: value => `${value} 分` }}
               />
-              <Text type="secondary" style={{ fontSize: 12 }}>
+              <Text type="secondary" style={{ fontSize: 11 }}>
                 只保留总体质量分数 ≥ {minOverallScore} 的问答对
               </Text>
             </Space>
           </Col>
           <Col xs={24}>
-            <Space direction="vertical" style={{ width: '100%' }} size="small">
-              <Text strong style={{ color: enableQAEvaluation ? undefined : '#d9d9d9' }}>
+            <Space direction="vertical" style={{ width: '100%' }} size={4}>
+              <Text strong style={{ color: enableQAEvaluation ? undefined : '#d9d9d9', fontSize: 12 }}>
                 抽查百分比: {samplePercentage}%
               </Text>
               <Slider
@@ -943,7 +943,7 @@ const QAProcess = () => {
                 marks={{ 1: '1%', 25: '25%', 50: '50%', 75: '75%', 100: '100%' }}
                 tooltip={{ formatter: value => `${value}%` }}
               />
-              <Text type="secondary" style={{ fontSize: 12 }}>
+              <Text type="secondary" style={{ fontSize: 11 }}>
                 {samplePercentage === 100
                   ? '将评估所有问答对(推荐用于重要数据)'
                   : `将随机抽查 ${samplePercentage}% 的问答对(可节省API成本)`}
