@@ -541,51 +541,43 @@ const QAProcess = () => {
     <Card
       title={
         <Space size="small">
-          <FileTextOutlined style={{ fontSize: 14 }} />
-          <span style={{ fontSize: 14 }}>数据上传</span>
+          <FileTextOutlined style={{ fontSize: 12 }} />
+          <span style={{ fontSize: 12 }}>数据上传</span>
         </Space>
       }
       style={{ borderRadius: 4 }}
-      styles={{ body: { padding: '12px' } }}
+      styles={{ body: { padding: '8px' } }}
     >
-      <Alert
-        message="上传文档数据"
-        description="上传 Word 文档(.doc/.docx)"
-        type="info"
-        showIcon
-        style={{ marginBottom: 12, fontSize: 12 }}
-      />
-
       {/* 统计信息 */}
-      <Row gutter={[8, 8]} style={{ marginBottom: 12 }}>
+      <Row gutter={[6, 6]} style={{ marginBottom: 8 }}>
         <Col xs={24} sm={8}>
-          <Card style={{ borderRadius: 4, borderTop: '2px solid #667eea' }} styles={{ body: { padding: '8px' } }}>
+          <Card style={{ borderRadius: 4, borderTop: '2px solid #667eea' }} styles={{ body: { padding: '6px' } }}>
             <Statistic
-              title={<span style={{ fontSize: 11 }}>已选文件</span>}
+              title={<span style={{ fontSize: 10 }}>已选文件</span>}
               value={fileList.length}
               suffix="个"
-              valueStyle={{ color: '#667eea', fontSize: 18 }}
+              valueStyle={{ color: '#667eea', fontSize: 16 }}
             />
           </Card>
         </Col>
         <Col xs={24} sm={8}>
-          <Card style={{ borderRadius: 4, borderTop: '2px solid #4caf50' }} styles={{ body: { padding: '8px' } }}>
+          <Card style={{ borderRadius: 4, borderTop: '2px solid #4caf50' }} styles={{ body: { padding: '6px' } }}>
             <Statistic
-              title={<span style={{ fontSize: 11 }}>总大小</span>}
+              title={<span style={{ fontSize: 10 }}>总大小</span>}
               value={totalFileSize}
               suffix="MB"
-              valueStyle={{ color: '#4caf50', fontSize: 18 }}
+              valueStyle={{ color: '#4caf50', fontSize: 16 }}
             />
           </Card>
         </Col>
         <Col xs={24} sm={8}>
-          <Card style={{ borderRadius: 4, borderTop: '2px solid #ff9800' }} styles={{ body: { padding: '8px' } }}>
+          <Card style={{ borderRadius: 4, borderTop: '2px solid #ff9800' }} styles={{ body: { padding: '6px' } }}>
             <Statistic
-              title={<span style={{ fontSize: 11 }}>准备状态</span>}
+              title={<span style={{ fontSize: 10 }}>准备状态</span>}
               value={fileList.length > 0 ? '就绪' : '等待'}
               valueStyle={{
                 color: fileList.length > 0 ? '#4caf50' : '#999',
-                fontSize: 16,
+                fontSize: 14,
               }}
             />
           </Card>
@@ -594,62 +586,57 @@ const QAProcess = () => {
 
       {/* 文件上传区域 */}
       <Card
-        title={<span style={{ fontSize: 13 }}>拖拽或点击上传文件</span>}
-        style={{ borderRadius: 4, marginBottom: 12 }}
-        styles={{ body: { padding: '8px' } }}
+        title={<span style={{ fontSize: 11 }}>拖拽或点击上传</span>}
+        style={{ borderRadius: 4, marginBottom: 8 }}
+        styles={{ body: { padding: '6px' } }}
       >
-        <Dragger {...uploadProps} style={{ padding: '12px 0' }}>
+        <Dragger {...uploadProps} style={{ padding: '8px 0' }}>
           <p className="ant-upload-drag-icon">
-            <FileWordOutlined style={{ fontSize: 40, color: '#667eea' }} />
+            <FileWordOutlined style={{ fontSize: 32, color: '#667eea' }} />
           </p>
-          <p className="ant-upload-text" style={{ fontSize: 13 }}>点击或拖拽文件到此区域上传</p>
-          <p className="ant-upload-hint" style={{ fontSize: 11 }}>
-            支持单个或批量上传。支持格式: .doc, .docx
+          <p className="ant-upload-text" style={{ fontSize: 11, margin: '4px 0' }}>点击或拖拽文件上传</p>
+          <p className="ant-upload-hint" style={{ fontSize: 10, margin: 0 }}>
+            支持 .doc, .docx
           </p>
         </Dragger>
       </Card>
 
       {/* 文件列表 */}
       {fileList.length > 0 && (
-        <Card title={<span style={{ fontSize: 13 }}>已选择的文件</span>} style={{ borderRadius: 4 }} styles={{ body: { padding: '8px' } }}>
+        <Card title={<span style={{ fontSize: 11 }}>已选文件</span>} style={{ borderRadius: 4 }} styles={{ body: { padding: '6px' } }}>
           <List
             dataSource={fileList}
             size="small"
-            renderItem={(file, index) => (
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: index * 0.05 }}
-              >
-                <List.Item
-                  actions={[
-                    <Button
-                      type="text"
-                      danger
-                      size="small"
-                      icon={<DeleteOutlined />}
-                      onClick={() =>
-                        setFileList((prev) => prev.filter((f) => f.uid !== file.uid))
-                      }
-                    >
-                      删除
-                    </Button>,
-                  ]}
-                >
-                  <List.Item.Meta
-                    avatar={<FileWordOutlined style={{ fontSize: 24, color: '#4caf50' }} />}
-                    title={
-                      <Space size="small">
-                        <span style={{ fontSize: 12 }}>{file.name}</span>
-                        <Tag color="blue" style={{ fontSize: 11 }}>
-                          {((file.size || 0) / 1024).toFixed(2)} KB
-                        </Tag>
-                      </Space>
+            renderItem={(file) => (
+              <List.Item
+                style={{ padding: '6px 0' }}
+                actions={[
+                  <Button
+                    type="text"
+                    danger
+                    size="small"
+                    icon={<DeleteOutlined style={{ fontSize: 12 }} />}
+                    onClick={() =>
+                      setFileList((prev) => prev.filter((f) => f.uid !== file.uid))
                     }
-                    description={<span style={{ fontSize: 11 }}>{`文件类型: ${file.name.split('.').pop()?.toUpperCase()}`}</span>}
-                  />
-                </List.Item>
-              </motion.div>
+                    style={{ fontSize: 11 }}
+                  >
+                    删除
+                  </Button>,
+                ]}
+              >
+                <List.Item.Meta
+                  avatar={<FileWordOutlined style={{ fontSize: 20, color: '#4caf50' }} />}
+                  title={
+                    <Space size="small">
+                      <span style={{ fontSize: 11 }}>{file.name}</span>
+                      <Tag color="blue" style={{ fontSize: 10, padding: '0 4px' }}>
+                        {((file.size || 0) / 1024).toFixed(1)} KB
+                      </Tag>
+                    </Space>
+                  }
+                />
+              </List.Item>
             )}
           />
         </Card>
@@ -659,52 +646,41 @@ const QAProcess = () => {
 
   // 渲染步骤2: 问答生成与评估配置
   const renderStep2 = () => (
-    <Space direction="vertical" size="middle" style={{ width: '100%' }}>
+    <Space direction="vertical" size="small" style={{ width: '100%' }}>
       {/* 问答生成配置 */}
       <Card
         title={
           <Space size="small">
-            <SettingOutlined style={{ fontSize: 14 }} />
-            <span style={{ fontSize: 14 }}>问答生成配置</span>
+            <SettingOutlined style={{ fontSize: 12 }} />
+            <span style={{ fontSize: 12 }}>问答生成配置</span>
           </Space>
         }
         style={{ borderRadius: 4 }}
-        styles={{ body: { padding: '12px' } }}
+        styles={{ body: { padding: '8px' } }}
       >
-        <Alert
-          message="配置问答对生成参数"
-          description="设置每段落的问答对数量以及质量筛选标准"
-          type="info"
-          showIcon
-          style={{ marginBottom: 12, fontSize: 12 }}
-        />
 
-        <Row gutter={[12, 12]}>
+        <Row gutter={[6, 6]}>
           <Col span={24}>
-            <Space direction="vertical" size="small" style={{ width: '100%' }}>
-              <Space size="small">
-                <Text strong style={{ fontSize: 13 }}>问答对数量:</Text>
-                <Switch
-                  checked={useSuggested}
-                  onChange={setUseSuggested}
-                  checkedChildren="模型建议"
-                  unCheckedChildren="固定数量"
+            <Space size="small">
+              <Text strong style={{ fontSize: 11 }}>问答对数量:</Text>
+              <Switch
+                checked={useSuggested}
+                onChange={setUseSuggested}
+                size="small"
+                disabled={startGenerateMutation.isPending}
+              />
+              <Text style={{ fontSize: 10 }}>{useSuggested ? '模型建议' : '固定数量'}</Text>
+              {!useSuggested && (
+                <InputNumber
+                  min={1}
+                  max={20}
+                  value={numPairs}
+                  onChange={(val) => setNumPairs(val || 5)}
                   disabled={startGenerateMutation.isPending}
+                  size="small"
+                  style={{ width: 60 }}
                 />
-                {!useSuggested && (
-                  <InputNumber
-                    min={1}
-                    max={20}
-                    value={numPairs}
-                    onChange={(val) => setNumPairs(val || 5)}
-                    disabled={startGenerateMutation.isPending}
-                    style={{ width: 100 }}
-                  />
-                )}
-              </Space>
-              <Text type="secondary" style={{ fontSize: 11 }}>
-                {useSuggested ? '由模型根据内容自动建议数量' : `每个段落生成 ${numPairs} 个问答对`}
-              </Text>
+              )}
             </Space>
           </Col>
 
@@ -716,77 +692,58 @@ const QAProcess = () => {
                 disabled={startGenerateMutation.isPending}
                 size="small"
               />
-              <Text strong style={{ fontSize: 13 }}>包含评估理由</Text>
+              <Text style={{ fontSize: 11 }}>包含评估理由</Text>
             </Space>
           </Col>
         </Row>
 
-        <Divider style={{ margin: '12px 0' }} />
+        <Divider style={{ margin: '6px 0' }} />
 
         <Card
           title={
             <Space size="small">
-              <FilterOutlined style={{ fontSize: 13 }} />
-              <span style={{ fontSize: 13 }}>质量筛选阈值</span>
+              <FilterOutlined style={{ fontSize: 11 }} />
+              <span style={{ fontSize: 11 }}>质量筛选阈值</span>
             </Space>
           }
           size="small"
           type="inner"
           style={{ borderRadius: 4 }}
-          styles={{ body: { padding: '10px' } }}
+          styles={{ body: { padding: '6px' } }}
         >
-          <Row gutter={[12, 12]}>
+          <Row gutter={[6, 6]}>
             <Col xs={24} md={12}>
-              <Space direction="vertical" style={{ width: '100%' }} size={4}>
-                <Text strong style={{ fontSize: 12 }}>最低信息密度分数: {minDensityScore}</Text>
-                <Slider
-                  min={1}
-                  max={10}
-                  value={minDensityScore}
-                  onChange={setMinDensityScore}
-                  disabled={startGenerateMutation.isPending}
-                  marks={{ 1: '1', 5: '5', 10: '10' }}
-                  tooltip={{ formatter: value => `${value} 分` }}
-                />
-                <Text type="secondary" style={{ fontSize: 11 }}>
-                  筛选信息密度 ≥ {minDensityScore} 的内容段落
-                </Text>
-              </Space>
+              <Text strong style={{ fontSize: 10 }}>信息密度: {minDensityScore}</Text>
+              <Slider
+                min={1}
+                max={10}
+                value={minDensityScore}
+                onChange={setMinDensityScore}
+                disabled={startGenerateMutation.isPending}
+                marks={{ 1: '1', 10: '10' }}
+              />
             </Col>
             <Col xs={24} md={12}>
-              <Space direction="vertical" style={{ width: '100%' }} size={4}>
-                <Text strong style={{ fontSize: 12 }}>最低信息质量分数: {minQualityScore}</Text>
-                <Slider
-                  min={1}
-                  max={10}
-                  value={minQualityScore}
-                  onChange={setMinQualityScore}
-                  disabled={startGenerateMutation.isPending}
-                  marks={{ 1: '1', 5: '5', 10: '10' }}
-                  tooltip={{ formatter: value => `${value} 分` }}
-                />
-                <Text type="secondary" style={{ fontSize: 11 }}>
-                  筛选信息质量 ≥ {minQualityScore} 的内容段落
-                </Text>
-              </Space>
+              <Text strong style={{ fontSize: 10 }}>信息质量: {minQualityScore}</Text>
+              <Slider
+                min={1}
+                max={10}
+                value={minQualityScore}
+                onChange={setMinQualityScore}
+                disabled={startGenerateMutation.isPending}
+                marks={{ 1: '1', 10: '10' }}
+              />
             </Col>
           </Row>
         </Card>
 
-        <Divider style={{ margin: '8px 0' }} />
+        <Divider style={{ margin: '6px 0' }} />
 
         {/* 高级选项 - 跳过步骤 */}
         <Collapse bordered={false} ghost>
-          <Panel header={<span style={{ fontSize: 12 }}>高级选项: 跳过步骤设置</span>} key="skip">
-            <Alert
-              message="跳过步骤功能"
-              description="如果已存在中间结果文件,可以跳过相应步骤以节省时间。请确保对应的结果文件存在。"
-              type="warning"
-              showIcon
-              style={{ marginBottom: 12, fontSize: 11 }}
-            />
-            <Row gutter={[8, 8]}>
-              <Col xs={24} sm={12} md={6}>
+          <Panel header={<span style={{ fontSize: 10 }}>高级选项</span>} key="skip">
+            <Row gutter={[6, 6]}>
+              <Col xs={12} sm={6}>
                 <Space size="small">
                   <Switch
                     checked={skipExtract}
@@ -794,10 +751,10 @@ const QAProcess = () => {
                     disabled={startGenerateMutation.isPending}
                     size="small"
                   />
-                  <Text style={{ fontSize: 12 }}>跳过内容提取</Text>
+                  <Text style={{ fontSize: 10 }}>跳过提取</Text>
                 </Space>
               </Col>
-              <Col xs={24} sm={12} md={6}>
+              <Col xs={12} sm={6}>
                 <Space size="small">
                   <Switch
                     checked={skipEvaluate}
@@ -805,10 +762,10 @@ const QAProcess = () => {
                     disabled={startGenerateMutation.isPending}
                     size="small"
                   />
-                  <Text style={{ fontSize: 12 }}>跳过内容评估</Text>
+                  <Text style={{ fontSize: 10 }}>跳过评估</Text>
                 </Space>
               </Col>
-              <Col xs={24} sm={12} md={6}>
+              <Col xs={12} sm={6}>
                 <Space size="small">
                   <Switch
                     checked={skipQA}
@@ -816,10 +773,10 @@ const QAProcess = () => {
                     disabled={startGenerateMutation.isPending}
                     size="small"
                   />
-                  <Text style={{ fontSize: 12 }}>跳过问答生成</Text>
+                  <Text style={{ fontSize: 10 }}>跳过生成</Text>
                 </Space>
               </Col>
-              <Col xs={24} sm={12} md={6}>
+              <Col xs={12} sm={6}>
                 <Space size="small">
                   <Switch
                     checked={skipQAEvaluate}
@@ -827,7 +784,7 @@ const QAProcess = () => {
                     disabled={startGenerateMutation.isPending}
                     size="small"
                   />
-                  <Text style={{ fontSize: 12 }}>跳过问答评估</Text>
+                  <Text style={{ fontSize: 10 }}>跳过QA评估</Text>
                 </Space>
               </Col>
             </Row>
@@ -839,23 +796,15 @@ const QAProcess = () => {
       <Card
         title={
           <Space size="small">
-            <CheckCircleOutlined style={{ fontSize: 14 }} />
-            <span style={{ fontSize: 14 }}>质量评估配置</span>
+            <CheckCircleOutlined style={{ fontSize: 12 }} />
+            <span style={{ fontSize: 12 }}>质量评估配置</span>
           </Space>
         }
         style={{ borderRadius: 4 }}
-        styles={{ body: { padding: '12px' } }}
+        styles={{ body: { padding: '8px' } }}
       >
-        <Alert
-          message="配置问答对质量评估参数"
-          description="对生成的问答对进行质量评估,筛选出符合标准的高质量问答对"
-          type="info"
-          showIcon
-          style={{ marginBottom: 12, fontSize: 12 }}
-        />
-
         {/* 质量评估总开关 */}
-        <Row gutter={[12, 12]} style={{ marginBottom: 12 }}>
+        <Row gutter={[6, 6]} style={{ marginBottom: 6 }}>
           <Col span={24}>
             <Card
               size="small"
@@ -864,91 +813,63 @@ const QAProcess = () => {
                 background: enableQAEvaluation ? '#f6ffed' : '#fafafa',
                 borderColor: enableQAEvaluation ? '#b7eb8f' : '#d9d9d9'
               }}
-              styles={{ body: { padding: '10px' } }}
+              styles={{ body: { padding: '6px' } }}
             >
-              <Space direction="vertical" style={{ width: '100%' }} size="small">
-                <Space size="small">
-                  <Switch
-                    checked={enableQAEvaluation}
-                    onChange={setEnableQAEvaluation}
-                    disabled={startGenerateMutation.isPending}
-                    checkedChildren="已启用"
-                    unCheckedChildren="已禁用"
-                    size="small"
-                  />
-                  <Text strong style={{ fontSize: 13 }}>启用问答质量评估</Text>
-                  <Tag color={enableQAEvaluation ? 'success' : 'default'} style={{ fontSize: 11 }}>
-                    {enableQAEvaluation ? '生成后将自动评估' : '仅生成问答对'}
-                  </Tag>
-                </Space>
-                <Text type="secondary" style={{ fontSize: 11 }}>
-                  {enableQAEvaluation
-                   }
-                </Text>
+              <Space size="small">
+                <Switch
+                  checked={enableQAEvaluation}
+                  onChange={setEnableQAEvaluation}
+                  disabled={startGenerateMutation.isPending}
+                  size="small"
+                />
+                <Text strong style={{ fontSize: 11 }}>启用质量评估</Text>
+                <Tag color={enableQAEvaluation ? 'success' : 'default'} style={{ fontSize: 10, padding: '0 4px' }}>
+                  {enableQAEvaluation ? '自动评估' : '仅生成'}
+                </Tag>
               </Space>
             </Card>
           </Col>
         </Row>
 
-        <Row gutter={[12, 12]}>
+        <Row gutter={[6, 6]}>
           <Col xs={24} md={12}>
-            <Space direction="vertical" style={{ width: '100%' }} size={4}>
-              <Text strong style={{ color: enableQAEvaluation ? undefined : '#d9d9d9', fontSize: 12 }}>
-                最低事实依据分数: {minFactualScore}
-              </Text>
-              <Slider
-                min={0}
-                max={10}
-                value={minFactualScore}
-                onChange={setMinFactualScore}
-                disabled={!enableQAEvaluation}
-                marks={{ 0: '0', 5: '5', 7: '7', 10: '10' }}
-                tooltip={{ formatter: value => `${value} 分` }}
-              />
-              <Text type="secondary" style={{ fontSize: 11 }}>
-                只保留事实依据分数 ≥ {minFactualScore} 的问答对
-              </Text>
-            </Space>
+            <Text strong style={{ color: enableQAEvaluation ? undefined : '#d9d9d9', fontSize: 10 }}>
+              事实依据: {minFactualScore}
+            </Text>
+            <Slider
+              min={0}
+              max={10}
+              value={minFactualScore}
+              onChange={setMinFactualScore}
+              disabled={!enableQAEvaluation}
+              marks={{ 0: '0', 10: '10' }}
+            />
           </Col>
           <Col xs={24} md={12}>
-            <Space direction="vertical" style={{ width: '100%' }} size={4}>
-              <Text strong style={{ color: enableQAEvaluation ? undefined : '#d9d9d9', fontSize: 12 }}>
-                最低总体质量分数: {minOverallScore}
-              </Text>
-              <Slider
-                min={0}
-                max={10}
-                value={minOverallScore}
-                onChange={setMinOverallScore}
-                disabled={!enableQAEvaluation}
-                marks={{ 0: '0', 5: '5', 7: '7', 10: '10' }}
-                tooltip={{ formatter: value => `${value} 分` }}
-              />
-              <Text type="secondary" style={{ fontSize: 11 }}>
-                只保留总体质量分数 ≥ {minOverallScore} 的问答对
-              </Text>
-            </Space>
+            <Text strong style={{ color: enableQAEvaluation ? undefined : '#d9d9d9', fontSize: 10 }}>
+              总体质量: {minOverallScore}
+            </Text>
+            <Slider
+              min={0}
+              max={10}
+              value={minOverallScore}
+              onChange={setMinOverallScore}
+              disabled={!enableQAEvaluation}
+              marks={{ 0: '0', 10: '10' }}
+            />
           </Col>
           <Col xs={24}>
-            <Space direction="vertical" style={{ width: '100%' }} size={4}>
-              <Text strong style={{ color: enableQAEvaluation ? undefined : '#d9d9d9', fontSize: 12 }}>
-                抽查百分比: {samplePercentage}%
-              </Text>
-              <Slider
-                min={1}
-                max={100}
-                value={samplePercentage}
-                onChange={setSamplePercentage}
-                disabled={!enableQAEvaluation}
-                marks={{ 1: '1%', 25: '25%', 50: '50%', 75: '75%', 100: '100%' }}
-                tooltip={{ formatter: value => `${value}%` }}
-              />
-              <Text type="secondary" style={{ fontSize: 11 }}>
-                {samplePercentage === 100
-                  ? '将评估所有问答对(推荐用于重要数据)'
-                  : `将随机抽查 ${samplePercentage}% 的问答对(可节省API成本)`}
-              </Text>
-            </Space>
+            <Text strong style={{ color: enableQAEvaluation ? undefined : '#d9d9d9', fontSize: 10 }}>
+              抽查比例: {samplePercentage}%
+            </Text>
+            <Slider
+              min={1}
+              max={100}
+              value={samplePercentage}
+              onChange={setSamplePercentage}
+              disabled={!enableQAEvaluation}
+              marks={{ 1: '1%', 100: '100%' }}
+            />
           </Col>
         </Row>
       </Card>
