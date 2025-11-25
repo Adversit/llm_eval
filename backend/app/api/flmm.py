@@ -105,6 +105,11 @@ def start_streamlit_app(project_path, py_filename, port):
         print(f"  - 端口: {port}")
         print(f"  - 工作目录: {project_path}")
 
+        # 创建日志文件路径
+        log_dir = os.path.join(project_path, "logs")
+        os.makedirs(log_dir, exist_ok=True)
+        log_file = os.path.join(log_dir, f"streamlit_{port}.log")
+
         # Windows下需要特殊处理
         import sys
         if sys.platform == 'win32':
@@ -112,33 +117,39 @@ def start_streamlit_app(project_path, py_filename, port):
             CREATE_NEW_PROCESS_GROUP = 0x00000200
             DETACHED_PROCESS = 0x00000008
 
-            process = subprocess.Popen(
-                [
-                    streamlit_cmd, "run", script_path,
-                    "--server.port", str(port),
-                    "--server.headless", "true",
-                    "--server.address", "localhost"
-                ],
-                stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE,
-                cwd=project_path,
-                creationflags=DETACHED_PROCESS | CREATE_NEW_PROCESS_GROUP
-            )
+            # 打开日志文件用于输出
+            with open(log_file, 'w', encoding='utf-8') as log_f:
+                process = subprocess.Popen(
+                    [
+                        streamlit_cmd, "run", script_path,
+                        "--server.port", str(port),
+                        "--server.headless", "true",
+                        "--server.address", "localhost"
+                    ],
+                    stdout=log_f,
+                    stderr=subprocess.STDOUT,  # 将stderr也重定向到同一个文件
+                    cwd=project_path,
+                    creationflags=DETACHED_PROCESS | CREATE_NEW_PROCESS_GROUP,
+                    close_fds=True  # 关闭所有文件描述符
+                )
         else:
             # Linux/Mac
-            process = subprocess.Popen(
-                [
-                    streamlit_cmd, "run", script_path,
-                    "--server.port", str(port),
-                    "--server.headless", "true",
-                    "--server.address", "localhost"
-                ],
-                stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE,
-                cwd=project_path
-            )
+            with open(log_file, 'w', encoding='utf-8') as log_f:
+                process = subprocess.Popen(
+                    [
+                        streamlit_cmd, "run", script_path,
+                        "--server.port", str(port),
+                        "--server.headless", "true",
+                        "--server.address", "localhost"
+                    ],
+                    stdout=log_f,
+                    stderr=subprocess.STDOUT,
+                    cwd=project_path,
+                    preexec_fn=os.setpgrp if hasattr(os, 'setpgrp') else None  # Unix下创建新进程组
+                )
 
         print(f"[Streamlit] 进程已启动，PID: {process.pid}")
+        print(f"[Streamlit] 日志文件: {log_file}")
 
         # 等待一小会儿，确保进程启动
         import time
@@ -146,18 +157,23 @@ def start_streamlit_app(project_path, py_filename, port):
 
         # 检查进程是否还在运行
         if process.poll() is not None:
-            # 进程已退出，读取错误输出
-            stdout, stderr = process.communicate()
+            # 进程已退出，读取日志文件
             print(f"[Streamlit] 启动失败！")
             print(f"  - 退出码: {process.returncode}")
-            print(f"  - 标准输出: {stdout.decode('utf-8', errors='ignore')}")
-            print(f"  - 错误输出: {stderr.decode('utf-8', errors='ignore')}")
+            try:
+                with open(log_file, 'r', encoding='utf-8') as f:
+                    log_content = f.read()
+                    print(f"  - 日志内容:\n{log_content}")
+            except:
+                pass
             return None
 
         print(f"[Streamlit] 启动成功！")
         return process.pid
     except Exception as e:
         print(f"启动Streamlit失败: {e}")
+        import traceback
+        traceback.print_exc()
         import traceback
         traceback.print_exc()
         return None
@@ -831,6 +847,9 @@ async def launch_questionnaire_service(folder_name: str):
     """
     try:
         project_path = os.path.join(PROJECTS_DIR, folder_name)
+        print(f"[Questionnaire] 请求启动项目: {folder_name}")
+        print(f"[Questionnaire] 项目路径: {project_path}")
+        
         if not os.path.exists(project_path):
             raise HTTPException(status_code=404, detail="项目不存在")
 
@@ -842,6 +861,8 @@ async def launch_questionnaire_service(folder_name: str):
             raise HTTPException(status_code=404, detail="问卷采集文件不存在")
 
         py_filename = py_files[0]
+        print(f"[Questionnaire] 找到问卷文件: {py_filename}")
+        
         port_config = load_port_config()
         service_key = f"{folder_name}_questionnaire"
 
@@ -850,27 +871,46 @@ async def launch_questionnaire_service(folder_name: str):
             existing_port = port_config[service_key]["port"]
             existing_pid = port_config[service_key]["pid"]
 
-            # 检查进程是否还存在
+            # 检查进程是否还存在且是Streamlit进程
             try:
                 import psutil
                 if psutil.pid_exists(existing_pid):
-                    return {
-                        'success': True,
-                        'message': '服务已在运行',
-                        'url': f"http://localhost:{existing_port}",
-                        'pid': existing_pid
-                    }
-            except:
-                pass
+                    process = psutil.Process(existing_pid)
+                    process_name = process.name().lower()
+                    # 检查是否是Python/Streamlit进程
+                    if 'python' in process_name or 'streamlit' in process_name:
+                        print(f"[Questionnaire] 服务已在运行 - PID: {existing_pid}, Port: {existing_port}")
+                        return {
+                            'success': True,
+                            'message': '服务已在运行',
+                            'url': f"http://localhost:{existing_port}",
+                            'pid': existing_pid
+                        }
+                    else:
+                        # PID被其他进程占用，清理配置
+                        print(f"[Questionnaire] PID {existing_pid} 已被其他进程占用 ({process_name})，清理配置")
+                        del port_config[service_key]
+                        save_port_config(port_config)
+                else:
+                    # 进程不存在，清理配置
+                    print(f"[Questionnaire] 进程 {existing_pid} 已不存在，清理配置")
+                    del port_config[service_key]
+                    save_port_config(port_config)
+            except Exception as e:
+                print(f"[Questionnaire] 检查进程失败: {e}")
+                # 清理无效配置
+                del port_config[service_key]
+                save_port_config(port_config)
 
         # 查找可用端口并启动
         port = find_available_port()
         if not port:
-            raise HTTPException(status_code=500, detail="没有可用端口")
+            raise HTTPException(status_code=500, detail="没有可用端口（8502-8601都被占用）")
 
+        print(f"[Questionnaire] 找到可用端口: {port}")
         pid = start_streamlit_app(project_path, py_filename, port)
         if not pid:
-            raise HTTPException(status_code=500, detail="启动Streamlit失败")
+            raise HTTPException(status_code=500, detail="启动Streamlit失败，请查看后端日志")
 
         # 保存端口配置
         port_config[service_key] = {
@@ -883,6 +923,7 @@ async def launch_questionnaire_service(folder_name: str):
         }
         save_port_config(port_config)
 
+        print(f"[Questionnaire] 启动成功 - PID: {pid}, Port: {port}")
         return {
             'success': True,
             'message': '问卷服务已启动',
@@ -905,6 +946,9 @@ async def launch_evidence_service(folder_name: str):
     """
     try:
         project_path = os.path.join(PROJECTS_DIR, folder_name)
+        print(f"[Evidence] 请求启动项目: {folder_name}")
+        print(f"[Evidence] 项目路径: {project_path}")
+        
         if not os.path.exists(project_path):
             raise HTTPException(status_code=404, detail="项目不存在")
 
@@ -916,6 +960,8 @@ async def launch_evidence_service(folder_name: str):
             raise HTTPException(status_code=404, detail="证明材料上传文件不存在")
 
         py_filename = py_files[0]
+        print(f"[Evidence] 找到证明材料文件: {py_filename}")
+        
         port_config = load_port_config()
         service_key = f"{folder_name}_evidence"
 
@@ -927,23 +973,42 @@ async def launch_evidence_service(folder_name: str):
             try:
                 import psutil
                 if psutil.pid_exists(existing_pid):
-                    return {
-                        'success': True,
-                        'message': '服务已在运行',
-                        'url': f"http://localhost:{existing_port}",
-                        'pid': existing_pid
-                    }
-            except:
-                pass
+                    process = psutil.Process(existing_pid)
+                    process_name = process.name().lower()
+                    # 检查是否是Python/Streamlit进程
+                    if 'python' in process_name or 'streamlit' in process_name:
+                        print(f"[Evidence] 服务已在运行 - PID: {existing_pid}, Port: {existing_port}")
+                        return {
+                            'success': True,
+                            'message': '服务已在运行',
+                            'url': f"http://localhost:{existing_port}",
+                            'pid': existing_pid
+                        }
+                    else:
+                        # PID被其他进程占用，清理配置
+                        print(f"[Evidence] PID {existing_pid} 已被其他进程占用 ({process_name})，清理配置")
+                        del port_config[service_key]
+                        save_port_config(port_config)
+                else:
+                    # 进程不存在，清理配置
+                    print(f"[Evidence] 进程 {existing_pid} 已不存在，清理配置")
+                    del port_config[service_key]
+                    save_port_config(port_config)
+            except Exception as e:
+                print(f"[Evidence] 检查进程失败: {e}")
+                # 清理无效配置
+                del port_config[service_key]
+                save_port_config(port_config)
 
         # 查找可用端口并启动
         port = find_available_port()
         if not port:
-            raise HTTPException(status_code=500, detail="没有可用端口")
+            raise HTTPException(status_code=500, detail="没有可用端口（8502-8601都被占用）")
 
+        print(f"[Evidence] 找到可用端口: {port}")
         pid = start_streamlit_app(project_path, py_filename, port)
         if not pid:
-            raise HTTPException(status_code=500, detail="启动Streamlit失败")
+            raise HTTPException(status_code=500, detail="启动Streamlit失败，请查看后端日志")
 
         # 保存端口配置
         port_config[service_key] = {
@@ -956,6 +1021,7 @@ async def launch_evidence_service(folder_name: str):
         }
         save_port_config(port_config)
 
+        print(f"[Evidence] 启动成功 - PID: {pid}, Port: {port}")
         return {
             'success': True,
             'message': '证明材料服务已启动',
@@ -1017,3 +1083,106 @@ async def stop_streamlit_service(folder_name: str, service_type: str):
         import traceback
         traceback.print_exc()
         raise HTTPException(status_code=500, detail=f"停止失败: {str(e)}")
+
+
+@router.post("/services/cleanup")
+async def cleanup_dead_services():
+    """
+    清理所有已死亡的服务进程配置
+    """
+    try:
+        port_config = load_port_config()
+        cleaned = []
+        
+        import psutil
+        for service_key, service_info in list(port_config.items()):
+            pid = service_info.get("pid")
+            should_clean = False
+            reason = ""
+            
+            if not pid:
+                should_clean = True
+                reason = "无PID"
+            elif not psutil.pid_exists(pid):
+                should_clean = True
+                reason = "进程不存在"
+            else:
+                # 检查进程名称
+                try:
+                    process = psutil.Process(pid)
+                    process_name = process.name().lower()
+                    if 'python' not in process_name and 'streamlit' not in process_name:
+                        should_clean = True
+                        reason = f"PID被其他进程占用 ({process_name})"
+                except:
+                    should_clean = True
+                    reason = "无法访问进程"
+            
+            if should_clean:
+                cleaned.append({
+                    "service": service_key,
+                    "pid": pid,
+                    "port": service_info.get("port"),
+                    "reason": reason
+                })
+                del port_config[service_key]
+        
+        save_port_config(port_config)
+        
+        return {
+            'success': True,
+            'message': f'清理了 {len(cleaned)} 个僵尸服务',
+            'cleaned': cleaned
+        }
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=f"清理失败: {str(e)}")
+
+
+@router.get("/services/list")
+async def list_running_services():
+    """
+    列出所有正在运行的服务
+    """
+    try:
+        port_config = load_port_config()
+        services = []
+        
+        import psutil
+        for service_key, service_info in port_config.items():
+            pid = service_info.get("pid")
+            is_running = False
+            process_name = None
+            
+            if pid and psutil.pid_exists(pid):
+                try:
+                    process = psutil.Process(pid)
+                    process_name = process.name()
+                    # 只有Python/Streamlit进程才算运行中
+                    if 'python' in process_name.lower() or 'streamlit' in process_name.lower():
+                        is_running = True
+                except:
+                    pass
+            
+            services.append({
+                "service_key": service_key,
+                "folder_name": service_info.get("folder_name"),
+                "type": service_info.get("type"),
+                "port": service_info.get("port"),
+                "pid": pid,
+                "is_running": is_running,
+                "process_name": process_name,
+                "start_time": service_info.get("start_time"),
+                "file": service_info.get("file")
+            })
+        
+        return {
+            'success': True,
+            'services': services,
+            'total': len(services)
+        }
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=f"获取服务列表失败: {str(e)}")

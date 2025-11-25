@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import {
   Card,
   Table,
@@ -17,11 +17,13 @@ import {
   LinkOutlined,
   FolderOpenOutlined,
   UploadOutlined,
+  ClearOutlined,
+  ReloadOutlined,
 } from '@ant-design/icons'
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 
-const { Title, Text, Paragraph } = Typography
+const { Text, Paragraph } = Typography
 
 interface Project {
   folder_name: string
@@ -73,6 +75,72 @@ const FLMMProjects = () => {
       return response.data
     },
   })
+
+  // 清理僵尸服务
+  const cleanupServices = async () => {
+    const loadingMsg = message.loading('正在清理僵尸服务...', 0)
+    
+    try {
+      const cleanupResponse = await axios.post('http://localhost:8000/api/flmm/services/cleanup')
+      const cleanupResult = cleanupResponse.data
+      
+      loadingMsg()
+      
+      if (cleanupResult.success) {
+        const cleanedCount = cleanupResult.cleaned?.length || 0
+        if (cleanedCount > 0) {
+          // 显示清理详情
+          const details = cleanupResult.cleaned.map((item: any) => 
+            `${item.service} (原因: ${item.reason})`
+          ).join('\n')
+          
+          Modal.info({
+            title: `成功清理 ${cleanedCount} 个僵尸服务`,
+            content: (
+              <div>
+                <p>已清理以下服务：</p>
+                <pre style={{ fontSize: 12, background: '#f5f5f5', padding: 8, borderRadius: 4 }}>
+                  {details}
+                </pre>
+              </div>
+            ),
+            width: 600,
+          })
+        } else {
+          message.success('没有需要清理的僵尸服务')
+        }
+        
+        // 刷新项目列表
+        await refetch()
+      }
+    } catch (error: any) {
+      loadingMsg()
+      console.error('清理失败:', error)
+      message.error('清理僵尸服务失败')
+    }
+  }
+
+  // 清理僵尸服务并刷新
+  const handleRefresh = async () => {
+    const loadingMsg = message.loading('正在刷新...', 0)
+    
+    try {
+      // 先清理僵尸服务（静默）
+      await axios.post('http://localhost:8000/api/flmm/services/cleanup')
+      
+      // 然后刷新项目列表
+      await refetch()
+      
+      loadingMsg()
+      message.success('刷新完成')
+    } catch (error: any) {
+      loadingMsg()
+      console.error('刷新失败:', error)
+      // 即使清理失败也尝试刷新列表
+      await refetch()
+      message.warning('刷新完成')
+    }
+  }
 
   // 查看项目详情
   const viewProjectDetails = async (project: Project) => {
@@ -132,16 +200,35 @@ const FLMMProjects = () => {
 
       loadingMsg()
 
+      console.log('证明材料服务响应:', response.data)
+
       if (response.data.success && response.data.url) {
         // 打开Streamlit链接
-        window.open(response.data.url, '_blank')
-        message.success(response.data.message || '证明材料页面已在新标签页打开')
+        const newWindow = window.open(response.data.url, '_blank')
+        
+        if (newWindow) {
+          message.success(response.data.message || '证明材料页面已在新标签页打开')
+        } else {
+          // 浏览器阻止了弹窗
+          message.warning({
+            content: (
+              <div>
+                <div>浏览器阻止了弹窗，请手动访问：</div>
+                <a href={response.data.url} target="_blank" rel="noopener noreferrer">
+                  {response.data.url}
+                </a>
+              </div>
+            ),
+            duration: 10,
+          })
+        }
       } else {
-        message.error('启动失败')
+        message.error('启动失败：' + (response.data.message || '未知错误'))
       }
     } catch (error: any) {
       loadingMsg()
-      const errorMsg = error.response?.data?.detail || '启动证明材料失败'
+      console.error('启动证明材料失败:', error)
+      const errorMsg = error.response?.data?.detail || error.message || '启动证明材料失败'
       message.error(errorMsg)
     }
   }
@@ -265,7 +352,23 @@ const FLMMProjects = () => {
           </Space>
         }
         extra={
-          <Button onClick={() => refetch()}>刷新</Button>
+          <Space>
+            <Button 
+              icon={<ClearOutlined />} 
+              onClick={cleanupServices}
+              title="清理已停止的服务进程"
+            >
+              清理服务
+            </Button>
+            <Button 
+              icon={<ReloadOutlined />}
+              onClick={handleRefresh} 
+              loading={isLoading}
+              type="primary"
+            >
+              刷新
+            </Button>
+          </Space>
         }
       >
         <Paragraph>
