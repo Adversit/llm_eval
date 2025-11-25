@@ -126,11 +126,11 @@ def show_company_info():
         st.session_state.scenario_name = scenario_name
         
         scenario_description = st.text_area(
-            "评估业务场景描述",
+            "评估业务场景描述 (可选)",
             value=st.session_state.get('scenario_description', ''),
             placeholder="请详细描述该业务场景的具体内容、应用范围和预期目标...",
             height=120,
-            help="详细描述业务场景的背景、应用方式、预期效果等"
+            help="详细描述业务场景的背景、应用方式、预期效果等（可选填写）"
         )
         st.session_state.scenario_description = scenario_description
         
@@ -203,7 +203,7 @@ def show_company_info():
         st.info("这是第一步，请填写完整信息后继续")
     
     with col_btn2:
-        can_continue = all([company_name, scenario_name, scenario_description])
+        can_continue = all([company_name, scenario_name])
         if st.button("📋 下一步：选择问卷", type="primary", use_container_width=True, disabled=not can_continue):
             if can_continue:
                 st.session_state.current_page = "questionnaire_selection"
@@ -658,7 +658,7 @@ def show_final_preview():
         scenario_description = st.session_state.get('scenario_description', '')
         functions_list = st.session_state.get('functions_list', [])
         
-        if company_name and scenario_name and scenario_description:
+        if company_name and scenario_name:
             st.write(f"**公司名称：** {company_name}")
             st.write(f"**场景名称：** {scenario_name}")
             st.write(f"**场景描述：** {scenario_description}")
@@ -755,7 +755,7 @@ def show_final_preview():
         
         # 检查是否可以生成
         can_generate = all([
-            company_name, scenario_name, scenario_description,
+            company_name, scenario_name,
             enable_questionnaire or enable_evidence
         ])
         

@@ -411,10 +411,7 @@ const FLMMCreate = () => {
           message.warning('请输入评估场景名称')
           return false
         }
-        if (!scenarioDescription.trim()) {
-          message.warning('请输入场景描述')
-          return false
-        }
+
         return true
       case 1:
         if (selectedQuestionnaireItems.length === 0) {
@@ -506,7 +503,7 @@ const FLMMCreate = () => {
           />
         </Col>
         <Col span={24}>
-          <Text strong>评估业务场景描述 <Text type="danger"></Text></Text>
+          <Text strong>评估业务场景描述 <Text type="secondary">(可选)</Text></Text>
           <TextArea
             placeholder="请详细描述该业务场景的具体内容、应用范围和预期目标..."
             value={scenarioDescription}
