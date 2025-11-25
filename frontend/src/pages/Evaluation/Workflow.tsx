@@ -435,7 +435,7 @@ const EvaluationWorkflow = () => {
           <Select
             value={llmInputMode}
             onChange={setLlmInputMode}
-            size="large"
+            size="small"
           >
             <Select.Option value="select">从列表选择</Select.Option>
             <Select.Option value="custom">自定义输入</Select.Option>
@@ -450,7 +450,7 @@ const EvaluationWorkflow = () => {
           >
             <Select
               placeholder="选择要评估的模型"
-              size="large"
+              size="small"
               value={llmName}
               onChange={setLlmName}
               loading={loadingModels}
@@ -472,7 +472,7 @@ const EvaluationWorkflow = () => {
           >
             <Input
               placeholder="例如: my-custom-model"
-              size="large"
+              size="small"
               value={llmName}
               onChange={(e) => setLlmName(e.target.value)}
             />
@@ -489,7 +489,7 @@ const EvaluationWorkflow = () => {
         >
           <Select
             placeholder="选择用于评估的模型"
-            size="large"
+            size="small"
             value={evalModelName}
             onChange={setEvalModelName}
             loading={loadingModels}
